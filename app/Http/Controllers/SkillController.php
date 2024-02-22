@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ViewSkillPageEvent;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,11 @@ class SkillController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+       
         $skills = Skill::with("skillCategory")->paginate(15);
+        ViewSkillPageEvent::dispatch($request->ip());
         return view("skill.index", compact('skills'));
     }
 
