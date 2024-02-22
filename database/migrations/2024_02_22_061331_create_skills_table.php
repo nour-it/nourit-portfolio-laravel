@@ -20,14 +20,14 @@ return new class extends Migration
             $table->string("name");
             $table->dateTime("add_at");
             $table->dateTime("delete_at")->nullable();
-            $table->string("description")->nullable();
+            $table->text("description")->nullable();
         });
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->dateTime("add_at");
             $table->dateTime("delete_at")->nullable();
-            $table->string("description")->nullable();
+            $table->text("description")->nullable();
             $table->foreignid("skill_category_id")->nullable()->references("id")->on("skill_categories");
         });
         Schema::create('image_skill', function (Blueprint $table) {

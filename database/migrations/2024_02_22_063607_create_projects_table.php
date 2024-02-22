@@ -16,14 +16,14 @@ return new class extends Migration
             $table->string("name");
             $table->dateTime("add_at");
             $table->dateTime("delete_at")->nullable();
-            $table->string("description")->nullable();
+            $table->text("description")->nullable();
         });
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->dateTime("add_at");
             $table->dateTime("delete_at")->nullable();
-            $table->string("description")->nullable();
+            $table->text("description")->nullable();
             $table->foreignid("project_category_id")->nullable()->references("id")->on("project_categories");
         });
         Schema::create('project_image', function (Blueprint $table) {
