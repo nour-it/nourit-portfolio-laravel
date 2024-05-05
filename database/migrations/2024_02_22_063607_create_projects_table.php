@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text("description")->nullable();
             $table->foreignid("project_category_id")->nullable()->references("id")->on("project_categories");
         });
-        Schema::create('project_image', function (Blueprint $table) {
+        Schema::create('image_project', function (Blueprint $table) {
             $table->foreignid("image_id")->nullable()->references("id")->on("images");
             $table->foreignid("project_id")->nullable()->references("id")->on("projects");
             $table->dateTime("upload_at");

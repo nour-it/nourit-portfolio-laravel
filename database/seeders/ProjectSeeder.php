@@ -4,16 +4,71 @@ namespace Database\Seeders;
 
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use DateTime;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectSeeder extends Seeder
 {
+
+    private $images = [];
+
+    private $categories = [];
+
+    private $projects = [];
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        ProjectCategory::factory(3)->has(Project::factory(rand(1, 5)))->create();
+        $this->images = Arr::map(
+            Storage::allFiles("assets/img/project/fruitnourmatching"),
+            fn ($image) => ['path' => $image]
+        );
+        $this->categories = Arr::map(
+            ['web', 'android', 'ios'],
+            fn ($category) => [
+                'name' => $category,
+                'add_at' => new DateTime(),
+                'delete_at' => NULL,
+                'description' => '',
+            ]
+        );
+        $this->projects = Arr::map(
+            [
+                ["Fruit Nour Matching", 2],
+            ],
+            fn ($project) => [
+                'name' => $project[0],
+                'add_at' => new DateTime(),
+                'delete_at' => NULL,
+                'description' => '',
+                "project_category_id" => $project[1]
+            ]
+        );
+        if(app()->environment() == "local") {
+            Schema::disableForeignKeyConstraints();
+            // DB::table('images')->truncate();
+            DB::table('image_project')->truncate();
+            DB::table('projects')->truncate();
+        }
+
+        DB::table('images')->insert($this->images);
+        ProjectCategory::insert($this->categories);
+        Project::insert($this->projects);
+        DB::table('image_project')->insert(Arr::map([
+            [1, 21],
+            [1, 18],
+            [1, 19],
+            [1, 20],
+        ], fn ($skill_image) => [
+            'project_id' => $skill_image[0],
+            'image_id' => $skill_image[1],
+            "upload_at" => new DateTime(),
+        ]));
     }
 }

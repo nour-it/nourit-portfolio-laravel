@@ -59,8 +59,8 @@
 .header nav ul li {
   margin-block: calc(var(--space) * 2);
   position: relative;
-  right: -100%;
-  opacity: 0;
+  // right: -100%;
+  // opacity: 0;
 }
 
 .header nav ul li:hover a,

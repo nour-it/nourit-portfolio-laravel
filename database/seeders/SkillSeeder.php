@@ -22,7 +22,6 @@ class SkillSeeder extends Seeder
 
     private $skills = [];
 
-
     /**
      * Run the database seeds.
      */
@@ -61,9 +60,13 @@ class SkillSeeder extends Seeder
                 "skill_category_id" => $skill[1]
             ]
         );
+        if(app()->environment() == "local") {
+            Schema::disableForeignKeyConstraints();
+            DB::table('images')->truncate();
+            DB::table('image_skill')->truncate();
+            DB::table('skills')->truncate();
+        }
 
-        Schema::disableForeignKeyConstraints();
-        DB::table('images')->truncate();
         DB::table('images')->insert($this->images);
         SkillCategory::insert($this->categories);
         Skill::insert($this->skills);
@@ -84,7 +87,6 @@ class SkillSeeder extends Seeder
             'skill_id' => $skill_image[0],
             'image_id' => $skill_image[1],
             "upload_at" => new DateTime(),
-
         ]));
     }
 }
