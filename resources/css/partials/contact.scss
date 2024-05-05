@@ -1,0 +1,82 @@
+.section_contact {
+  margin-bottom: calc(var(--space) *6);
+}
+
+.section_contact>div:nth-child(2) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(var(--space) *4);
+ 
+}
+
+.section_contact>div:nth-child(2)>div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) *2);
+  align-items: center;
+}
+
+.section_contact>div:nth-child(2)>div:nth-child(1)>div {
+  width: 307px;
+  height: 151px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  padding-bottom: calc(var(--space) *2);
+}
+
+.section_contact>div:nth-child(2)>div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--space) *2);
+  position: relative;
+}
+
+.section_contact>div:nth-child(2)>div:nth-child(2)>form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--space) *3);
+}
+
+.section_contact>div:nth-child(2)>div:nth-child(2)>form>input,
+.section_contact>div:nth-child(2)>div:nth-child(2)>form>textarea,
+.section_contact>div:nth-child(2)>div:nth-child(2)>form>input,
+.section_contact>div:nth-child(2)>div:nth-child(2)>form>textarea {
+  background: var(--color-body-background);
+  font-family: 'Manrope';
+  padding: calc(var(--space) *1) calc(var(--space) *2.5);
+  width: 309px;
+  color: var(--color-text-black-2);
+}
+
+.alert-success {
+  background: #e8fde8;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  font-size: 10px;
+}
+
+@media (width < 680px) {
+  .alert-success {
+    position: absolute;
+    bottom: -55px;
+  }
+}
+
+@media (width > 1000px) {
+  .section_contact>div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--space) *16);
+  }
+
+  .section_contact>div:nth-child(2)>div:nth-child(2)>form>input,
+  .section_contact>div:nth-child(2)>div:nth-child(2)>form>textarea {
+    width: 419px;
+  }
+}

@@ -1,0 +1,34 @@
+.support {
+  display: flex;
+  /* align-items: center; */
+  gap: calc(var(--space) * 2);
+}
+
+.support .illustration {
+  width: calc(100% - var(--space) * 45);
+  overflow: hidden;
+  height: calc(var(--space) * 30);
+  background: center center / auto 100% no-repeat;
+}
+
+.support .desc {
+  margin-top: calc(var(--space) * 3);
+}
+
+@media (width < 800px) {
+  .support {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .support .illustration {
+    width: calc(100% - var(--space) * 20);
+  }
+}
+
+
+@media (width < 500px) {
+  .support .illustration {
+    width: calc(100% - var(--space) * 0);
+  }
+}

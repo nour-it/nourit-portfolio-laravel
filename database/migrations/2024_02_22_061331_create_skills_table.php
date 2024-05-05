@@ -31,8 +31,8 @@ return new class extends Migration
             $table->foreignid("skill_category_id")->nullable()->references("id")->on("skill_categories");
         });
         Schema::create('image_skill', function (Blueprint $table) {
-            $table->foreignid("image_id")->nullable()->references("id")->on("images");
-            $table->foreignid("skill_id")->nullable()->references("id")->on("skills");
+            $table->foreignid("image_id")->nullable()->references("id")->on("images")->nullOnDelete();
+            $table->foreignid("skill_id")->nullable()->references("id")->on("skills")->nullOnDelete();
             $table->dateTime("upload_at");
             $table->dateTime("delete_at")->nullable();
         });
