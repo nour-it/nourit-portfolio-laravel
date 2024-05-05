@@ -41,7 +41,7 @@
         <nav>
             <ul>
                 <li class="h2"><a href="/#about">About</a></li>
-                <li class="h2"><a href="/project">Projects</a></li>
+                <li class="h2"><a href="/projects">Projects</a></li>
                 <li class="h2"><a href="/support">Services</a></li>
             </ul>
             <ul>

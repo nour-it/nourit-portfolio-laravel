@@ -10,5 +10,4 @@ Route::get('/home', [HomeController::class, "index"])->name('skill.page.index');
 Route::get('/projects', [ProjectController::class, "index"])->name('project.page.index');
 Route::get('/projects/{project}', [ProjectController::class, "show"])->name('project.page.show');
 
-
 Route::fallback([HomeController::class, "index"]);
