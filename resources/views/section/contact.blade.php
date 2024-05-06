@@ -36,9 +36,11 @@
         </div>
         <div>
             <h2 class="h2">Write to me</h2>
-            <form action="" method="post"><input name="name" id="name" class="border rounded"
-                    placeholder="Insert you name"><input type="email" name="email" id="email"
-                    class="border rounded" placeholder="Insert you email">
+            <form action="{{ route('contact.mail') }}" method="post">
+                @csrf
+                <input name="name" id="name"
+                    class="border rounded" placeholder="Insert you name"><input type="email" name="email"
+                    id="email" class="border rounded" placeholder="Insert you email">
                 <textarea name="project" id="project" cols="30" rows="10" class="border rounded"
                     placeholder="Write your project"></textarea><button type="submit" class="btn">send message<svg id="prime_send-svg"
                         width="24" height="24">
