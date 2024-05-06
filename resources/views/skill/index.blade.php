@@ -5,7 +5,7 @@
     </div>
     <div>
         @foreach ($skills as $skill)
-            <x-skill-component :skill="$skill" />
+            @includeIf('components.skill', ['skill' => $skill])
         @endforeach
     </div>
 </section>

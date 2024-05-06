@@ -11,6 +11,7 @@
 @import url(./partials/project.scss);
 @import url(./partials/support.scss);
 @import url(./partials/footer.scss);
+@import url(./partials/admin.scss);
 
 body {
   min-height: 100vh;
@@ -259,4 +260,10 @@ section > div:first-child {
   .container > footer {
     padding-top: calc(var(--space) * 12);
   }
+}
+
+
+.right {
+  display: block;
+  margin-left: auto;
 }

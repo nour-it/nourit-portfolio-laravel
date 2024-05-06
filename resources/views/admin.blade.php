@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
@@ -11,11 +12,22 @@
     <title>Nour It Portfolio</title>
     @vite(['resources/css/style.scss', 'resources/js/app.js'])
 </head>
+
 <body>
     @yield('header')
-    <div class="container">
+    <div class="container" style="display: flex; gap: calc(var(--space) * 2)">
+        <aside>
+            <ul>
+                <li class="text-black-1  @if (request()->is('admin/skills')) {{ 'active' }} @endif">
+                    <a href="{{ route('skills.index') }}">Skill</a>
+                </li>
+                <li class="text-black-1 @if (request()->is('admin/projects')) {{ 'active' }} @endif">
+                    <a href="{{ route('projects.index') }}">Projects</a>
+                </li>
+            </ul>
+        </aside>
         @yield('content')
     </div>
-    @includeIf('components.footer')
 </body>
+
 </html>

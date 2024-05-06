@@ -71,6 +71,7 @@ return [
 
     'links' => [
         public_path('assets') => storage_path('app/assets'),
+        public_path('uplaod') => storage_path('app/upload'),
     ],
 
 ];

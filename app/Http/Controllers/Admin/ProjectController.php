@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Events\ViewSkillPageEvent;
-use App\Models\Skill;
+use App\Http\Controllers\Controller;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
-class SkillController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-       
-        $skills = Skill::with("skillCategory")->paginate(15);
-        ViewSkillPageEvent::dispatch($request->ip());
-        return view("skill.index", compact('skills'));
+        return $this->render($request, function ($request) {
+            $projects = Project::paginate(15);
+            return view("pages.admin", compact('projects'))->render();
+        });
     }
 
     /**
@@ -38,7 +38,7 @@ class SkillController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Skill $skill)
+    public function show(Project $project)
     {
         //
     }
@@ -46,7 +46,7 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Skill $skill)
+    public function edit(Project $project)
     {
         //
     }
@@ -54,7 +54,7 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Skill $skill)
+    public function update(Request $request, Project $project)
     {
         //
     }
@@ -62,7 +62,7 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Skill $skill)
+    public function destroy(Project $project)
     {
         //
     }

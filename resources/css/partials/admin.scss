@@ -1,0 +1,110 @@
+aside.active {
+    display: block;
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: calc(var(--space) * 10);
+    z-index: 6;
+    color: var(--color-white);
+    text-align: center;
+    height: calc(100vh + 200px);
+}
+
+aside ul {
+    position: relative;
+}
+
+aside ul li {
+    margin-block: calc(var(--space) * 2);
+    position: relative;
+    // right: -100%;
+    // opacity: 0;
+}
+
+aside ul li:hover a,
+aside ul li.active a {
+    position: relative;
+}
+
+aside ul li:hover a::before,
+aside ul li.active a::before {
+    content: "";
+    position: absolute;
+    width: calc(100% - 10px);
+    height: 1px;
+    background: var(--color-text-black-2);
+    left: 5px;
+    top: 100%;
+    animation: hover_link 500ms linear;
+}
+
+
+
+table {
+    min-width: 700px;
+    text-align: left;
+    border-spacing: 0;
+    font-size: 14px;
+    // margin-block-end: 40px;
+}
+
+table tr>* {
+    border-bottom: 1px solid rgb(226, 226, 226);
+    height: 40px;
+    padding-right: 10px;
+}
+
+table tr> :last-child {
+    text-align: right;
+}
+
+table tr>th svg {
+    vertical-align: middle;
+    color: var(--color-gray-3);
+}
+
+table tr>td:nth-child(5) {
+    text-align: center;
+    width: 100px;
+}
+
+table tr>td {
+    color: var(--color-gray);
+}
+
+table tr>td:nth-child(5) div {
+    // width: calc(var(--space) * 8.5);
+    padding-inline: calc(var(--space));
+}
+
+.edit {
+    margin-top: calc(var(--space) * 3);
+    width: 100%;
+}
+
+.edit form {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--space) * 2); 
+}
+
+.edit form input,
+.edit form textarea {
+    background: var(--color-body-background);
+    font-family: 'Manrope';
+    padding: calc(var(--space) *1) calc(var(--space) *2.5);
+    color: var(--color-text-black-2);
+    width: 100%;
+}
+
+.dot.red {
+    background-color: red;
+}
+.dot.green {
+    background-color: green;
+}

@@ -14,6 +14,10 @@ class Skill extends Model
 
     public $timestamps = false;
 
+    protected $with = ['skillCategory', "images"];
+
+    public $fillable = ['name', 'description', 'skill_category_id', 'add_at'];
+
     public function skillCategory(): BelongsTo
     {
         return $this->belongsTo(SkillCategory::class);

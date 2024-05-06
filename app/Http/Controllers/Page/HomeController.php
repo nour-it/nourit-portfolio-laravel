@@ -15,7 +15,8 @@ class HomeController extends Controller
         $default = function ($request) {
             $skills = Skill::with("skillCategory", "images")->paginate(15);
             ViewSkillPageEvent::dispatch($request->ip());
-            return view("pages.home", compact("skills"))->render();
+            $header = "home-header";
+            return view("pages.home", compact("skills", "header"))->render();
         };
         return $this->render($request, $default);
     }

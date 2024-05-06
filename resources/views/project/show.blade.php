@@ -23,10 +23,10 @@
                 </svg></div>
         </div>
         <div>
-            <h1>Fruit Nour Matching</h1>
-            <div>Oct 2021 - Dec 2021</div>
+            <h1>{{ $project->name }}</h1>
+            <div>{{ $project->add_at }}</div>
             <div>
-
+                {!! $project->description !!}
             </div>
         </div>
     </div>
