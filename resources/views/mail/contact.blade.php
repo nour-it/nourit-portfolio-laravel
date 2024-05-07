@@ -1,6 +1,6 @@
 <div>
-    Name: {{ $info['name'] }}
-    Address: {{ $info['email'] }}
-    -------------------------------
-    {{ $info["project"] }}
+    <p>Name: {{ $info['name'] }}</p>
+    <p>Address: {{ $info['email'] }}</p>
+    <p>-------------------------------</p>
+    <p>{{ $info["project"] }}</p>
 </div>

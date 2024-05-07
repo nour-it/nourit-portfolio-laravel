@@ -60,7 +60,8 @@ class SkillSeeder extends Seeder
                 "skill_category_id" => $skill[1]
             ]
         );
-        if(app()->environment() == "local") {
+       
+        if(app()->environment() != "production") {
             Schema::disableForeignKeyConstraints();
             DB::table('images')->truncate();
             DB::table('image_skill')->truncate();
