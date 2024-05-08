@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('token')->nullable();
             $table->string('confirmation_token')->nullable(true);
+            $table->string('google_id')->nullable();
+            $table->string('google_token')->nullable();
+            $table->string('google_refresh_token')->nullable();
         });
     }
 

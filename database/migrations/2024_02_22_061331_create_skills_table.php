@@ -33,7 +33,7 @@ return new class extends Migration
         Schema::create('image_skill', function (Blueprint $table) {
             $table->foreignid("image_id")->nullable()->references("id")->on("images")->nullOnDelete();
             $table->foreignid("skill_id")->nullable()->references("id")->on("skills")->nullOnDelete();
-            $table->dateTime("upload_at");
+            $table->dateTime("upload_at")->default(now());
             $table->dateTime("delete_at")->nullable();
         });
     }

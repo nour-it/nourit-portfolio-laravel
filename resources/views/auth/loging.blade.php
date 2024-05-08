@@ -18,7 +18,7 @@
     <div class="container" style="height: 70vh">
         <div class="edit center" style="margin-top: 0">
             <div><img src="{{ url('assets/img/logo512.png') }}" alt="user" height="100"></div>
-            <form action="{{ route('skills.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route("login.attempt") }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input name="email" id="email" class="border rounded" placeholder="user name | email"
                     value="">
@@ -28,7 +28,7 @@
                     <button type="submit" class="btn">
                         Login
                     </button>
-                    <a href="border" class="border rounded" style="padding: 5px 20px; width: 100%;">continue with
+                    <a href="{{ route("login.social") }}?type=google" class="border rounded" style="padding: 5px 20px; width: 100%;">continue with
                         google</a>
                         <p>
                             If you have an acount you can create one <a href="{{ route("register") }}">here</a>

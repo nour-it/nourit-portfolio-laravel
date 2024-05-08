@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use App\Mail\RegisterMail;
 use App\Models\Skill;
@@ -18,5 +18,19 @@ class LoginTest extends TestCase
 
     public function test_login_attempt()
     {
+        User::truncate();
+        $this->post(route("register.new"), [
+            'username' => "nourit",
+            'email' => "reply.nourit@gmail.com",
+            'password' => "0000",
+        ]);
+        $url = route("register.confirme", ['token' => User::first()->confirmation_token]);
+        $this->get($url);
+
+        $response = $this->post(route('login.attempt', [
+            'email' => "reply.nourit@gmail.com",
+            'password' => "0000",
+        ]));
+        $response->assertStatus(302);
     }
 }

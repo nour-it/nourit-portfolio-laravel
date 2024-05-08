@@ -10,7 +10,7 @@
     <link rel="manifest" href="/manifest.json" />
     <meta name="description" content="Web site created using create-react-app" />
     <title>Nour It Portfolio</title>
-    @vite(['resources/css/style.scss', 'resources/js/app.js'])
+    @vite(['resources/css/style.scss'])
 </head>
 
 <body>
@@ -28,6 +28,7 @@
         </aside>
         @yield('content')
     </div>
+    @vite(['resources/js/app.js'])
 </body>
 
 </html>

@@ -29,13 +29,13 @@ return new class extends Migration
         Schema::create('image_project', function (Blueprint $table) {
             $table->foreignid("image_id")->nullable()->references("id")->on("images");
             $table->foreignid("project_id")->nullable()->references("id")->on("projects");
-            $table->dateTime("upload_at");
+            $table->dateTime("upload_at")->default(now());
             $table->dateTime("delete_at")->nullable();
         });
         Schema::create('project_skill', function (Blueprint $table) {
             $table->foreignid("skill_id")->nullable()->references("id")->on("skills");
             $table->foreignid("project_id")->nullable()->references("id")->on("projects");
-            $table->dateTime("upload_at");
+            $table->dateTime("link_at")->default(now());
             $table->dateTime("delete_at")->nullable();
         });
     }

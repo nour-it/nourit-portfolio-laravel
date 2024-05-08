@@ -26,8 +26,7 @@
         <input name="name" id="name" class="border rounded" placeholder="Skill name" value="{{ $skill->name }}">
         <input name="skill_category_id" id="skill_category_id" class="border rounded" placeholder="category"
             value="{{ $skill->skill_category_id }}">
-        <textarea name="description" id="description" cols="30" rows="10" class="border rounded"
-            placeholder="Skill description">{{ $skill->description }}</textarea>
+        @includeIf('components.text-editor', ['name' => 'description', 'value' => $skill->description])
         <button type="submit" class="btn">
             @if ($skill->id)
                 Edit
@@ -50,7 +49,7 @@
                     });
                     const files = e.target.files;
                     for (let file in files) {
-                        if (file !== 'item' && file !== 'length')  {
+                        if (file !== 'item' && file !== 'length') {
                             let $img = document.createElement("img")
                             $img.src = URL.createObjectURL(files[file]);
                             $img.height = 50;

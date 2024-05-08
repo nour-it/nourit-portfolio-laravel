@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\Admin\UpdateSkillEvent;
 use App\Events\ViewSkillPageEvent;
+use App\Listeners\Admin\UpdateSkillEventListener;
 use App\Listeners\ViewSkillPageListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,7 +24,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         ViewSkillPageEvent::class => [
             ViewSkillPageListener::class
-        ]
+        ],
+        UpdateSkillEvent::class => [
+            UpdateSkillEventListener::class
+        ],
     ];
 
     /**

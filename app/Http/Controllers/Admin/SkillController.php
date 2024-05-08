@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\Admin\UpdateSkillEvent;
 use App\Events\ViewSkillPageEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
@@ -39,8 +40,8 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        $skill = new Skill([...$request->only("name", "description", "skill_category_id"), 'add_at' => new DateTime()]);
-        $skill->save();
+        $skill = new Skill();
+        UpdateSkillEvent::dispatch($skill, $request);
         return redirect(route("skills.index"))->with("success", "skill add successfully");
     }
 
@@ -60,10 +61,7 @@ class SkillController extends Controller
      */
     public function update(Request $request, Skill $skill)
     {
-        $skill->name = $request->input("name");
-        $skill->description = $request->input("description");
-        $skill->skill_category_id = $request->input("skill_category_id");
-        $skill->save();
+        UpdateSkillEvent::dispatch($skill, $request);
         return redirect(route("skills.index"))->with("success", "skill updated successfully");
     }
 

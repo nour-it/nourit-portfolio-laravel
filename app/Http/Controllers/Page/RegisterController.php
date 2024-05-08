@@ -28,8 +28,7 @@ class RegisterController extends Controller
             "confirmation_token" =>  Crypt::encrypt($request->input("email")),
        
         ]);
-        Mail::to($request->input("email"))->send(new RegisterMail($user));
-        
+        Mail::to($request->input("email"))->later(now()->addSecond(1), new RegisterMail($user));
         return redirect(route("login"))->with("success", "an email was sent to your account");
     }
 

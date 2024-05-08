@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Closure;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
@@ -19,7 +20,12 @@ class Controller extends BaseController
         }
         $html = Cache::get($request->fullUrl());
         if (is_null($html)) {
-            $html = $render($request);
+            // dd(get_class($render), $render);
+            if(!$render instanceof \Closure) {
+                $html = $render($request)->render();
+            } else {
+                $html = $render($request);
+            }
             Cache::put($request->fullUrl(), $html);
         }
         return $html;
