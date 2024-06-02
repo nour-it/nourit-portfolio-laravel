@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\Admin\UpdateSkillEvent;
 use App\Events\ViewSkillPageEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSkillRequest;
 use App\Models\Skill;
 use App\Models\SkillCategory;
 use DateTime;
@@ -38,7 +39,7 @@ class SkillController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSkillRequest $request)
     {
         $skill = new Skill();
         UpdateSkillEvent::dispatch($skill, $request);
@@ -59,7 +60,7 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Skill $skill)
+    public function update(StoreSkillRequest $request, Skill $skill)
     {
         UpdateSkillEvent::dispatch($skill, $request);
         return redirect(route("skills.index"))->with("success", "skill updated successfully");

@@ -23,9 +23,16 @@
                 <img src="{{ url($image->path) }}" alt="" height="30" />
             @endforeach
         </div>
-        <input name="name" id="name" class="border rounded" placeholder="Skill name" value="{{ $skill->name }}">
+        <input name="name" id="name" class="border rounded" placeholder="Skill name"
+            value="{{ old('name') ?? $skill->name }}">
+        @error('name')
+            <span>name should not be empty</span>
+        @enderror
         <input name="skill_category_id" id="skill_category_id" class="border rounded" placeholder="category"
-            value="{{ $skill->skill_category_id }}">
+            value="{{ old('skill_category_id') ?? $skill->skill_category_id }}">
+        @error('skill_category_id')
+            <span>category should not be empty</span>
+        @enderror
         @includeIf('components.text-editor', ['name' => 'description', 'value' => $skill->description])
         <button type="submit" class="btn">
             @if ($skill->id)

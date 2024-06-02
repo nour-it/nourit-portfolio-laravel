@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $default = function ($request) {
-            $skills = Skill::with("skillCategory", "images")->paginate(15);
+            $skills = Skill::where(['delete_at' => NULL])->with("skillCategory", "images")->paginate(15);
             ViewSkillPageEvent::dispatch($request->ip());
             $header = "home-header";
             return view("pages.home", compact("skills", "header"))->render();
