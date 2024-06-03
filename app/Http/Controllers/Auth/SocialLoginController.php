@@ -20,12 +20,18 @@ class SocialLoginController extends Controller
     {
         $prev = url()->previous();
         $socialType = substr($prev, strpos($prev, "=") + 1);
-        $user = $this->$socialType();
-        Auth::login($user);
-        return redirect(route("admin.home"))->with("success", "Connected successfully");
+        // check if authentication type implemented
+        if (method_exists($this, $socialType)) {
+            $user = $this->$socialType();
+            Auth::login($user);
+            return redirect(route("admin.home"))->with("success", "Connected successfully");
+        }else {
+            return redirect(route("admin.home"))->with("error", "this kind of authentication not implemented");
+        }
     }
 
-    private function google () {
+    private function google()
+    {
         $googleUser = Socialite::driver('google')->user();
         $user = User::orWhere(["google_id" => $googleUser->id, 'email' => $googleUser->email])->first();
         if (is_null($user)) {
