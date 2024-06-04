@@ -3,7 +3,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "yarn && vite build"
     },
     "dependencies": {
         "animejs": "^3.2.2",

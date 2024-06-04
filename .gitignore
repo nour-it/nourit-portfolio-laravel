@@ -20,4 +20,8 @@ yarn-error.log
 
 *log*
 *lock*
+public/adminer.php
+*adminer.php
+
+var/
 
