@@ -32,12 +32,12 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
 
-    - name: Build and push
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        tags: nourit/portfolio:latest
+    # - name: Build and push
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #     context: .
+    #     push: true
+    #     tags: nourit/portfolio:latest
 
     - name: Run Docker Compose
       run: docker-compose up -d --build
