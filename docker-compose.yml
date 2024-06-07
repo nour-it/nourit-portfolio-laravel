@@ -2,28 +2,25 @@
 services:
 
   # WEB
-  # nginx:
-  #   build: docker/web/nginx
-  #   restart: "${RESTART}"
-  #   ports:
-  #     - "${WEB_PORT}:80"
-  #     - "${WEB_SSL_PORT}:443"
-  #   volumes:
-  #     - "${NGINX_CONF}:/etc/nginx/conf.d/default.conf"
-  #     - "${APACHE_CONF}:/etc/apache2/sites-available/000-default.conf"
-  #     - "${PHP_CONF}:/usr/local/etc/php/php.ini"
-  #     - "${PROJECT_DIR}:/var/www"
-  #   links:
-  #     - "php"
-  #     - "node_js"
-  #     - "mysql"
-  #     - "postgresql"
+  nginx:
+    build: docker/web/nginx
+    restart: "${RESTART}"
+    ports:
+      - "${WEB_PORT}:80"
+      - "${WEB_SSL_PORT}:443"
+    volumes:
+      - "${NGINX_CONF}:/etc/nginx/conf.d/default.conf"
+      - "${PROJECT_DIR}:/var/www"
+    links:
+      - "php"
+      - "mysql"
+      - "mail"
 
   # APP
   php:
     build: docker/app/php
     restart: "${RESTART}"
-    command: php artisan serve --host=0.0.0.0 --port=80
+    command: php-fpm
     ports:
       - "${PHP_PORT}:8000"
     volumes:
