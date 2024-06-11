@@ -6,6 +6,7 @@ use App\Events\Admin\UpdateProjectEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
+use App\Models\ProjectCategory;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -24,9 +25,13 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return $this->render($request, function ($request) {
+            $project = new Project();
+            $categories = ProjectCategory::all();
+            return view("project.edit", compact('project', "categories"))->render();
+        });
     }
 
     /**

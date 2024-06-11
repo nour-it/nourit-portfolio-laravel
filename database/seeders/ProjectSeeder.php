@@ -47,7 +47,8 @@ class ProjectSeeder extends Seeder
                 'add_at' => new DateTime(),
                 'delete_at' => NULL,
                 'description' => '',
-                "project_category_id" => $project[1]
+                "project_category_id" => $project[1],
+                "user_id" => 1
             ]
         );
         if(app()->environment() == "local") {
@@ -60,7 +61,7 @@ class ProjectSeeder extends Seeder
         DB::table('images')->insert($this->images);
         ProjectCategory::insert($this->categories);
         Project::insert($this->projects);
-        DB::table('imageable')->insert(Arr::map([
+        DB::table('imageables')->insert(Arr::map([
             [1, 21],
             [1, 18],
             [1, 19],

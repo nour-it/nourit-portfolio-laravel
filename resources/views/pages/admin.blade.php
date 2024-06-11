@@ -9,10 +9,12 @@
 @endsection
 
 @section('content')
-    <main>
+    <main style="padding-top: calc(var(--space) * 1.5)">
+        <h2>Projects</h2>
         @isset($projects)
             @includeIf('project.table', ['projects' => $projects])
         @endisset
+        <h2>Skills</h1>
         @isset($skills)
             @includeIf('skill.table', ['skills' => $skills])
         @endisset

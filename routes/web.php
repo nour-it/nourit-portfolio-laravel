@@ -47,3 +47,5 @@ Route::prefix('{user}')
 
 
 Route::post('contact/mail', [HomeController::class, "mail"])->name("contact.mail");
+
+

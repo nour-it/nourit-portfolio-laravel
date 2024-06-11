@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('google_token')->nullable();
             $table->string('google_refresh_token')->nullable();
         });
+
+        Schema::table("projects", function (Blueprint $table) {
+            $table->foreignid("user_id")->nullable()->references("id")->on("users");
+        });
     }
 
     /**

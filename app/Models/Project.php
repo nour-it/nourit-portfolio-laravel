@@ -29,4 +29,9 @@ class Project extends Model
     {
         return $this->morphToMany(Skill::class, "skillable");
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

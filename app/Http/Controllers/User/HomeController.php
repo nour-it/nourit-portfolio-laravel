@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $user = User::where("username", $user)->first();
         if (NULL === $user) {
-            $this->redirect = redirect(route("home"), 404);
+            $this->redirect = redirect(route("home"), 301);
             return $this->redirect;
         }
         $default = function ($request) use ($user) {

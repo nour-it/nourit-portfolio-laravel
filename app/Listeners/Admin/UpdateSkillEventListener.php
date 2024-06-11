@@ -43,19 +43,19 @@ class UpdateSkillEventListener
 
         $this->user = $request->user();
 
-        $skills = $this->user->skill()->get()->pluck("skillable_id")->toArray();
-        $this->user->skill()->sync(Arr::map([...$skills, $skill->id], fn($s) => ["skill_id" => $s]));
+        $skills = $this->user->skill()->get()->pluck("id")->toArray();
+        $this->user->skill()->sync([...$skills, $skill->id]);
         
-
-
         $icon = $request->file("icon");
         if ($icon) {
+            $folder = "assets/upload/" . $this->user->id . "/skills/" . Str::lower($skill->name) ;
+            $name = Str::lower($skill->name) . "." . $icon->getClientOriginalExtension();
             $path = $icon->storeAs(
-                "assets/img/skill",
-                Str::lower($skill->name) . "." . $icon->getClientOriginalExtension(),
+                $folder,
+                $name,
                 "local"
             );
-            ResizeImageJob::dispatch($path);
+            ResizeImageJob::dispatch($name, $folder . "/");
             $images = $skill->images()->createMany([
                 ['path' => $path]
             ]);

@@ -32,7 +32,7 @@ services:
   node_js:
     build: docker/app/nodejs
     restart: "${RESTART}"
-    command: yarn run build
+    command: yarn run dev
     ports:
       - "${NODEJS_PORT}:${NODEJS_PORT}"
     volumes:

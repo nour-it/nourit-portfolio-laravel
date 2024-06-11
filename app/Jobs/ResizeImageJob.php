@@ -7,9 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 
-class ResizeImageJob implements ShouldQueue
+class ResizeImageJob 
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -22,12 +23,14 @@ class ResizeImageJob implements ShouldQueue
         'large' => [500, 500],
     ];
 
+    private string $input;
+
     /**
      * Create a new job instance.
      */
-    public function __construct(public string $pathToImage)
+    public function __construct(public string $name, public ?string $folder)
     {
-        //
+        $this->input = storage_path('app/' . $this->folder . $this->name);
     }
 
     /**
@@ -40,12 +43,12 @@ class ResizeImageJob implements ShouldQueue
             $manager = new ImageManager(
                 new \Intervention\Image\Drivers\Gd\Driver()
             );
-            $image = $manager->read(storage_path('app/' . $this->pathToImage));
+            $image = $manager->read($this->input);
             $image->resize($width, $height);
             // $image->brightness(1);
             // $image->place('images/watermark.png');
             $encoded = $image->toPng();
-            $encoded->save(storage_path("app/example_{$key}.jpg"));
+            $encoded->save(storage_path("app/" . $this->folder . "{$key}_{$width}x{$height}.jpg"));
         }
     }
 }

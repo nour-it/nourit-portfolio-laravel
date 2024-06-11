@@ -22,7 +22,8 @@
                     </div>
                 </td>
                 <td>
-                    <div style="display: flex; gap: calc(var(--space) * 1)"><a href="{{ route('skills.edit', ['skill' => $skill->id]) }}">edit</a>
+                    <div style="display: flex; gap: calc(var(--space) * 1)">
+                        <a href="{{ route('skills.edit', ['skill' => $skill->id]) }}">edit</a>
                         <form action="{{ route('skills.destroy', ['skill' => $skill->id]) }}" method="POST">
                             @method('DELETE') @csrf
                             <button type="submit">delete</button>

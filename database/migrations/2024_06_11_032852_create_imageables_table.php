@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignid("imageable_id");
             $table->string("imageable_type");
             $table->dateTime("add_at")->nullable();
-            $table->dateTime("update_at")->nullable();
+            $table->dateTime("upload_at")->nullable();
             $table->dateTime("delete_at")->nullable();  $table->id();
         });
 

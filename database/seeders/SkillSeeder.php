@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Skill;
 use App\Models\SkillCategory;
+use App\Models\User;
 use DateTime;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -64,14 +65,16 @@ class SkillSeeder extends Seeder
         if(app()->environment() != "production") {
             Schema::disableForeignKeyConstraints();
             DB::table('images')->truncate();
-            DB::table('image_skill')->truncate();
+            DB::table('imageables')->truncate();
             DB::table('skills')->truncate();
         }
+
+        User::find(1)->skill()->sync([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
         DB::table('images')->insert($this->images);
         SkillCategory::insert($this->categories);
         Skill::insert($this->skills);
-        DB::table('imageable')->insert(Arr::map([
+        DB::table('imageables')->insert(Arr::map([
             [1, 3],
             [2, 14],
             [3, 8],

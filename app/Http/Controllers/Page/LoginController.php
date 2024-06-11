@@ -30,7 +30,7 @@ class LoginController extends Controller
             Auth::login($user);
             return redirect(route("admin.home"));
         } else {
-            return redirect(route("login"), 401);
+            return redirect(route("login"), 302)->with("error", "Invalid user");
         }
     }
 
