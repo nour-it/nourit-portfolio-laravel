@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\Admin\UpdateSkillEvent;
-use App\Events\ViewSkillPageEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSkillRequest;
 use App\Models\Skill;
 use App\Models\SkillCategory;
 use DateTime;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SkillController extends Controller
@@ -18,8 +18,9 @@ class SkillController extends Controller
      */
     public function index(Request $request)
     {
+        $this->user = $request->user();
         return $this->render($request, function ($request) {
-            $skills = Skill::paginate(15);
+            $skills = $this->user->skill()->paginate(15);
             return view("pages.admin", compact('skills'))->render();
         });
     }
@@ -36,14 +37,22 @@ class SkillController extends Controller
         });
     }
 
+      
     /**
-     * Store a newly created resource in storage.
+     * store a newly created resource in storage.
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
      */
-    public function store(StoreSkillRequest $request)
+    public function store(StoreSkillRequest $request): RedirectResponse
     {
         $skill = new Skill();
         UpdateSkillEvent::dispatch($skill, $request);
-        return redirect(route("skills.index"))->with("success", "skill add successfully");
+        /**
+         * @var RedirectResponse
+         */
+        $redirect = redirect(route("skills.index"));
+        return $redirect->with("success", "skill add successfully");
     }
 
     /**
@@ -63,7 +72,8 @@ class SkillController extends Controller
     public function update(StoreSkillRequest $request, Skill $skill)
     {
         UpdateSkillEvent::dispatch($skill, $request);
-        return redirect(route("skills.index"))->with("success", "skill updated successfully");
+        $this->redirect = redirect(route("skills.index"));
+        return $this->redirect->with("success", "skill updated successfully");
     }
 
     /**

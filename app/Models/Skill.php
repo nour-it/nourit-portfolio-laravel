@@ -26,4 +26,8 @@ class Skill extends Model
     public function images(): BelongsToMany {
         return $this->belongsToMany(Image::class);
     }
+
+    public function user(){
+        return $this->morphOne(Skill::class, "skillable");
+    }
 }

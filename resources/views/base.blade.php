@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
@@ -11,6 +12,7 @@
     <title>Nour It Portfolio</title>
     @vite(['resources/css/style.scss', 'resources/js/app.js'])
 </head>
+
 <body>
     @yield('header')
     <div class="container">
@@ -18,4 +20,5 @@
     </div>
     @includeIf('components.footer')
 </body>
+
 </html>

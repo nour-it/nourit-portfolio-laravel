@@ -24,4 +24,9 @@ class Project extends Model
     {
         return $this->belongsToMany(Image::class);
     }
+
+    public function skill()
+    {
+        return $this->morphToMany(Skill::class, "skillable");
+    }
 }

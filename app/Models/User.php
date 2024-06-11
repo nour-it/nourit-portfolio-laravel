@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class User extends Authenticatable
 {
@@ -19,4 +21,10 @@ class User extends Authenticatable
         'google_id',
         'token'
     ];
+
+
+    public function skill(): MorphToMany
+    {
+        return $this->morphToMany(Skill::class, "skillable");
+    }
 }

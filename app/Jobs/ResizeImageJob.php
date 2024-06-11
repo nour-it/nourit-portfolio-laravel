@@ -13,7 +13,10 @@ class ResizeImageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $dimensions = [
+    
+    private string $uploadPath = "upload/";
+
+    private array $dimensions = [
         'thumb' => [100, 100],
         'medium' => [300, 300],
         'large' => [500, 500],

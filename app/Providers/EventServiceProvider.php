@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\Admin\UpdateProjectEvent;
 use App\Events\Admin\UpdateSkillEvent;
 use App\Events\ViewSkillPageEvent;
+use App\Listeners\Admin\UpdateProjectEventListener;
 use App\Listeners\Admin\UpdateSkillEventListener;
 use App\Listeners\ViewSkillPageListener;
 use Illuminate\Auth\Events\Registered;
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UpdateSkillEvent::class => [
             UpdateSkillEventListener::class
+        ],
+        UpdateProjectEvent::class => [
+            UpdateProjectEventListener::class
         ],
     ];
 

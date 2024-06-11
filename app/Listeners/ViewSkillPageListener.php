@@ -7,9 +7,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 
-class ViewSkillPageListener implements ShouldQueue
+class ViewSkillPageListener 
 {
-    public $delay = 60;
+    // public $delay = 60;
 
     public function handle(ViewSkillPageEvent $event): void
     {

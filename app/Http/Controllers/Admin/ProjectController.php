@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\Admin\UpdateProjectEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -54,9 +56,12 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(StoreProjectRequest $request, Project $project)
     {
-        //
+       
+        UpdateProjectEvent::dispatch($project, $request);
+        $this->redirect = redirect(route("projects.index"));
+        return $this->redirect->with("success", "project updated successfully");
     }
 
     /**

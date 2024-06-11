@@ -18,10 +18,10 @@
     <div class="container" style="display: flex; gap: calc(var(--space) * 2)">
         <aside>
             <ul>
-                <li class="text-black-1  @if (request()->is('admin/skills')) {{ 'active' }} @endif">
+                <li class="text-black-1  @if (request()->is('dashboard/skills')) {{ 'active' }} @endif">
                     <a href="{{ route('skills.index') }}">Skill</a>
                 </li>
-                <li class="text-black-1 @if (request()->is('admin/projects')) {{ 'active' }} @endif">
+                <li class="text-black-1 @if (request()->is('dashboard/projects')) {{ 'active' }} @endif">
                     <a href="{{ route('projects.index') }}">Projects</a>
                 </li>
             </ul>
