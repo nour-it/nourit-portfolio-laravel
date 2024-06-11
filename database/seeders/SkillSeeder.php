@@ -71,7 +71,7 @@ class SkillSeeder extends Seeder
         DB::table('images')->insert($this->images);
         SkillCategory::insert($this->categories);
         Skill::insert($this->skills);
-        DB::table('image_skill')->insert(Arr::map([
+        DB::table('imageable')->insert(Arr::map([
             [1, 3],
             [2, 14],
             [3, 8],
@@ -85,7 +85,8 @@ class SkillSeeder extends Seeder
             [8, 16],
             [9, 4],
         ], fn ($skill_image) => [
-            'skill_id' => $skill_image[0],
+            'imageable_id' => $skill_image[0],
+            'imageable_type' => Skill::class,
             'image_id' => $skill_image[1],
             "upload_at" => new DateTime(),
         ]));

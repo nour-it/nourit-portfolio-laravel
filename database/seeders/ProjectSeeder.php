@@ -53,20 +53,21 @@ class ProjectSeeder extends Seeder
         if(app()->environment() == "local") {
             Schema::disableForeignKeyConstraints();
             // DB::table('images')->truncate();
-            DB::table('image_project')->truncate();
+            // DB::table('image_project')->truncate();
             DB::table('projects')->truncate();
         }
 
         DB::table('images')->insert($this->images);
         ProjectCategory::insert($this->categories);
         Project::insert($this->projects);
-        DB::table('image_project')->insert(Arr::map([
+        DB::table('imageable')->insert(Arr::map([
             [1, 21],
             [1, 18],
             [1, 19],
             [1, 20],
         ], fn ($skill_image) => [
-            'project_id' => $skill_image[0],
+            'imageable_id' => $skill_image[0],
+            'imageable_type' => Project::class,
             'image_id' => $skill_image[1],
             "upload_at" => new DateTime(),
         ]));

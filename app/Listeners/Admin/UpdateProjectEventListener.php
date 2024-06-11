@@ -2,11 +2,14 @@
 
 namespace App\Listeners\Admin;
 
+use App\Jobs\ResizeImageJob;
 use App\Models\Project;
+use App\Models\Skill;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class UpdateProjectEventListener
 {
@@ -37,20 +40,20 @@ class UpdateProjectEventListener
 
         if (NULL !== $skill) {
             $skills = $this->project->skill()->get()->pluck("skillable_id")->toArray();
-            $this->project->skill()->sync(Arr::map([...$skills, $skill], fn($s) => ["skill_id" => $s]));
+            $this->project->skill()->sync(Arr::map([...$skills, $skill], fn ($s) => ["skill_id" => $s]));
+            $skill = Skill::find($skill);
+            $icon = $request->file("icon");
+            if ($icon) {
+                $path = $icon->storeAs(
+                    "assets/img/skill",
+                    Str::lower($skill->name) . "." . $icon->getClientOriginalExtension(),
+                    "local"
+                );
+                ResizeImageJob::dispatch($path);
+                $images = $skill->images()->createMany([
+                    ['path' => $path]
+                ]);
+            }
         }
-
-        $icon = $request->file("icon");
-        // if ($icon) {
-        //     $path = $icon->storeAs(
-        //         "assets/img/skill",
-        //         Str::lower($skill->name) . "." . $icon->getClientOriginalExtension(),
-        //         "local"
-        //     );
-        //     ResizeImageJob::dispatch($path);
-        //     $images = $skill->images()->createMany([
-        //         ['path' => $path]
-        //     ]);
-        // }
     }
 }

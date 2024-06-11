@@ -22,7 +22,7 @@ class Project extends Model
 
     public function images(): BelongsToMany
     {
-        return $this->belongsToMany(Image::class);
+        return $this->morphToMany(Image::class, "imageable");
     }
 
     public function skill()

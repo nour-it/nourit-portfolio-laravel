@@ -12,6 +12,7 @@ use App\Http\Controllers\User\HomeController as UserHomeController;
 use App\Http\Controllers\User\ProjectController as UserProjectController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/',                 [HomeController::class, "index"])->name('home');
 Route::get('/home',                 [HomeController::class, "index"])->name('home');
 Route::get('/projects',             [ProjectController::class, "index"])->name('project.page.index');
 Route::get('/projects/{project}',   [ProjectController::class, "show"])->name('project.page.show');
