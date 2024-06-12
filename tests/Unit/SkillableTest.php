@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Skill;
 use App\Models\SkillCategory;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
@@ -13,8 +14,11 @@ use Tests\TestCase;
 class SkillableTest extends TestCase
 {
 
+    use RefreshDatabase;
+
     public function test_add_user_skill(): void
     {
+        $this->seed();
         $skill_category = SkillCategory::find(1);
         $user = User::find(1);
         Auth::login($user);
@@ -31,6 +35,7 @@ class SkillableTest extends TestCase
   
     public function test_add_project_skill(): void
     {
+        $this->seed();
         $project = Project::find(1);
         $skill = Skill::find(1);
         $user = User::find(1);

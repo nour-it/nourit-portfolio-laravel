@@ -51,7 +51,7 @@ class UpdateProjectEventListener
             $skill = Skill::find($skill);
             $icon = $request->file("icon");
             if ($icon) {
-                $folder = "assets/upload/" . $this->user->id . "/skills/" . Str::lower($skill->name);
+                $folder = "upload/" . $this->user->id . "/skills/" . Str::lower($skill->name);
                 $name = Str::lower($skill->name) . "." . $icon->getClientOriginalExtension();
                 $path = $icon->storeAs(
                     $folder,

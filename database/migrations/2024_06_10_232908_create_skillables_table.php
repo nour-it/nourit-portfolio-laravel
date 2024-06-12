@@ -20,6 +20,8 @@ return new class extends Migration
             $table->dateTime("update_at")->nullable();
             $table->dateTime("delete_at")->nullable();
         });
+
+        Schema::dropIfExists('project_skill');
     }
 
     /**

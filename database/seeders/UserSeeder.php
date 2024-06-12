@@ -14,15 +14,15 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // if(app()->environment() != "production") {
-        //     User::factory()->count(3)->create();
-        // }else {
+        if(app()->environment() != "production") {
+            User::factory()->count(3)->create();
+        }else {
             User::insert([
                 "username" => env("MAIL_FROM_NAME"),
                 "email" => env("MAIL_FROM_ADDRESS"),
                 "password" => Hash::make(env("PASSWORD"))
             ]);
-        // }
+        }
     
     }
 } 

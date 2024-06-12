@@ -52,7 +52,7 @@ services:
     build: docker/mail/maildev
     restart: "${RESTART}"
     ports:
-      - "${MAIL_PORT}:1080"
+      - "${MAIL_PORT_D}:1080"
       - "1025:1025"
 
   # UTILS
