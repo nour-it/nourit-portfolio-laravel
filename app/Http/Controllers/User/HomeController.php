@@ -7,12 +7,17 @@ use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
 use App\Models\Skill;
 use App\Models\User;
+use App\Repository\ProjectRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
+
+
+
+
     public function index(Request $request, string $user)
     {
         $user = User::where("username", $user)->first();
@@ -22,9 +27,11 @@ class HomeController extends Controller
         }
         $default = function ($request) use ($user) {
             $skills = $user->skill()->where(['skillables.delete_at' => NULL])->with("skillCategory", "images")->paginate(15);
+            
             ViewSkillPageEvent::dispatch($request->ip());
             $header = "home-header";
-            return view("user.home", compact("skills", "header"))->render();
+            $username = $user->username;
+            return view("user.home", compact("skills", "header", "username"))->render();
         };
         return $this->render($request, $default);
     }

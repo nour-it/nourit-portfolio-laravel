@@ -12,7 +12,7 @@ use App\Http\Controllers\User\HomeController as UserHomeController;
 use App\Http\Controllers\User\ProjectController as UserProjectController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/',                 [HomeController::class, "index"])->name('home');
+// Route::get('/',                 [HomeController::class, "index"])->name('home');
 Route::get('/home',                 [HomeController::class, "index"])->name('home');
 Route::get('/projects',             [ProjectController::class, "index"])->name('project.page.index');
 Route::get('/projects/{project}',   [ProjectController::class, "show"])->name('project.page.show');
@@ -28,7 +28,7 @@ Route::get('/register',             [RegisterController::class, "index"])->name(
 Route::post('/register',            [RegisterController::class, "store"])->name('register.new');
 Route::get('/register/{token}',     [RegisterController::class, "confirme"])->name('register.confirme');
 
-// Route::fallback([HomeController::class, "index"]);
+Route::fallback(fn () => redirect('/nour it'));
 
 Route::prefix('dashboard')
     ->middleware('auth')

@@ -34,4 +34,9 @@
         @endforeach
     </tbody>
 </table>
-<a href="{{ route('projects.create') }}" class="btn right" style="margin-top: 20px">Add new</a>
+
+@if ($more && $more != false)
+    <a href="{{ route('projects.index') }}" class="btn right" style="margin-top: 20px">More</a>
+@else
+    <a href="{{ route('projects.create') }}" class="btn right" style="margin-top: 20px">New</a>
+@endif

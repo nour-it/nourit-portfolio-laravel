@@ -20,7 +20,7 @@ class SkillController extends Controller
     {
         $this->user = $request->user();
         return $this->render($request, function ($request) {
-            $skills = $this->user->skill()->paginate(15);
+            $skills = $this->user->skill()->select('*', 'skillables.add_at as new_at')->paginate(15);
             return view("pages.admin", compact('skills'))->render();
         });
     }
@@ -48,11 +48,8 @@ class SkillController extends Controller
     {
         $skill = new Skill();
         UpdateSkillEvent::dispatch($skill, $request);
-        /**
-         * @var RedirectResponse
-         */
-        $redirect = redirect(route("skills.index"));
-        return $redirect->with("success", "skill add successfully");
+        $this->redirect = redirect(route("skills.index"));
+        return $this->redirect->with("success", "skill add successfully");
     }
 
     /**
@@ -62,7 +59,8 @@ class SkillController extends Controller
     {
         return $this->render($request, function ($request) use ($skill) {
             $skill = Skill::findOrFail($skill);
-            return view("skill.edit", compact('skill'))->render();
+            $categories = SkillCategory::all();
+            return view("skill.edit", compact('skill', 'categories'))->render();
         });
     }
 

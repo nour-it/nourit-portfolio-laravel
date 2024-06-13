@@ -1,5 +1,5 @@
 
-<div class="project border rounded"style="background-image: url({{ url($project->images[0]->path) }}); background-color: #00000002;">
+<div class="project border rounded"style="background-image: url({{ url($project->images[0]->path ?? "project.png") }}); background-color: #00000002;">
     <div class="rounded" style="background: var(--color-body-background);">
         <svg id="web" width="24" height="24">
             <use xlink:href="/icon/sprite.svg#web"></use>

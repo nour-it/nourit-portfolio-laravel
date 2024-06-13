@@ -1,5 +1,5 @@
 <header class="header">
-    <a class="center" href="{{ url()->previous() }}">
+    <a class="" href="{{ url()->previous() }}">
         <svg id="back" width="18" height="18">
             <use xlink:href="{{ url('assets/icon/sprite.svg#back') }}"></use>
         </svg>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -39,23 +40,22 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Project $project)
-    {
-        //
+        $skill = new Project();
+        UpdateProjectEvent::dispatch($skill, $request);
+        $this->redirect = redirect(route("projects.index"));
+        return $this->redirect->with("success", "project add successfully");
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(Request $request, int $project)
     {
-        //
+        return $this->render($request, function ($request) use ($project) {
+            $project = Project::findOrFail($project);
+            $categories = ProjectCategory::all();
+            return view("project.edit", compact('project', 'categories'))->render();
+        });
     }
 
     /**
@@ -63,7 +63,6 @@ class ProjectController extends Controller
      */
     public function update(StoreProjectRequest $request, Project $project)
     {
-       
         UpdateProjectEvent::dispatch($project, $request);
         $this->redirect = redirect(route("projects.index"));
         return $this->redirect->with("success", "project updated successfully");
@@ -74,6 +73,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete_at = new DateTime();
+        $project->save();
+        return redirect(route("projects.index"))->with("success", "project delete successfully");
     }
 }

@@ -4,15 +4,19 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Repository\ProjectRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class ProjectController extends Controller
 {
+
+    public function __construct(private ProjectRepository $projectRepository) {
+    }
+    
     public function index(Request $request)
     {
         $default = function ($request) {
-            $projects = Project::paginate(15);
+            $projects = $this->projectRepository->findPublicProject();
             return view("user.projects", compact('projects'))->render();
         };
         return $this->render($request, $default);
@@ -20,8 +24,8 @@ class ProjectController extends Controller
 
     public function show(Request $request, int $project)
     {
-        $default = function ($request) use ($project){
-            $projects = Project::paginate(15);
+        $default = function ($request) use ($project) {
+            $projects = $this->projectRepository->findPublicProject();
             $project = Project::findOrFail($project);
             return view("user.projects", compact('projects', 'project'))->render();
         };

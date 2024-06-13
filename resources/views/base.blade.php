@@ -18,7 +18,8 @@
     <div class="container">
         @yield('content')
     </div>
-    @includeIf('components.footer')
+    @includeIf('components.footer', ['username' => $username ?? null])
 </body>
 
 </html>
+ 

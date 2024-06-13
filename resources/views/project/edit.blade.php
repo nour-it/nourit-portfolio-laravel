@@ -10,29 +10,30 @@
 
 @section('content')
     <div class="edit">
-        @if ($skill->id)
-            <form action="{{ route('skills.update', ['skill' => $skill->id]) }}" method="post" enctype="multipart/form-data">
+        @if ($project->id)
+            <form action="{{ route('projects.update', ['project' => $project->id]) }}" method="post"
+                enctype="multipart/form-data">
                 @method('PUT')
             @else
-                <form action="{{ route('skills.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('projects.store') }}" method="post" enctype="multipart/form-data">
         @endif
         @csrf
         <div style="display: flex">
             <input type="file" name="icon" id="icon" multiple>
-            @foreach ($skill->images as $image)
+            @foreach ($project->images as $image)
                 <img src="{{ url($image->path) }}" alt="" height="30" />
             @endforeach
         </div>
-        @includeIf('components.input', ['name' => 'name', 'value' => $skill->name, 'holder' => "Skill name"])
-        @include('components.select', [
-            'label' => 'skill_category_id',
+        @includeIf('components.input', ['name' => 'name', 'value' => $project->name])
+        @includeIf('components.select', [
             'options' => $categories,
-            'value' => $skill->skill_category_id,
-            'field' => "name"
+            'label' => 'project_category_id',
+            'value' => $project->project_category_id,
+            'field' => 'name',
         ])
-        @includeIf('components.text-editor', ['name' => 'description', 'value' => $skill->description])
+        @includeIf('components.text-editor', ['name' => 'description', 'value' => $project->description])
         <button type="submit" class="btn">
-            @if ($skill->id)
+            @if ($project->id)
                 Edit
             @else
                 Create

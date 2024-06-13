@@ -16,11 +16,11 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $this->user = $request->user();
-        // $user = $request->user();
         return $this->render($request, function ($request) {
             $skills = $this->user->skill()->limit(5)->get();
-            $projects = Project::limit(5)->get();
-            return view("pages.admin", compact('skills', 'projects'))->render();
+            $projects = $this->user->project()->limit(5)->get();
+            $more = true;
+            return view("pages.admin", compact('skills', 'projects', "more"))->render();
         });
     }
 }

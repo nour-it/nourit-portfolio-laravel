@@ -35,4 +35,8 @@
     </tbody>
 </table>
 
-<a href="{{ route('skills.create') }}" class="btn right" style="margin-top: 20px">Add new</a>
+@if ($more && $more != false)
+    <a href="{{ route('skills.index') }}" class="btn right" style="margin-top: 20px">More</a>
+@else
+    <a href="{{ route('skills.create') }}" class="btn right" style="margin-top: 20px">New</a>
+@endif

@@ -12,7 +12,7 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $default = function ($request) {
-            $projects = Project::paginate(15);
+            $projects = Project::where(["delete_at" => NULL])->paginate(15);
             return view("pages.projects", compact('projects'))->render();
         };
         return $this->render($request, $default);
@@ -21,7 +21,7 @@ class ProjectController extends Controller
     public function show(Request $request, int $project)
     {
         $default = function ($request) use ($project){
-            $projects = Project::paginate(15);
+            $projects = Project::where(["delete_at" => NULL])->paginate(15);
             $project = Project::findOrFail($project);
             return view("pages.projects", compact('projects', 'project'))->render();
         };

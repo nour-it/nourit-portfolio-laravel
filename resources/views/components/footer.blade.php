@@ -2,9 +2,19 @@
     <div class="logo">Nour<span>It</span></div>
     <nav>
         <ul>
-            <li class="h2"><a href="/#about">About</a></li>
-            <li class="h2"><a href="/projects">Projects</a></li>
-            <li class="h2"><a href="/support">Services</a></li>
+            <li class="h2">
+                <a href="/#about">About</a>
+            </li>
+            <li class="h2">
+                @if ($username)
+                    <a href="{{ route("user.project.page.index", ["user" => $username]) }}">Projects</a>
+                @else
+                    <a href="/projects">Projects</a>
+                @endif
+            </li>
+            <li class="h2">
+                <a href="/support">Services</a>
+            </li>
         </ul>
         <ul>
             <li><a href="https://www.facebook.com/nourxxIt/"><img src={{ url('assets/img/social/Facebook.svg') }}
