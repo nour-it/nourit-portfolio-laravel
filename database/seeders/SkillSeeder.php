@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Skill;
 use App\Models\SkillCategory;
 use App\Models\User;
@@ -36,9 +37,7 @@ class SkillSeeder extends Seeder
             ['Frontend', 'Backend'],
             fn ($category) => [
                 'name' => $category,
-                'add_at' => new DateTime(),
-                'delete_at' => NULL,
-                'description' => '',
+                "type" => Skill::class,
             ]
         );
         $this->skills = Arr::map(
@@ -55,9 +54,6 @@ class SkillSeeder extends Seeder
             ],
             fn ($skill) => [
                 'name' => $skill[0],
-                'add_at' => new DateTime(),
-                'delete_at' => NULL,
-                'description' => '',
                 "skill_category_id" => $skill[1]
             ]
         );
@@ -72,8 +68,12 @@ class SkillSeeder extends Seeder
         User::find(1)->skill()->sync([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
         DB::table('images')->insert($this->images);
-        SkillCategory::insert($this->categories);
-        Skill::insert($this->skills);
+        Category::insert($this->categories);
+        foreach($this->skills as $skill) {
+            $tmp = Skill::create(['name' => $skill['name']]);
+            $c = Category::find($skill['skill_category_id']);
+            $c->skill()->attach($tmp);
+        }
         DB::table('imageables')->insert(Arr::map([
             [1, 3],
             [2, 14],

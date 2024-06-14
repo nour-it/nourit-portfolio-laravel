@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Project::class);
     }
+
+    public function isValidate() : bool
+    {
+        return null == $this->confirmation_token;
+    }
 }

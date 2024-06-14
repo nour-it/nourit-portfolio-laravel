@@ -22,12 +22,14 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                => 'required',
-            'project_category_id' => "required|integer",
-            'add_at'              => 'date|nullable',
-            'delete_at'           => 'date|nullable',
-            'description'         => 'string|nullable',
-            "skill_id"            => "integer|nullable"
+            'name'        => 'required',
+            'category_id' => "required|integer",
+            'add_at'      => 'date|nullable',
+            'create_at'   => 'date|nullable',
+            'end_at'      => 'date|nullable',
+            'delete_at'   => 'date|nullable',
+            'description' => 'string|nullable',
+            "skill_id"    => "integer|nullable",
         ];
     }
 }

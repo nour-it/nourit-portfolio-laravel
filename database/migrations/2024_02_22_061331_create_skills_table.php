@@ -15,26 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string("path");
         });
-        Schema::create('skill_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string("name");
-            $table->dateTime("add_at");
-            $table->dateTime("delete_at")->nullable();
-            $table->text("description")->nullable();
-        });
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->dateTime("add_at");
+            $table->dateTime("create_at")->nullable();
             $table->dateTime("delete_at")->nullable();
             $table->text("description")->nullable();
-            $table->foreignid("skill_category_id")->nullable()->references("id")->on("skill_categories");
-        });
-        Schema::create('image_skill', function (Blueprint $table) {
-            $table->foreignid("image_id")->nullable()->references("id")->on("images")->nullOnDelete();
-            $table->foreignid("skill_id")->nullable()->references("id")->on("skills")->nullOnDelete();
-            $table->dateTime("upload_at")->default(now());
-            $table->dateTime("delete_at")->nullable();
         });
     }
 

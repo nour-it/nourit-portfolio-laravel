@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Project;
-use App\Models\ProjectCategory;
 use DateTime;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -33,9 +33,7 @@ class ProjectSeeder extends Seeder
             ['web', 'android', 'ios'],
             fn ($category) => [
                 'name' => $category,
-                'add_at' => new DateTime(),
-                'delete_at' => NULL,
-                'description' => '',
+                'type' => Project::class,
             ]
         );
         $this->projects = Arr::map(
@@ -44,14 +42,11 @@ class ProjectSeeder extends Seeder
             ],
             fn ($project) => [
                 'name' => $project[0],
-                'add_at' => new DateTime(),
-                'delete_at' => NULL,
-                'description' => '',
                 "project_category_id" => $project[1],
                 "user_id" => 1
             ]
         );
-        if(app()->environment() == "local") {
+        if (app()->environment() == "local") {
             Schema::disableForeignKeyConstraints();
             // DB::table('images')->truncate();
             // DB::table('image_project')->truncate();
@@ -59,8 +54,17 @@ class ProjectSeeder extends Seeder
         }
 
         DB::table('images')->insert($this->images);
-        ProjectCategory::insert($this->categories);
-        Project::insert($this->projects);
+        Category::insert($this->categories);
+        foreach ($this->projects as $project) {
+            $tmp = Project::create(
+                [
+                    'name' => $project['name'],
+                    "user_id" => 1
+                ]
+            );
+            $c = Category::find($project['project_category_id']);
+            $c->project()->attach($tmp);
+        }
         DB::table('imageables')->insert(Arr::map([
             [1, 21],
             [1, 18],

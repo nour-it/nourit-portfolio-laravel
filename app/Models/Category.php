@@ -4,10 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Project extends Model
+class Category extends Model
 {
     use HasFactory;
 
@@ -15,6 +14,7 @@ class Project extends Model
 
     protected $with = ["images"];
 
+    public $fillable = ['name', 'icon', 'delete_at', 'description', 'update_at', 'create_at'];
 
     public function images(): BelongsToMany
     {
@@ -23,16 +23,11 @@ class Project extends Model
 
     public function skill()
     {
-        return $this->morphToMany(Skill::class, "skillable");
+        return $this->morphedByMany(Skill::class, "categorisable");
     }
 
-    public function user(): BelongsTo
+    public function project()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function category()
-    {
-        return $this->morphToMany(Category::class, "categorisable");
+        return $this->morphedByMany(Project::class, "categorisable");
     }
 }

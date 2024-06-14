@@ -22,10 +22,10 @@ class StoreSkillRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'              => 'required',
-            'skill_category_id' => "required|integer",
-            'add_at'            => 'date|nullable',
-            'delete_at'         => 'date|nullable',
+            'name'        => 'required',
+            'category_id' => "required|integer",
+            'create_at'      => 'date|nullable',
+            'delete_at'   => 'date|nullable',
         ];
     }
 }

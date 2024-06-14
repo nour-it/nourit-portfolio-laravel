@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("icon")->nullable();
+            $table->string("type");
             $table->text("description")->nullable();
             $table->dateTime("create_at")->nullable();
             $table->dateTime("update_at")->nullable();
@@ -29,8 +29,6 @@ return new class extends Migration
             $table->foreignid("categorisable_id");
             $table->string("categorisable_type");
             $table->dateTime("add_at")->nullable();
-            $table->dateTime("update_at")->nullable();
-            $table->dateTime("remove_at")->nullable();
         });
     }
 

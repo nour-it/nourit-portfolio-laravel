@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('skillables', function (Blueprint $table) {
             $table->id();
-            $table->foreignid("skill_id")->nullable()->references("id")->on("skills");
+            $table->foreignid("skill_id")->nullable()->references("id")->on("skills")->nullOnDelete();
             $table->foreignid("skillable_id");
             $table->string("skillable_type");
             $table->dateTime("add_at")->nullable();
-            $table->dateTime("update_at")->nullable();
+            $table->dateTime("restaure_at")->nullable();
             $table->dateTime("delete_at")->nullable();
         });
 

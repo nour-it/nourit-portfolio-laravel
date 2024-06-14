@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Skill extends Model
 {
@@ -14,20 +17,22 @@ class Skill extends Model
 
     public $timestamps = false;
 
-    protected $with = ['skillCategory', "images"];
+    protected $with = ["images"];
 
     public $fillable = ['name', 'description', 'skill_category_id', 'add_at'];
 
-    public function skillCategory(): BelongsTo
+    public function images(): BelongsToMany
     {
-        return $this->belongsTo(SkillCategory::class);
-    }
-
-    public function images(): BelongsToMany {
         return $this->morphToMany(Image::class, "imageable");
     }
 
-    public function user(){
+    public function user(): MorphOne
+    {
         return $this->morphOne(Skill::class, "skillable");
+    }
+
+    public function category()
+    {
+        return $this->morphToMany(Category::class, "categorisable");
     }
 }

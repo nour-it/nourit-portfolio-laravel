@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class SkillCategory extends Model
+class Role extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
-    public function skills(): HasMany
+    protected $with = ['user'];
+
+    public $fillable = ['title'];
+
+    public function user() 
     {
-        return $this->hasMany(Skill::class);
+        return $this->belongsToMany(User::class);
     }
 }

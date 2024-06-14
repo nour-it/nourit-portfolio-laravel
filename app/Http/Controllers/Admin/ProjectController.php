@@ -63,6 +63,7 @@ class ProjectController extends Controller
      */
     public function update(StoreProjectRequest $request, Project $project)
     {
+        
         UpdateProjectEvent::dispatch($project, $request);
         $this->redirect = redirect(route("projects.index"));
         return $this->redirect->with("success", "project updated successfully");

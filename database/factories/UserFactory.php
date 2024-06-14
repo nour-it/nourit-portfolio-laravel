@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -19,7 +20,7 @@ class UserFactory extends Factory
         return [
             "username" => fake()->text(20),
             "email" => fake()->email(),
-            "password" => fake()->text(20),
+            "password" => Hash::make('0000'),
             "token" => fake()->text(20),
             "confirmation_token" => fake()->text(20),
             "google_id" => fake()->text(20),
