@@ -21,8 +21,8 @@ class ServiceTest extends TestCase
         $created_file = storage_path("app/upload/" . $user->id . "/services/demo_service");
 
         $response = $this->post(route("services.store"), [
-            'title'        => "demo_service",
-            'image'        => UploadedFile::fake()->image("demo.png"),
+            'title'       => "demo_service",
+            'image'       => UploadedFile::fake()->image("demo.png"),
             "category_id" => Category::where('type', Service::class)->first()->id
         ]);
 

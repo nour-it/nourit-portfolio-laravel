@@ -4,38 +4,43 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Service;
 use App\Models\User;
 use App\Repository\ProjectRepository;
+use App\Repository\ServiceRepository;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class ServiceController extends Controller
 {
 
-    public function __construct(private ProjectRepository $projectRepository) {
+    public function __construct(private ServiceRepository $serviceRepository)
+    {
     }
-    
+
     public function index(Request $request, string $user)
     {
         $user = User::where("username", $user)->first();
         if (NULL === $user) {
-            $this->redirect = redirect(route("project.page.index"), 301);
+            $this->redirect = redirect(route('service.page.index'), 301);
             return $this->redirect;
         }
         $default = function ($request) use ($user) {
-            $projects = $this->projectRepository->findPublicProject();
+            $projects = $this->serviceRepository->findPublicServices();
             $username = $user->username;
             return view("user.projects", compact('projects', "username"))->render();
         };
         return $this->render($request, $default);
     }
 
-    public function show(Request $request, int $project)
+    public function show(Request $request, int $service)
     {
-        $default = function ($request) use ($project) {
-            $projects = $this->projectRepository->findPublicProject();
-            $project = Project::findOrFail($project);
-            return view("user.projects", compact('projects', 'project'))->render();
+        $default = function ($request) use ($service) {
+            $services = $this->serviceRepository->findPublicServices();
+            $service = Service::findOrFail($service);
+            return view("user.services", compact('services', 'service'))->render();
         };
         return $this->render($request, $default);
     }
+
+	
 }

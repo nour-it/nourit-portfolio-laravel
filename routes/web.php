@@ -10,13 +10,19 @@ use App\Http\Controllers\Page\HomeController;
 use App\Http\Controllers\Page\LoginController;
 use App\Http\Controllers\Page\ProjectController;
 use App\Http\Controllers\Page\RegisterController;
+use App\Http\Controllers\Page\ServiceController;
 use App\Http\Controllers\User\HomeController as UserHomeController;
 use App\Http\Controllers\User\ProjectController as UserProjectController;
+use App\Http\Controllers\User\ServiceController as UserServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/home',                 [HomeController::class, "index"])->name('home');
+
 Route::get('/projects',             [ProjectController::class, "index"])->name('project.page.index');
 Route::get('/projects/{project}',   [ProjectController::class, "show"])->name('project.page.show');
+
+Route::get('/services',             [ServiceController::class, "index"])->name('service.page.index');
+Route::get('/services/{service}',   [ServiceController::class, "show"])->name('service.page.show');
 
 Route::prefix("auth")
     ->group(function () {
@@ -42,13 +48,12 @@ Route::prefix('dashboard')
         Route::resource("/qualifications", AdminQualificationController::class);
     });
 
-
 Route::prefix('{user}')
     ->group(function () {
         Route::get('/',                     [UserHomeController::class, "index"])->name('user.home');
         Route::get('/projects',             [UserProjectController::class, "index"])->name('user.project.page.index');
+        Route::get('/services',             [UserServiceController::class, "index"])->name('user.service.page.index');
     });
-
 
 Route::prefix("mail")
     ->group(function () {

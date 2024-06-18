@@ -22,7 +22,10 @@
                     <a href="{{ route('projects.index') }}">Projects</a>
                 </li>
                 <li class="text-black-1  @if (request()->is('dashboard/skills')) {{ 'active' }} @endif">
-                    <a href="{{ route('skills.index') }}">Skill</a>
+                    <a href="{{ route('skills.index') }}">Skills</a>
+                </li>
+                <li class="text-black-1  @if (request()->is('dashboard/services')) {{ 'active' }} @endif">
+                    <a href="{{ route('services.index') }}">Services</a>
                 </li>
             </ul>
         </aside>

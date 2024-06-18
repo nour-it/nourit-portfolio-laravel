@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Events\Admin\UpdateServiceEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreServiceRequest;
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\Service;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -18,8 +20,8 @@ class ServiceController extends Controller
     public function index(Request $request)
     {
         return $this->render($request, function ($request) {
-            $projects = Project::paginate(15);
-            return view("pages.admin", compact('projects'))->render();
+            $services = Service::paginate(15);
+            return view("pages.admin", compact('services'))->render();
         });
     }
 
@@ -29,9 +31,9 @@ class ServiceController extends Controller
     public function create(Request $request)
     {
         return $this->render($request, function ($request) {
-            $project = new Project();
-            $categories = Category::where('type', Project::class)->get();
-            return view("project.edit", compact('project', "categories"))->render();
+            $service = new Service();
+            $categories = Category::where('type', Service::class)->get();
+            return view("service.edit", compact('service', "categories"))->render();
         });
     }
 
@@ -42,40 +44,40 @@ class ServiceController extends Controller
     {
         $service = new Service();
         UpdateServiceEvent::dispatch($service, $request);
-        $this->redirect = redirect(route("projects.index"));
+        $this->redirect = redirect(route("services.index"));
         return $this->redirect->with("success", "project add successfully");
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, int $project)
+    public function edit(Request $request, int $service)
     {
-        return $this->render($request, function ($request) use ($project) {
-            $project = Project::findOrFail($project);
-            $categories = Category::where('type', Project::class)->get();
-            return view("project.edit", compact('project', 'categories'))->render();
+        return $this->render($request, function ($request) use ($service) {
+            $service = Service::findOrFail($service);
+            $categories = Category::where('type', Service::class)->get();
+            return view("service.edit", compact('service', 'categories'))->render();
         });
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreProjectRequest $request, Project $project)
+    public function update(StoreServiceRequest $request, Service $service)
     {
         
-        UpdateProjectEvent::dispatch($project, $request);
-        $this->redirect = redirect(route("projects.index"));
-        return $this->redirect->with("success", "project updated successfully");
+        UpdateServiceEvent::dispatch($service, $request);
+        $this->redirect = redirect(route("services.index"));
+        return $this->redirect->with("success", "service updated successfully");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(service $service)
     {
-        $project->delete_at = new DateTime();
-        $project->save();
-        return redirect(route("projects.index"))->with("success", "project delete successfully");
+        $service->desable_at = new DateTime();
+        $service->save();
+        return redirect(route("services.index"))->with("success", "service delete successfully");
     }
 }

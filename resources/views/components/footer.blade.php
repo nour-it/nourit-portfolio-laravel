@@ -7,13 +7,17 @@
             </li>
             <li class="h2">
                 @if ($username)
-                    <a href="{{ route("user.project.page.index", ["user" => $username]) }}">Projects</a>
+                    <a href="{{ route('user.project.page.index', ['user' => $username]) }}">Projects</a>
                 @else
                     <a href="/projects">Projects</a>
                 @endif
             </li>
             <li class="h2">
-                <a href="/support">Services</a>
+                @if ($username)
+                    <a href="{{ route('user.service.page.index', ['user' => $username]) }}">Services</a>
+                @else
+                    <a href="/services">Services</a>
+                @endif
             </li>
         </ul>
         <ul>
