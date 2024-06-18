@@ -5,5 +5,5 @@
         @endforeach
     </div>
     <p class="text-black-3">{{ $skill->name }}</p>
-    <span class="text-gray-3">{{ $skill->skillCategory->name }}</span>
+    <span class="text-gray-3">{{ $skill->category[0]->name }}</span>
 </div>

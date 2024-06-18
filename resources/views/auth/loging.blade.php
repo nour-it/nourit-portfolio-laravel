@@ -20,10 +20,16 @@
             <div><img src="{{ url('assets/img/logo512.png') }}" alt="user" height="100"></div>
             <form action="{{ route('login.attempt') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <input name="email" id="email" class="border rounded" placeholder="user name or email"
-                    value="">
-                <input type="password" name="password" id="password" class="border rounded" placeholder="password"
-                    value="">
+                @includeIf('components.input', [
+                    'name' => 'email',
+                    'value' => '',
+                    'holder' => 'user name or email',
+                ])
+                @includeIf('components.input', [
+                    'name' => 'password',
+                    'value' => '',
+                    'holder' => 'password',
+                ])
                 <div class="center">
                     <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
                         Login
@@ -36,7 +42,8 @@
                         </div>
                     </a>
                     <p>
-                        If you have an acount you can create one <a href="{{ route('register') }}" style="color: var(--color-red)">here</a>
+                        If you have an acount you can create one <a href="{{ route('register') }}"
+                            style="color: var(--color-red)">here</a>
                     </p>
                 </div>
         </div>

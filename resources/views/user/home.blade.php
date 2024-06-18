@@ -14,5 +14,5 @@
 @includeIf('section.service')
 @includeIf('skill.index', ['skills' => $skills])
 @includeIf('section.blog')
-@includeIf('section.contact')
+@includeIf('section.contact', ['username' => $username ?? ""])
 @endsection

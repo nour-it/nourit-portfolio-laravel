@@ -11,6 +11,19 @@ use Tests\TestCase;
 class ProjectTest extends TestCase
 {
 
+    public function test_create_project_without_logged_user()
+    {
+    }
+
+
+    public function test_create_project_with_logged_user()
+    {
+    }
+
+    public function test_create_project_with_invalide_input_data()
+    {
+    }
+
     public function test_add_project_skill(): void
     {
         $project = Project::find(1);

@@ -8,6 +8,8 @@ use App\Mail\ContactMail;
 use App\Models\Skill;
 use App\Models\User;
 use App\Repository\ProjectRepository;
+use App\Repository\SkillRepository;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
@@ -15,7 +17,11 @@ use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
 
-
+    public function __construct(
+        private SkillRepository $skillRepository,
+        private UserRepository $userRepository
+    ) {
+    }
 
 
     public function index(Request $request, string $user)
@@ -26,9 +32,7 @@ class HomeController extends Controller
             return $this->redirect;
         }
         $default = function ($request) use ($user) {
-            $skills = $user->skill()->where(['skillables.delete_at' => NULL])->with("skillCategory", "images")->paginate(15);
-            
-            ViewSkillPageEvent::dispatch($request->ip());
+            $skills = $this->skillRepository->getUserSkills($user);
             $header = "home-header";
             $username = $user->username;
             return view("user.home", compact("skills", "header", "username"))->render();
@@ -36,10 +40,11 @@ class HomeController extends Controller
         return $this->render($request, $default);
     }
 
-    public function mail(Request $request)
+    public function mail(Request $request, string $user)
     {
+        $receiver = $this->userRepository->findUserByUsernameOrMail($user);
         $message = $request->only('name', 'email', 'project');
-        Mail::to('reply.nourit@gmail.com')->send(new ContactMail($message));
-        return redirect(route("user.home"))->with('success', 'Mail Send Successfully');
+        Mail::to($receiver)->send(new ContactMail($message));
+        return redirect(route("user.home", ['user' => $user]))->with('success', 'Mail Send Successfully');
     }
 }

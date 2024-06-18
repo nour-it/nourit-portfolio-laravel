@@ -35,6 +35,6 @@ class User extends Authenticatable
 
     public function isValidate() : bool
     {
-        return null == $this->confirmation_token;
+        return null == $this->confirmation_token && NULL !== $this->validate_at;
     }
 }

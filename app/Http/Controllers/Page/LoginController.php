@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Page;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
@@ -23,19 +24,12 @@ class LoginController extends Controller
         });
     }
 
-    public function attempt(Request $request)
+    public function attempt(LoginRequest $request)
     {
-        // $user = User::orWhere([
-        //     'email' => $request->input('email'),
-        //     'username' => $request->input('email'),
-        // ])
-        //     ->where(['confirmation_token' => NULL])
-        //     ->first();
-
-        $user = $this->userRepository->findUserByUsernameOrMail($request->input("username"), $request->input("email"));
+        $user = $this->userRepository->findUserByUsernameOrMail($request->input("email"), $request->input("email"));
 
         if (null == $user) {
-            return redirect(route("login"), 302)->with("error", "Invalid user");
+            return redirect(route("login"), 302)->with("username", "Invalid user");
         }
         if ($user->isValidate() && Hash::check($request->input('password'), $user->password)) {
             Auth::login($user);

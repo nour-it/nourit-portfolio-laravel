@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\Admin\UpdateSkillEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSkillRequest;
+use App\Models\Category;
 use App\Models\Skill;
 use App\Models\SkillCategory;
 use DateTime;
@@ -32,7 +33,7 @@ class SkillController extends Controller
     {
         return $this->render($request, function ($request) {
             $skill = new Skill();
-            $categories = SkillCategory::all();
+            $categories = Category::where('type', Skill::class)->get();
             return view("skill.edit", compact('skill', "categories"))->render();
         });
     }
@@ -59,7 +60,7 @@ class SkillController extends Controller
     {
         return $this->render($request, function ($request) use ($skill) {
             $skill = Skill::findOrFail($skill);
-            $categories = SkillCategory::all();
+            $categories = Category::where('type', Skill::class)->get();
             return view("skill.edit", compact('skill', 'categories'))->render();
         });
     }

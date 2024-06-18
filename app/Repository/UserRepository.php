@@ -15,7 +15,7 @@ class UserRepository
     {
     }
 
-    public function findUserByUsernameOrMail(?string $username, ?string  $email): User | null
+    public function findUserByUsernameOrMail(?string $username = '', ?string  $email = ""): User | null
     {
         return $this->user->orWhere([
             'username' => $username,

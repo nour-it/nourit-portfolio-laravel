@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\Admin\UpdateProjectEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use DateTime;
@@ -30,7 +31,7 @@ class ProjectController extends Controller
     {
         return $this->render($request, function ($request) {
             $project = new Project();
-            $categories = ProjectCategory::all();
+            $categories = Category::where('type', Project::class)->get();
             return view("project.edit", compact('project', "categories"))->render();
         });
     }
@@ -53,7 +54,7 @@ class ProjectController extends Controller
     {
         return $this->render($request, function ($request) use ($project) {
             $project = Project::findOrFail($project);
-            $categories = ProjectCategory::all();
+            $categories = Category::where('type', Project::class)->get();
             return view("project.edit", compact('project', 'categories'))->render();
         });
     }

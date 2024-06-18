@@ -6,6 +6,8 @@ use App\Events\ViewSkillPageEvent;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
 use App\Models\Skill;
+use App\Models\User;
+use App\Repository\SkillRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -13,10 +15,17 @@ use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
+
+    public function __construct(
+        private SkillRepository $skillRepository,
+    ) {
+    }
+
+
     public function index(Request $request)
     {
         $default = function ($request) {
-            $skills = Skill::where(['delete_at' => NULL])->with("skillCategory", "images")->paginate(15);
+            $skills = $this->skillRepository->getAvailableSkills();
             ViewSkillPageEvent::dispatch($request->ip());
             $header = "home-header";
             return view("pages.home", compact("skills", "header"))->render();
@@ -27,7 +36,7 @@ class HomeController extends Controller
     public function mail(Request $request)
     {
         $message = $request->only('name', 'email', 'project');
-        Mail::to('reply.nourit@gmail.com')->send(new ContactMail($message));
+        Mail::to(User::first())->send(new ContactMail($message));
         return redirect(route("home"))->with('success', 'Mail Send Successfully');
     }
 }
