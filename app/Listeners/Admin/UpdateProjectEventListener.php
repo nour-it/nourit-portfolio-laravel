@@ -15,14 +15,15 @@ class UpdateProjectEventListener
     
     public function handle(object $event): void
     {
-        $this->project = $event->project;
-        $request = $event->request;
-        $this->project->name = $request->input("name");
+        $this->project              = $event->project;
+        $request                    = $event->request;
+        $this->user                 = $request->user();
+        
+        $this->project->name        = $request->input("name");
         $this->project->description = $request->input("description");
-        $this->project->add_at = $request->input("add_at", Carbon::now());
-        $this->project->delete_at = $request->input("delete_at");
-        $this->user = $request->user();
-        $this->project->user_id = $this->user->id;
+        $this->project->add_at      = $request->input("add_at", Carbon::now());
+        $this->project->delete_at   = $request->input("delete_at");
+        $this->project->user_id     = $this->user->id;
         $this->project->save();
 
         $this->project->category()->sync($request->input("category_id"));

@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Events\Admin\UpdateProjectEvent;
+use App\Events\Admin\UpdateServiceEvent;
 use App\Events\Admin\UpdateSkillEvent;
 use App\Events\ViewSkillPageEvent;
 use App\Listeners\Admin\UpdateProjectEventListener;
+use App\Listeners\Admin\UpdateServiceEventListener;
 use App\Listeners\Admin\UpdateSkillEventListener;
 use App\Listeners\ViewSkillPageListener;
 use Illuminate\Auth\Events\Registered;
@@ -33,6 +35,9 @@ class EventServiceProvider extends ServiceProvider
         UpdateProjectEvent::class => [
             UpdateProjectEventListener::class
         ],
+        UpdateServiceEvent::class => [
+            UpdateServiceEventListener::class
+        ]
     ];
 
     /**

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\Admin\QualificationController as AdminQualificationController;
+use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\Page\AdminController;
@@ -36,6 +38,8 @@ Route::prefix('dashboard')
         Route::get("/", [AdminController::class, "index"])->name("admin.home");
         Route::resource("/skills", AdminSkillController::class);
         Route::resource("/projects", AdminProjectController::class);
+        Route::resource("/services", AdminServiceController::class);
+        Route::resource("/qualifications", AdminQualificationController::class);
     });
 
 

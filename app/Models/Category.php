@@ -30,4 +30,15 @@ class Category extends Model
     {
         return $this->morphedByMany(Project::class, "categorisable");
     }
+
+
+    public function service()
+    {
+        return $this->morphedByMany(Service::class, "categorisable");
+    }
+
+    public function qualification()
+    {
+        return $this->morphedByMany(Qualification::class, "categorisable");
+    }
 }

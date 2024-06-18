@@ -9,12 +9,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
+use Psy\Command\HistoryCommand;
 
 class ResizeImageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    
+
     private string $uploadPath = "upload/";
 
     private array $dimensions = [
@@ -30,7 +31,11 @@ class ResizeImageJob implements ShouldQueue
      */
     public function __construct(public string $name, public ?string $folder)
     {
-        $this->input = storage_path('app/' . $this->folder . $this->name);
+        if (NULL !== $this->folder) {
+            $this->input = storage_path('app/' . $this->folder . $this->name);
+        } else {
+            $this->input = storage_path('app/' . $this->uploadPath . $this->name);
+        }
     }
 
     /**

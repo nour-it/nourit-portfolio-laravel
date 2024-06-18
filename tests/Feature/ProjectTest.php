@@ -35,7 +35,7 @@ class ProjectTest extends TestCase
             'category_id' => $project->category->first()->id,
             "skill_id"    => $skill->id
         ]);
-        $this->assertDatabaseCount("categorisables", 10);
+        $this->assertDatabaseCount("categorisables", 12);
         $response->assertStatus(302);
     }
 }
