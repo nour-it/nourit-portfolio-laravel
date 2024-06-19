@@ -17,8 +17,9 @@ class AdminController extends Controller
             $skills   = $this->user->skill()->limit(5)->get();
             $projects = $this->user->project()->limit(5)->get();
             $services = $this->user->service()->limit(5)->get();
+            $qualifications = $this->user->qualification()->limit(5)->get();
             $more     = true;
-            return view("pages.admin", compact('skills', 'projects', 'services', "more"))->render();
+            return view("pages.admin", compact('skills', 'projects', 'services', 'qualifications', "more"))->render();
         });
     }
 }

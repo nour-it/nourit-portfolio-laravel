@@ -20,7 +20,7 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         return $this->render($request, function ($request) {
-            return view('auth.loging');
+            return view('auth.loging')->render();
         });
     }
 
@@ -29,8 +29,9 @@ class LoginController extends Controller
         $user = $this->userRepository->findUserByUsernameOrMail($request->input("email"), $request->input("email"));
 
         if (null == $user) {
-            return redirect(route("login"), 302)->with("username", "Invalid user");
+            return redirect(route("login"), 302)->with("error", "user not found");
         }
+        
         if ($user->isValidate() && Hash::check($request->input('password'), $user->password)) {
             Auth::login($user);
             return redirect(route("admin.home"));

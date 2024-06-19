@@ -20,12 +20,19 @@
             <div><img src="{{ url('assets/img/logo512.png') }}" alt="user" height="100"></div>
             <form action="{{ route('register.new') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <input name="username" id="username" class="border rounded" placeholder="user name"
-                    value="">
-                <input name="email" id="email" class="border rounded" placeholder="email"
-                    value="">
-                <input type="password" name="password" id="password" class="border rounded" placeholder="password"
-                    value="">
+                @includeIf('components.input', [
+                    'name'   => 'username',
+                    'holder' => 'user name',
+                ])
+                @includeIf('components.input', [
+                    'name'   => 'email',
+                    'holder' => 'email',
+                ])
+                @includeIf('components.input', [
+                    'name'   => 'password',
+                    'holder' => 'password',
+                    'type'   => 'password'
+                ])
                 <div class="center">
                     <button type="submit" class="btn">
                         Register

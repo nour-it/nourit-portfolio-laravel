@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\Admin\UpdateQualificationEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQualificationRequest;
+use App\Models\Category;
 use App\Models\Project;
+use App\Models\Qualification;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -15,8 +20,8 @@ class QualificationController extends Controller
     public function index(Request $request)
     {
         return $this->render($request, function ($request) {
-            $projects = Project::paginate(15);
-            return view("pages.admin", compact('projects'))->render();
+            $qualifications = Qualification::paginate(15);
+            return view("pages.admin", compact('qualifications'))->render();
         });
     }
 
@@ -26,53 +31,52 @@ class QualificationController extends Controller
     public function create(Request $request)
     {
         return $this->render($request, function ($request) {
-            $project = new Project();
-            $categories = Category::where('type', Project::class)->get();
-            return view("project.edit", compact('project', "categories"))->render();
+            $qualification = new Qualification();
+            $categories = Category::where('type', Qualification::class)->get();
+            return view("qualification.edit", compact('qualification', "categories"))->render();
         });
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreQualificationRequest $request)
     {
-        $skill = new Project();
-        UpdateProjectEvent::dispatch($skill, $request);
-        $this->redirect = redirect(route("projects.index"));
-        return $this->redirect->with("success", "project add successfully");
+        $qualification = new Qualification();
+        UpdateQualificationEvent::dispatch($qualification, $request);
+        $this->redirect = redirect(route("qualifications.index"));
+        return $this->redirect->with("success", "qualification add successfully");
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, int $project)
+    public function edit(Request $request, int $qualification)
     {
-        return $this->render($request, function ($request) use ($project) {
-            $project = Project::findOrFail($project);
-            $categories = Category::where('type', Project::class)->get();
-            return view("project.edit", compact('project', 'categories'))->render();
+        return $this->render($request, function ($request) use ($qualification) {
+            $qualification = Qualification::findOrFail($qualification);
+            $categories = Category::where('type', Qualification::class)->get();
+            return view("qualification.edit", compact('qualification', 'categories'))->render();
         });
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreProjectRequest $request, Project $project)
+    public function update(StoreQualificationRequest $request, Qualification $qualification)
     {
-        
-        UpdateProjectEvent::dispatch($project, $request);
-        $this->redirect = redirect(route("projects.index"));
-        return $this->redirect->with("success", "project updated successfully");
+        UpdateQualificationEvent::dispatch($qualification, $request);
+        $this->redirect = redirect(route("qualifications.index"));
+        return $this->redirect->with("success", "qualification updated successfully");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(Qualification $qualification)
     {
-        $project->delete_at = new DateTime();
-        $project->save();
-        return redirect(route("projects.index"))->with("success", "project delete successfully");
+        $qualification->delete_at = new DateTime();
+        $qualification->save();
+        return redirect(route("qualifications.index"))->with("success", "qualification delete successfully");
     }
 }

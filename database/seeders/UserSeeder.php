@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,8 @@ class UserSeeder extends Seeder
         User::insert([
             "username" => env("MAIL_FROM_NAME"),
             "email" => env("MAIL_FROM_ADDRESS"),
-            "password" => Hash::make(env("PASSWORD"))
+            "password" => Hash::make(env("PASSWORD")),
+            "validate_at" => Carbon::now()
         ]);
 
         Role::insert([

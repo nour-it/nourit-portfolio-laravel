@@ -10,30 +10,30 @@
 
 @section('content')
     <div class="edit">
-        @if ($service->id)
-            <form action="{{ route('services.update', ['service' => $service->id]) }}" method="post"
+        @if ($qualification->id)
+            <form action="{{ route('qualifications.update', ['qualification' => $qualification->id]) }}" method="post"
                 enctype="multipart/form-data">
                 @method('PUT')
             @else
-                <form action="{{ route('services.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('qualifications.store') }}" method="post" enctype="multipart/form-data">
         @endif
         @csrf
         <div style="display: flex">
             <input type="file" name="image" id="image" multiple>
-            @foreach ($service->images as $image)
+            @foreach ($qualification->images as $image)
                 <img src="{{ url($image->path) }}" alt="" height="30" />
             @endforeach
         </div>
-        @includeIf('components.input', ['name' => 'title', 'value' => $service->title])
+        @includeIf('components.input', ['name' => 'name', 'value' => $qualification->name])
         @includeIf('components.select', [
             'options' => $categories,
-            'label' => 'service_category_id',
-            'value' => $service->service_category_id,
+            'label' => 'qualification_category_id',
+            'value' => $qualification->qualification_category_id,
             'field' => 'name',
         ])
-        @includeIf('components.text-editor', ['name' => 'description', 'value' => $service->description])
+        @includeIf('components.text-editor', ['name' => 'description', 'value' => $qualification->description])
         <button type="submit" class="btn">
-            @if ($service->id)
+            @if ($qualification->id)
                 Edit
             @else
                 Create

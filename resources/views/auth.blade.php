@@ -14,15 +14,13 @@
 </head>
 
 <body>
-    @yield('header')
-    <div class="container">
+    <div class="container" style="height: 70vh">
         @if(session('error'))
             <div>{{ session('error') }}</div>
         @endif
             
         @yield('content')
     </div>
-    @includeIf('components.footer', ['username' => $username ?? null])
 </body>
 
 </html>

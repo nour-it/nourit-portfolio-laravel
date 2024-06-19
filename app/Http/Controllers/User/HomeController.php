@@ -8,6 +8,7 @@ use App\Mail\ContactMail;
 use App\Models\Skill;
 use App\Models\User;
 use App\Repository\ProjectRepository;
+use App\Repository\QualificationRepository;
 use App\Repository\SkillRepository;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class HomeController extends Controller
 
     public function __construct(
         private SkillRepository $skillRepository,
-        private UserRepository $userRepository
+        private UserRepository $userRepository,
+        private QualificationRepository $qualificationRepository,
     ) {
     }
 
@@ -33,9 +35,11 @@ class HomeController extends Controller
         }
         $default = function ($request) use ($user) {
             $skills = $this->skillRepository->getUserSkills($user);
+            $qualifications = $this->qualificationRepository->getUserQualifications($user);
             $header = "home-header";
             $username = $user->username;
-            return view("user.home", compact("skills", "header", "username"))->render();
+            $this->view = view("user.home", compact("skills", "header", "username", "qualifications"));
+            return $this->view->render();
         };
         return $this->render($request, $default);
     }
@@ -45,6 +49,7 @@ class HomeController extends Controller
         $receiver = $this->userRepository->findUserByUsernameOrMail($user);
         $message = $request->only('name', 'email', 'project');
         Mail::to($receiver)->send(new ContactMail($message));
-        return redirect(route("user.home", ['user' => $user]))->with('success', 'Mail Send Successfully');
+        $this->redirect = redirect(route("user.home", ['user' => $user]));
+        return $this->redirect->with('success', 'Mail Send Successfully');
     }
 }

@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="description" content="Web site created using create-react-app" />
-    <title>Nour It Portfolio</title>
+    <title>{{ $username ?? "Nour It " }} | Portfolio</title>
     @vite(['resources/css/style.scss'])
 </head>
 
@@ -26,6 +26,9 @@
                 </li>
                 <li class="text-black-1  @if (request()->is('dashboard/services')) {{ 'active' }} @endif">
                     <a href="{{ route('services.index') }}">Services</a>
+                </li>
+                <li class="text-black-1  @if (request()->is('dashboard/qualifications')) {{ 'active' }} @endif">
+                    <a href="{{ route('qualifications.index') }}">Qualifications</a>
                 </li>
             </ul>
         </aside>

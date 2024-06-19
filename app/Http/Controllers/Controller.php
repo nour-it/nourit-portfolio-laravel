@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\View\View;
 
 class Controller extends BaseController
 {
@@ -20,7 +21,7 @@ class Controller extends BaseController
 
     protected User $user;
 
-    
+    protected View $view;
 
     public function render(Request $request, $render): Response|string
     {

@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Service::class);
     }
+
+    public function qualification(): HasMany
+    {
+        return $this->hasMany(Qualification::class);
+    }
 }

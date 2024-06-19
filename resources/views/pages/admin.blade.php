@@ -18,9 +18,17 @@
             <h2>Skills</h1>
                 @includeIf('skill.table', ['skills' => $skills, 'more' => $more ?? false])
             @endisset
-        @isset($services)
-            <h2>Services</h1>
-                @includeIf('service.table', ['services' => $services, 'more' => $more ?? false])
-            @endisset
+            @isset($services)
+                <h2>Services</h1>
+                    @includeIf('service.table', ['services' => $services, 'more' => $more ?? false])
+                @endisset
+
+                @isset($qualifications)
+                    <h2>Qualifications</h1>
+                        @includeIf('qualification.table', [
+                            'qualifications' => $qualifications,
+                            'more' => $more ?? false,
+                        ])
+                    @endisset
     </main>
 @endsection

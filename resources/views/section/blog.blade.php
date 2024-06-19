@@ -16,38 +16,24 @@
         </div>
     </div>
     <div>
-        <div class="line" style="height: 490px;"><span class="round0" style="opacity: 1;"></span><span class="round1"
-                style="opacity: 1;"></span><span class="round2" style="opacity: 1;"></span><span class="round3"
-                style="opacity: 1;"></span></div>
-        <div class="card-3 left">
-            <div>
-                <h2 class="h2">Scientific secondary school diploma</h2><a class="h2 gray-5" href="{{ url('assests#blog') }}">CPAP,
-                    Lome-Togo</a>
-            </div><span class="text-gray-2"><svg id="calendar" width="18" height="18">
-                    <use xlink:href="{{ url('assests/icon/sprite.svg#calendar') }}"></use>
-                </svg> 2017-2018</span>
+        <div class="line" style="height: {{ ($qualifications->count() - 1) * 163.33 }}px;">
+            @foreach ($qualifications as $key => $qualification)
+                <span class="round{{ $key }}" style="opacity: 1;">
+            @endforeach
         </div>
-        <div class="card-3 right">
-            <div>
-                <h2 class="h2">Company internship</h2><a class="h2 gray-5" href="{{ url('assests#blog') }}">Tixpros, Lome-Togo</a>
-            </div><span class="text-gray-2"><svg id="calendar" width="18" height="18">
-                    <use xlink:href="{{ url('assests/icon/sprite.svg#calendar') }}"></use>
-                </svg> Oct 2021 - Dec 2021</span>
-        </div>
-        <div class="card-3 left">
-            <div>
-                <h2 class="h2">Bachelor in Application Development</h2><a class="h2 gray-5"
-                    href="{{ url('assests#blog') }}">Lome-Togo</a>
-            </div><span class="text-gray-2"><svg id="calendar" width="18" height="18">
-                    <use xlink:href="{{ url('assests/icon/sprite.svg#calendar') }}"></use>
-                </svg> 2022-2023</span>
-        </div>
-        <div class="card-3 right">
-            <div>
-                <h2 class="h2">Freelance</h2><a class="h2 gray-5" href="{{ url('assests#blog') }}">Lome-Togo</a>
-            </div><span class="text-gray-2"><svg id="calendar" width="18" height="18">
-                    <use xlink:href="{{ url('assests/icon/sprite.svg#calendar') }}"></use>
-                </svg> 2022 - now</span>
-        </div>
+        @foreach ($qualifications as $qualification)
+            <div class="card-3 {{ $qualification->category->first()->name == 'Education' ? 'left' : 'right' }}">
+                <div>
+                    <h2 class="h2">Scientific secondary school diploma</h2>
+                    <a class="h2 gray-5" href="{{ url('assests#blog') }}">CPAP, Lome-Togo</a>
+                </div>
+                <span class="text-gray-2">
+                    <svg id="calendar" width="18" height="18">
+                        <use xlink:href="{{ url('assests/icon/sprite.svg#calendar') }}"></use>
+                    </svg>
+                    2017-2018
+                </span>
+            </div>
+        @endforeach
     </div>
 </section>

@@ -44,25 +44,4 @@
         </button>
         </form>
     </div>
-    <script>
-        window.addEventListener("load", function() {
-            $iconField = document.querySelector("input#icon")
-            if ($iconField) {
-                $iconField.addEventListener("change", function(e) {
-                    e.target.parentElement.querySelectorAll("img").forEach(img => {
-                        e.target.parentElement.removeChild(img)
-                    });
-                    const files = e.target.files;
-                    for (let file in files) {
-                        if (file !== 'item' && file !== 'length') {
-                            let $img = document.createElement("img")
-                            $img.src = URL.createObjectURL(files[file]);
-                            $img.height = 50;
-                            e.target.parentElement.appendChild($img);
-                        }
-                    }
-                })
-            }
-        })
-    </script>
 @endsection

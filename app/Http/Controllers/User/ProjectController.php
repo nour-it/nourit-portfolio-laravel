@@ -7,6 +7,8 @@ use App\Models\Project;
 use App\Models\User;
 use App\Repository\ProjectRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\Factory;
 
 class ProjectController extends Controller
 {
@@ -21,7 +23,7 @@ class ProjectController extends Controller
             $this->redirect = redirect(route("project.page.index"), 301);
             return $this->redirect;
         }
-        $default = function ($request) use ($user) {
+        $default = function ($request) use ($user): string {
             $projects = $this->projectRepository->findPublicProject();
             $username = $user->username;
             return view("user.projects", compact('projects', "username"))->render();
