@@ -27,3 +27,5 @@ var/
 public/uplaod
 public/assets
 
+*.old
+

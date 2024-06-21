@@ -18,14 +18,14 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            "username" => fake()->text(20),
-            "email" => fake()->email(),
-            "password" => Hash::make('0000'),
-            "token" => fake()->text(20),
-            "confirmation_token" => fake()->text(20),
-            "google_id" => fake()->text(20),
-            "google_token" => fake()->text(20),
-            "google_refresh_token" => fake()->text(20)
+            "username"             => fake()->text(20),
+            "email"                => fake()->email(),
+            "password"             => Hash::make('0000'),
+            "token"                => null,
+            "confirmation_token"   => null,
+            "google_id"            => null,
+            "google_token"         => null,
+            "google_refresh_token" => null
         ];
     }
 }

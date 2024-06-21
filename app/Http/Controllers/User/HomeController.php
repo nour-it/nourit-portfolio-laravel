@@ -34,8 +34,8 @@ class HomeController extends Controller
             return $this->redirect;
         }
         $default = function ($request) use ($user) {
-            $skills = $this->skillRepository->getUserSkills($user);
-            $qualifications = $this->qualificationRepository->getUserQualifications($user);
+            $skills = $this->skillRepository->getUserSkills($user, 9);
+            $qualifications = $this->qualificationRepository->getUserQualifications($user, 4);
             $header = "home-header";
             $username = $user->username;
             $this->view = view("user.home", compact("skills", "header", "username", "qualifications"));

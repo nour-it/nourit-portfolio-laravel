@@ -12,12 +12,12 @@ class SkillRepository
     {
     }
 
-    public function getUserSkills(User $user)
+    public function getUserSkills(User $user, ?int $limit = 15)
     {
         return $user->skill()
             ->where(['skillables.delete_at' => NULL])
             ->with(["category", "images"])
-            ->paginate(15);
+            ->paginate($limit);
     }
 
     public function getAvailableSkills()

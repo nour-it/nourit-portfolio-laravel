@@ -15,7 +15,7 @@ class UpdateQualificationEventListener
 {
     private Qualification $qualification;
 
-    private array $services;
+    private array $qualifications;
 
     private Request $request;
 

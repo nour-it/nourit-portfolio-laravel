@@ -7,7 +7,9 @@
 
 @section('content')
     <div class="edit center" style="margin-top: 0">
-        <div><img src="{{ url('assets/img/logo512.png') }}" alt="user" height="100"></div>
+        <div>
+            <img src="{{ url('assets/img/logo512.png') }}" alt="user" height="100">
+        </div>
         <form action="{{ route('login.attempt') }}" method="post" enctype="multipart/form-data">
             @csrf
             @includeIf('components.input', [
@@ -35,4 +37,6 @@
                         style="color: var(--color-red)">here</a>
                 </p>
             </div>
-        @endsection
+        </form>
+    </div>
+@endsection

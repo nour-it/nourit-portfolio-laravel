@@ -12,10 +12,10 @@ class QualificationRepository
     {
     }
 
-    public function getUserQualifications(User $user)
+    public function getUserQualifications(User $user, ?int $limit = 15)
     {
         return $user->qualification()
-            ->paginate(15);
+            ->paginate($limit);
     }
 
     public function getAvailableQualifications()

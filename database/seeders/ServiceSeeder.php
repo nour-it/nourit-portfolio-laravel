@@ -60,7 +60,7 @@ class ServiceSeeder extends Seeder
 
         // l'id des images pour les services commence par 20
         DB::table('imageables')->insert(Arr::map([
-            [1, 20],
+            [1, 19],
         ], fn ($service_image) => [
             'imageable_id' => $service_image[0],
             'imageable_type' => Service::class,

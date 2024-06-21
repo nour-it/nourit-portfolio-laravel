@@ -26,7 +26,7 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         $this->images = Arr::map(
-            Storage::allFiles("assets/img/project/fruitnourmatching"),
+            Storage::files("assets/img/project/fruitnourmatching"),
             fn ($image) => ['path' => $image]
         );
         $this->categories = Arr::map(
@@ -46,12 +46,6 @@ class ProjectSeeder extends Seeder
                 "user_id" => 1
             ]
         );
-        if (app()->environment() == "local") {
-            Schema::disableForeignKeyConstraints();
-            // DB::table('images')->truncate();
-            // DB::table('image_project')->truncate();
-            DB::table('projects')->truncate();
-        }
 
         DB::table('images')->insert($this->images);
         Category::insert($this->categories);
@@ -62,14 +56,10 @@ class ProjectSeeder extends Seeder
                     "user_id" => 1
                 ]
             );
-            $c = Category::find($project['project_category_id']);
-            $c->project()->attach($tmp);
+            $tmp->category()->attach($project['project_category_id']);
         }
         DB::table('imageables')->insert(Arr::map([
-            [1, 21],
             [1, 18],
-            [1, 19],
-            [1, 20],
         ], fn ($skill_image) => [
             'imageable_id' => $skill_image[0],
             'imageable_type' => Project::class,

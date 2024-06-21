@@ -12,7 +12,7 @@ class Qualification extends Model
 
     public $timestamps = false;
 
-    protected $with = ["images", "category"];
+    protected $with = ["images", "category", "address"];
 
     public $fillable = [
         "name",
@@ -33,5 +33,10 @@ class Qualification extends Model
     public function category()
     {
         return $this->morphToMany(Category::class, "categorisable");
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
     }
 }

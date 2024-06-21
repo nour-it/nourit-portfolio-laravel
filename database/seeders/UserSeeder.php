@@ -17,22 +17,36 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::insert([
-            "username" => env("MAIL_FROM_NAME"),
-            "email" => env("MAIL_FROM_ADDRESS"),
-            "password" => Hash::make(env("PASSWORD")),
-            "validate_at" => Carbon::now()
+            "username"    => env("MAIL_FROM_NAME"),
+            "email"       => env("MAIL_FROM_ADDRESS"),
+            "password"    => Hash::make(env("PASSWORD")),
+            "validate_at" => Carbon::now(),
+            'bio'         => "<div>
+                        <p>Hi, I'm Nouroudine, a web developer with over fourth years of experience in the industry. I specialize in
+                            front-end development and have a strong foundation in HTML, CSS, and JavaScript. I am also proficient in
+                            popular web development framework like React.</p>
+                        <p>My passion for web development extends beyond my professional work. I am an active contributor to several
+                            open-source projects and enjoy experimenting with new technologies. In my free time, you can find me
+                            attending hackathons or working on personal projects to hone my skills.</p>
+                        <p>I'm excited to join your team and contribute to building innovative and impactful web applications.</p>
+                    </div>",
+
+            'about'     => "<p style=\"opacity: 1;\">In my previous role, I was responsible for building and maintaining a suite of web
+                applications for a large
+                e-commerce company. I worked closely with designers and product managers to ensure that the applications
+                were user-friendly and met the needs of our customers. I also collaborated with back-end developers to
+                integrate our front-end code with the company's API.</p>"
         ]);
 
         Role::insert([
-            'title' => 'ADMIN',
-            'title' => 'USER',
+            ['title' => 'ADMIN'],
+            ['title' => 'USER']
         ]);
 
         Role::find(1)->user()->attach(User::find(1));
-        
-        if(app()->environment() != "production") {
+
+        if (app()->environment() != "production") {
             User::factory()->count(3)->create();
         }
-   
     }
-} 
+}

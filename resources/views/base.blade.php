@@ -9,21 +9,20 @@
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="description" content="Web site created using create-react-app" />
-    <title>{{ $username ?? "Nour It" }} | Portfolio</title>
+    <title>{{ $username ?? 'Nour It' }} | Portfolio</title>
     @vite(['resources/css/style.scss', 'resources/js/app.js'])
 </head>
 
 <body>
     @yield('header')
     <div class="container">
-        @if(session('error'))
+        @if (session('error'))
             <div>{{ session('error') }}</div>
         @endif
-            
+
         @yield('content')
     </div>
     @includeIf('components.footer', ['username' => $username ?? null])
 </body>
 
 </html>
- 

@@ -15,7 +15,7 @@
 
 <body>
     @yield('header')
-    <div class="container" style="display: flex; gap: calc(var(--space) * 2)">
+    <div class="container" style="display: flex; gap: calc(var(--space) * 2); --max-width: 1400px">
         <aside>
             <ul>
                 <li class="text-black-1 @if (request()->is('dashboard/projects')) {{ 'active' }} @endif">

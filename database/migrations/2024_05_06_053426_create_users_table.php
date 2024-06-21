@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('token')->nullable();
             $table->string('confirmation_token')->nullable(true);
+            $table->string('delete_token')->nullable(true);
             $table->string('google_id')->nullable();
             $table->string('google_token')->nullable();
             $table->string('google_refresh_token')->nullable();
@@ -32,6 +33,8 @@ return new class extends Migration
             $table->dateTime('validate_at')->nullable();
             $table->dateTime('delete_at')->nullable();
             $table->dateTime('lastlogin_at')->nullable();
+            $table->text('bio')->nullable();
+            $table->text('about')->nullable();
         });
 
         Schema::create('role_user', function (Blueprint $table) {

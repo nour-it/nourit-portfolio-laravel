@@ -3,7 +3,11 @@
     <nav>
         <ul>
             <li class="h2">
-                <a href="/#about">About</a>
+                @if ($username)
+                    <a href="{{ route('user.home', ['user' => $username]) }}">About</a>
+                @else
+                    <a href="/">About</a>
+                @endif
             </li>
             <li class="h2">
                 @if ($username)

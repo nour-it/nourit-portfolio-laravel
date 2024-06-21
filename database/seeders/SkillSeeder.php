@@ -57,22 +57,16 @@ class SkillSeeder extends Seeder
                 "skill_category_id" => $skill[1]
             ]
         );
-       
-        if(app()->environment() != "production") {
-            Schema::disableForeignKeyConstraints();
-            DB::table('images')->truncate();
-            DB::table('imageables')->truncate();
-            DB::table('skills')->truncate();
-        }
 
-        User::find(1)->skill()->sync([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $user = User::find(1);
+        $user->skill()->sync([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
         DB::table('images')->insert($this->images);
         Category::insert($this->categories);
         foreach($this->skills as $skill) {
             $tmp = Skill::create(['name' => $skill['name']]);
-            $c = Category::find($skill['skill_category_id']);
-            $c->skill()->attach($tmp);
+            $tmp->category()->attach($skill['skill_category_id']);
+
         }
         DB::table('imageables')->insert(Arr::map([
             [1, 3],

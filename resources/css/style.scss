@@ -287,3 +287,9 @@ main {
 table {
   width: 100%;
 }
+
+aside{
+  position: sticky;
+  top: 60px;
+  height: max-content;
+}
