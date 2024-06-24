@@ -14,7 +14,7 @@ class ServiceController extends Controller
     {
         $default = function ($request) {
             $services = Service::where(["desable_at" => NULL])->paginate(15);
-            return view("pages.projects", compact('services'))->render();
+            return view("pages.services", compact('services'))->render();
         };
         return $this->render($request, $default);
     }
@@ -24,7 +24,7 @@ class ServiceController extends Controller
         $default = function ($request) use ($service){
             $services = Service::where(["delete_at" => NULL])->paginate(15);
             $service = Service::findOrFail($service);
-            return view("pages.projects", compact('services', 'service'))->render();
+            return view("pages.services", compact('services', 'service'))->render();
         };
         return $this->render($request, $default);
     }

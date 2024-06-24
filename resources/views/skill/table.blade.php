@@ -1,9 +1,8 @@
 <table>
     <thead>
         <th>#</th>
-        <th>name</th>
-        <th>add at</th>
-        <th>delete</th>
+        <th>Name</th>
+        <th>Status</th>
         <th>Actions</th>
     </thead>
     <tbody>
@@ -15,7 +14,6 @@
                     @endforeach
                 </td>
                 <td>{{ $skill->name }}</td>
-                <td>{{ $skill->add_at }}</td>
                 <td>
                     <div
                         class="dot @if ($skill->delete_at) {{ 'red' }} @else {{ 'green' }} @endif">

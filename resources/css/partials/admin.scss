@@ -59,8 +59,10 @@ table tr>* {
     padding-right: 10px;
 }
 
-table tr> :last-child {
-    text-align: right;
+
+table td:last-child,
+table th:last-child {
+    text-align: right !important;
 }
 
 table tr>th svg {
@@ -84,13 +86,13 @@ table tr>td:nth-child(5) div {
 
 .edit {
     margin-top: calc(var(--space) * 3);
-    width: 100%;
+    width: 50%;
 }
 
 .edit form {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--space) * 2); 
+    gap: calc(var(--space) * 2);
 }
 
 .edit form input,
@@ -106,6 +108,7 @@ table tr>td:nth-child(5) div {
 .dot.red {
     background-color: red;
 }
+
 .dot.green {
     background-color: green;
 }

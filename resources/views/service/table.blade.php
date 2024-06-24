@@ -2,8 +2,7 @@
     <thead>
         <th>#</th>
         <th>title</th>
-        <th>add at</th>
-        <th>delete</th>
+        <th>Status</th>
         <th>Actions</th>
     </thead>
     <tbody>
@@ -15,7 +14,6 @@
                     @endforeach
                 </td>
                 <td>{{ $service->title }}</td>
-                <td>{{ $service->create_at }}</td>
                 <td>
                     <div
                         class="dot @if ($service->delete_at) {{ 'red' }} @else {{ 'green' }} @endif">

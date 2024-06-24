@@ -24,7 +24,7 @@ class ProjectController extends Controller
             return $this->redirect;
         }
         $default = function ($request) use ($user): string {
-            $projects = $this->projectRepository->findPublicProject();
+            $projects = $this->projectRepository->getUserProject($user);
             $username = $user->username;
             return view("user.projects", compact('projects', "username"))->render();
         };

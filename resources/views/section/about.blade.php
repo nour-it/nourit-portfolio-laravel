@@ -4,7 +4,8 @@
         <p class="text-gray-1">My Introducation</p>
     </div>
     <div>
-        <div style="opacity: 1; transform: translateY(0px);"><img src="{{ url('assets/img/me.jpeg') }}" alt="user 2" class="rounded"></div>
+        <div style="opacity: 1; transform: translateY(0px);"><img src="{{ url('assets/img/me.jpeg') }}" alt="user 2"
+                class="rounded"></div>
         <div>
             <div>
                 <div class="card-1 border rounded" id="about_item" style="opacity: 1; transform: translateY(0px);"><svg
@@ -26,18 +27,16 @@
                     <p class="text-gray-1">Supports</p><span class="text-gray-2">online 24/7</span>
                 </div>
             </div>
-            <p style="opacity: 1;">In my previous role, I was responsible for building and maintaining a suite of web
-                applications for a large
-                e-commerce company. I worked closely with designers and product managers to ensure that the applications
-                were user-friendly and met the needs of our customers. I also collaborated with back-end developers to
-                integrate our front-end code with the company's API.</p><a
-                downlaod="https://firebasestorage.googleapis.com/v0/b/nour-it-portfolio.appspot.com/o/resumes%2Fseydou-nouroudine.resume.en.pdf?alt=media&amp;token=6fc43bcb-c0ef-4e0f-be2e-72e96a0d1810"
+            {!! $user->about !!}
+            <a downlaod="https://firebasestorage.googleapis.com/v0/b/nour-it-portfolio.appspot.com/o/resumes%2Fseydou-nouroudine.resume.en.pdf?alt=media&amp;token=6fc43bcb-c0ef-4e0f-be2e-72e96a0d1810"
                 class="btn"
                 href="https://firebasestorage.googleapis.com/v0/b/nour-it-portfolio.appspot.com/o/resumes%2Fseydou-nouroudine.resume.en.pdf?alt=media&amp;token=6fc43bcb-c0ef-4e0f-be2e-72e96a0d1810"
-                target="_blanck" style="transform: scale(1); opacity: 1;">Download CV<svg id="docuemt-svg"
-                    width="24" height="24">
+                target="_blanck" style="transform: scale(1); opacity: 1;">
+                Download CV
+                <svg id="docuemt-svg" width="24" height="24">
                     <use xlink:href="{{ url('assets/icon/sprite.svg#docuemt-svg') }}"></use>
-                </svg></a>
+                </svg>
+            </a>
         </div>
     </div>
 </section>

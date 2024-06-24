@@ -1,9 +1,8 @@
 <table>
     <thead>
         <th>#</th>
-        <th>title</th>
-        <th>add at</th>
-        <th>delete</th>
+        <th>Name</th>
+        <th>Status</th>
         <th>Actions</th>
     </thead>
     <tbody>
@@ -15,7 +14,6 @@
                     @endforeach
                 </td>
                 <td>{{ $qualification->name }}</td>
-                <td>{{ $qualification->create_at }}</td>
                 <td>
                     <div
                         class="dot @if ($qualification->delete_at) {{ 'red' }} @else {{ 'green' }} @endif">

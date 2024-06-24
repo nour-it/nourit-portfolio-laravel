@@ -6,7 +6,7 @@
 @extends('auth')
 
 @section('content')
-    <div class="edit center" style="margin-top: 0">
+    <div class="edit center" style="margin-top: 0; width: 100%">
         <div>
             <img src="{{ url('assets/img/logo512.png') }}" alt="user" height="100">
         </div>

@@ -38,7 +38,7 @@ class HomeController extends Controller
             $qualifications = $this->qualificationRepository->getUserQualifications($user, 4);
             $header = "home-header";
             $username = $user->username;
-            $this->view = view("user.home", compact("skills", "header", "username", "qualifications"));
+            $this->view = view("user.home", compact("skills", "header", "username", "qualifications", "user"));
             return $this->view->render();
         };
         return $this->render($request, $default);

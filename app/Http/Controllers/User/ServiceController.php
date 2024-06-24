@@ -25,9 +25,9 @@ class ServiceController extends Controller
             return $this->redirect;
         }
         $default = function ($request) use ($user) {
-            $projects = $this->serviceRepository->findPublicServices();
+            $services = $this->serviceRepository->findPublicServices();
             $username = $user->username;
-            return view("user.projects", compact('projects', "username"))->render();
+            return view("user.services", compact('services', "username"))->render();
         };
         return $this->render($request, $default);
     }
@@ -41,6 +41,4 @@ class ServiceController extends Controller
         };
         return $this->render($request, $default);
     }
-
-	
 }
