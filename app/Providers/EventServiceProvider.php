@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\Admin\UpdateProfileEvent;
 use App\Events\Admin\UpdateProjectEvent;
 use App\Events\Admin\UpdateQualificationEvent;
 use App\Events\Admin\UpdateServiceEvent;
 use App\Events\Admin\UpdateSkillEvent;
 use App\Events\ViewSkillPageEvent;
+use App\Listeners\Admin\UpdateProfileEventListener;
 use App\Listeners\Admin\UpdateProjectEventListener;
 use App\Listeners\Admin\UpdateQualificationEventListener;
 use App\Listeners\Admin\UpdateServiceEventListener;
@@ -42,6 +44,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UpdateQualificationEvent::class => [
             UpdateQualificationEventListener::class
+        ],
+        UpdateProfileEvent::class => [
+            UpdateProfileEventListener::class
         ]
     ];
 

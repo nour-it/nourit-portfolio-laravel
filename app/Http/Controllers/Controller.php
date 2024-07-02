@@ -28,15 +28,15 @@ class Controller extends BaseController
         if (app()->environment() == "local") {
             return $render($request);
         }
-        $html = Cache::get($request->fullUrl());
+        $cache_key = $request->fullUrl();
+        $html = Cache::get($cache_key);
         if (is_null($html)) {
-            // dd(get_class($render), $render);
             if (!$render instanceof \Closure) {
                 $html = $render($request)->render();
             } else {
                 $html = $render($request);
             }
-            Cache::put($request->fullUrl(), $html);
+            Cache::put($cache_key, $html);
         }
         return $html;
     }

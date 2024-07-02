@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-
-
 @extends('auth')
 
 @section('content')

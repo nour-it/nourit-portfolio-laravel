@@ -1,9 +1,18 @@
 <?php
 
+// Admin Controller
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\QualificationController as AdminQualificationController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+
+// User Controller
+use App\Http\Controllers\User\HomeController as UserHomeController;
+use App\Http\Controllers\User\ProjectController as UserProjectController;
+use App\Http\Controllers\User\ServiceController as UserServiceController;
+
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\Page\AdminController;
 use App\Http\Controllers\Page\HomeController;
@@ -11,9 +20,6 @@ use App\Http\Controllers\Page\LoginController;
 use App\Http\Controllers\Page\ProjectController;
 use App\Http\Controllers\Page\RegisterController;
 use App\Http\Controllers\Page\ServiceController;
-use App\Http\Controllers\User\HomeController as UserHomeController;
-use App\Http\Controllers\User\ProjectController as UserProjectController;
-use App\Http\Controllers\User\ServiceController as UserServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/home',                 [HomeController::class, "index"])->name('home');
@@ -42,10 +48,12 @@ Route::prefix('dashboard')
     ->middleware('auth')
     ->group(function () {
         Route::get("/", [AdminController::class, "index"])->name("admin.home");
+        Route::resource("/profile", AdminProfileController::class)->only(["index", "update"]);
         Route::resource("/skills", AdminSkillController::class);
         Route::resource("/projects", AdminProjectController::class);
         Route::resource("/services", AdminServiceController::class);
         Route::resource("/qualifications", AdminQualificationController::class);
+        Route::resource("/users", AdminUserController::class)->only(["index", "update"]);
     });
 
 Route::prefix('{user}')

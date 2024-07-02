@@ -15,6 +15,11 @@ class UserRepository
     {
     }
 
+    public function findAll(?int $limit = 15)
+    {
+        return $this->user->paginate($limit);
+    }
+
     public function findUserByUsernameOrMail(?string $username = '', ?string  $email = ""): User | null
     {
         return $this->user->orWhere([
@@ -23,7 +28,7 @@ class UserRepository
         ])->first();
     }
 
-    public function createUserFromRequest(Request $request) : User
+    public function createUserFromRequest(Request $request): User
     {
         return User::create([
             "username" => $request->input("username"),
@@ -34,6 +39,4 @@ class UserRepository
 
         ]);
     }
-
-   
 }
