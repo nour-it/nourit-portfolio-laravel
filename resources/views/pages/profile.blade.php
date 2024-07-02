@@ -33,10 +33,12 @@
                 @includeIf('components.text-editor', ['name' => 'about', 'value' => $user->about])
 
             </form>
-            <h2>Danger Zone</h2>
-            <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
-                Delete Account
-            </button>
+            <form action="" method="post">
+                <h2>Danger Zone</h2>
+                <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
+                    Delete Account
+                </button>
+            </form>
         </div>
         <div class="edit">
             <form action="{{ route('profile.update', ['profile' => $user->id]) }}" method="post">
@@ -54,6 +56,38 @@
                     Update
                 </button>
             </form>
+            <div class="social">
+                <form action="" method="post" class="">
+                    <h2>Socials</h2>
+                    <table>
+                        <tbody>
+                            @foreach ($socials as $social)
+                                <tr>
+                                    <td>icon</td>
+                                    <td>
+                                        @includeIf('components.input', [
+                                            'name' => 'social_' . $social->id,
+                                            'holder' => $social->name,
+                                        ])
+                                    </td>
+                                    <td>
+                                        @includeIf('components.select', [
+                                            'options' => $types,
+                                            'label' => 'type_id',
+                                            'value' => '',
+                                            'field' => 'name',
+                                        ])
+                                    </td>
+                                    <td>on/off</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
+                        Update
+                    </button>
+                </form>
+            </div>
         </div>
     </main>
 @endsection

@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             ProjectSeeder::class,
             ServiceSeeder::class,
-            QualificationSeeder::class
+            QualificationSeeder::class,
+            SocialSeeder::class,
         ]); 
         
     }

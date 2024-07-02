@@ -17,7 +17,15 @@ class UserRepository
 
     public function findAll(?int $limit = 15)
     {
-        return $this->user->paginate($limit);
+        return $this->user
+            ->with([
+                "role"          => fn ($q) => $q->select("title"),
+                "skill"         => fn ($q) => $q->with([]),
+                "project"       => fn ($q) => $q->with([]),
+                "service"       => fn ($q) => $q->with([]),
+                "qualification" => fn ($q) => $q->with([]),
+            ])
+            ->paginate($limit);
     }
 
     public function findUserByUsernameOrMail(?string $username = '', ?string  $email = ""): User | null

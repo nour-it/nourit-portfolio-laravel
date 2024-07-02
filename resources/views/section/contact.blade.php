@@ -37,22 +37,24 @@
         <div>
             <h2 class="h2">Write to me</h2>
             @isset($username)
-            <form action="{{ route('contact.mail', ['user' => $username]) }}" method="post">
-            @else
-            <form action="{{ route('home.contact.mail') }}" method="post">
-            @endisset
+                <form action="{{ route('contact.mail', ['user' => $username]) }}" method="post">
+                @else
+                    <form action="{{ route('home.contact.mail') }}" method="post">
+                    @endisset
                     @csrf
-                    @includeIf('components.input', [
-                        'name' => 'name',
-                        'value' => '',
-                        'holder' => 'Insert you name',
-                    ])
-                    @includeIf('components.input', [
-                        'name' => 'email',
-                        'value' => '',
-                        'holder' => 'Insert you email',
-                    ])
-
+                    @auth
+                    @else
+                        @includeIf('components.input', [
+                            'name' => 'name',
+                            'value' => '',
+                            'holder' => 'Insert you name',
+                        ])
+                        @includeIf('components.input', [
+                            'name' => 'email',
+                            'value' => '',
+                            'holder' => 'Insert you email',
+                        ])
+                    @endauth
                     <textarea name="project" id="project" cols="30" rows="10" class="border rounded"
                         placeholder="Write your project"></textarea>
                     <button type="submit" class="btn">

@@ -27,9 +27,9 @@
         @includeIf('components.input', ['name' => 'name', 'value' => $project->name])
         @includeIf('components.select', [
             'options' => $categories,
-            'label' => 'project_category_id',
-            'value' => $project->project_category_id,
-            'field' => 'name',
+            'label'   => 'category_id',
+            'value'   => $project->project_category_id,
+            'field'   => 'name',
         ])
         @includeIf('components.text-editor', ['name' => 'description', 'value' => $project->description])
         <button type="submit" class="btn">

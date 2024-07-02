@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Repository\UserRepository;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +35,9 @@ class LoginController extends Controller
         
         if ($user->isValidate() && Hash::check($request->input('password'), $user->password)) {
             Auth::login($user);
+            $user->lastlogin_at = new DateTime();
+            $user->ip = request()->ip();
+            $user->save();
             return redirect(route("admin.home"));
         } else {
             return redirect(route("login"), 302)->with("error", "Invalid user");
@@ -46,6 +50,6 @@ class LoginController extends Controller
         return redirect(route("home"), 302);
     }
 
-    // Enderson nicolas abla
+ 
 
 }

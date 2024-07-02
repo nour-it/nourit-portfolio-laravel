@@ -17,7 +17,7 @@ class Skill extends Model
 
     public $timestamps = false;
 
-    protected $with = ["images"];
+    protected $with = [];
 
     public $fillable = ['name', 'description', 'skill_category_id', 'add_at'];
 

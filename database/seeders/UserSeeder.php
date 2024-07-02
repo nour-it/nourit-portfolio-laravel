@@ -44,6 +44,7 @@ class UserSeeder extends Seeder
         ]);
 
         Role::find(1)->user()->attach(User::find(1));
+        Role::find(2)->user()->attach(User::find(1));
 
         if (app()->environment() != "production") {
             User::factory()->count(3)->create();
