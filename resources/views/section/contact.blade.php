@@ -44,12 +44,12 @@
                     @csrf
                     @auth
                     @else
-                        @includeIf('components.input', [
+                        @includeIf('components.core.input', [
                             'name' => 'name',
                             'value' => '',
                             'holder' => 'Insert you name',
                         ])
-                        @includeIf('components.input', [
+                        @includeIf('components.core.input', [
                             'name' => 'email',
                             'value' => '',
                             'holder' => 'Insert you email',

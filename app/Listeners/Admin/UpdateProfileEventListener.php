@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class UpdateProfileEventListener
 {
 
-    private Request $request;
+    private array $request;
 
     private User $user;
 
@@ -20,7 +20,6 @@ class UpdateProfileEventListener
      */
     public function __construct()
     {
-        
     }
 
     /**
@@ -31,13 +30,13 @@ class UpdateProfileEventListener
         $this->request = $event->request;
         $this->user    = $event->user;
 
-        $this->user->email    = $this->request->input('email', $this->user->email);
-        $this->user->username = $this->request->input('username', $this->user->username);
-        $this->user->bio      = $this->request->input('bio', $this->user->bio);
-        $this->user->about    = $this->request->input('about', $this->user->about);
+        $this->user->email    = $this->request['email']     ?? $this->user->email;
+        $this->user->username = $this->request['username']  ?? $this->user->username;
+        $this->user->bio      = $this->request['bio']       ?? $this->user->bio;
+        $this->user->about    = $this->request['about']     ?? $this->user->about;
 
-        if ($this->request->input("password")) {
-            $this->user->password = Hash::make($this->request->input('username'));
+        if (isset($this->request["password"])) {
+            $this->user->password = Hash::make($this->request['username']);
         }
 
         $this->user->save();

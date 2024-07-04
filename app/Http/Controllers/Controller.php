@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
@@ -23,21 +24,31 @@ class Controller extends BaseController
 
     protected View $view;
 
+    private string $html;
+
     public function render(Request $request, $render): Response|string
     {
         if (app()->environment() == "local") {
-            return $render($request);
-        }
-        $cache_key = $request->fullUrl();
-        $html = Cache::get($cache_key);
-        if (is_null($html)) {
-            if (!$render instanceof \Closure) {
-                $html = $render($request)->render();
-            } else {
-                $html = $render($request);
+            $this->html = $render($request);
+            $this->cleanHTML();
+        } else {
+            $cache_key = $request->fullUrl();
+            $this->html = Cache::get($cache_key);
+            if (is_null($this->html)) {
+                if (!$render instanceof \Closure) {
+                    $this->html = $render($request)->render();
+                } else {
+                    $this->html = $render($request);
+                }
+                $this->cleanHTML();
+                Cache::put($cache_key, $this->html);
             }
-            Cache::put($cache_key, $html);
         }
-        return $html;
+        return $this->html;
+    }
+
+    private function cleanHTML()
+    {
+        $this->html = Str::replace(["  ", "\t", "\n\n", " \n"], [" ", "\\", "\n", ""], $this->html);
     }
 }

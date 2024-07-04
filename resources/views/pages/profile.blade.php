@@ -2,9 +2,9 @@
 
 @section('header')
     @isset($header)
-        @includeIf("components.$header")
+        @includeIf("components.partial.$header")
     @else
-        @includeIf('components.admin-header')
+        @includeIf('components.partial.admin-header')
     @endisset
 @endsection
 
@@ -19,18 +19,18 @@
                         Update
                     </button>
                 </div>
-                @includeIf('components.input', [
+                @includeIf('components.core.input', [
                     'name' => 'username',
                     'holder' => 'user name',
                     'value' => $user->username,
                 ])
-                @includeIf('components.input', [
+                @includeIf('components.core.input', [
                     'name' => 'email',
                     'holder' => 'email',
                     'value' => $user->email,
                 ])
-                @includeIf('components.text-editor', ['name' => 'bio', 'value' => $user->bio])
-                @includeIf('components.text-editor', ['name' => 'about', 'value' => $user->about])
+                @includeIf('components.core.text-editor', ['name' => 'bio', 'value' => $user->bio])
+                @includeIf('components.core.text-editor', ['name' => 'about', 'value' => $user->about])
 
             </form>
             <form action="" method="post">
@@ -44,11 +44,11 @@
             <form action="{{ route('profile.update', ['profile' => $user->id]) }}" method="post">
                 @csrf @method('PUT')
                 <h2>Reset Password</h2>
-                @includeIf('components.input', [
+                @includeIf('components.core.input', [
                     'name' => 'password',
                     'holder' => 'New Password',
                 ])
-                @includeIf('components.input', [
+                @includeIf('components.core.input', [
                     'name' => 'confirmation',
                     'holder' => 'Confirmation password',
                 ])
@@ -65,13 +65,13 @@
                                 <tr>
                                     <td>icon</td>
                                     <td>
-                                        @includeIf('components.input', [
+                                        @includeIf('components.core.input', [
                                             'name' => 'social_' . $social->id,
                                             'holder' => $social->name,
                                         ])
                                     </td>
                                     <td>
-                                        @includeIf('components.select', [
+                                        @includeIf('components.core.select', [
                                             'options' => $types,
                                             'label' => 'type_id',
                                             'value' => '',

@@ -7,15 +7,15 @@
         </div>
         <form action="{{ route('register.new') }}" method="post" enctype="multipart/form-data">
             @csrf
-            @includeIf('components.input', [
+            @includeIf('components.core.input', [
                 'name' => 'username',
                 'holder' => 'user name',
             ])
-            @includeIf('components.input', [
+            @includeIf('components.core.input', [
                 'name' => 'email',
                 'holder' => 'email',
             ])
-            @includeIf('components.input', [
+            @includeIf('components.core.input', [
                 'name' => 'password',
                 'holder' => 'password',
                 'type' => 'password',

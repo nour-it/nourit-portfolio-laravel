@@ -23,7 +23,7 @@ class ProfileController extends Controller
             $user = $request->user();
             $socials = Social::all();
             $types = $this->categoryRepository->socialType();
-                $this->view = view("pages.profile", compact("user", "socials", "types"));
+            $this->view = view("pages.profile", compact("user", "socials", "types"));
             return $this->view->render();
         });
     }
@@ -31,7 +31,8 @@ class ProfileController extends Controller
     public function update(Request $request, User $profile)
     {
         $this->user = $request->user();
-        UpdateProfileEvent::dispatch($request, $profile);
+        broadcast(new UpdateProfileEvent($request->all(), $profile));
+        // UpdateProfileEvent::dispatch($request, $profile);
         $this->redirect = redirect(route("profile.index"));
         return $this->redirect;
     }

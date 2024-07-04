@@ -1,7 +1,7 @@
 <header class="header">
     <div>
 
-        <a class="logo" href="/@auth{{ 'dashboard' }} @endauth">
+        <a class="logo" href="/@auth{{ 'dashboard' }}@endauth">
             Nour<span>It</span>
         </a>
         <span class="hover">

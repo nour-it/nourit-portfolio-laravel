@@ -2,9 +2,9 @@
 
 @section('header')
     @isset($header)
-        @includeIf("components.$header")
+        @includeIf("components.partial.$header")
     @else
-        @includeIf('components.admin-header')
+        @includeIf('components.partial.admin-header')
     @endisset
 @endsection
 
@@ -23,14 +23,14 @@
                 <img src="{{ url($image->path) }}" alt="" height="30" />
             @endforeach
         </div>
-        @includeIf('components.input', ['name' => 'name', 'value' => $skill->name, 'holder' => "Skill name"])
-        @include('components.select', [
+        @includeIf('components.core.input', ['name' => 'name', 'value' => $skill->name, 'holder' => "Skill name"])
+        @include('components.core.select', [
             'label' => 'skill_category_id',
             'options' => $categories,
             'value' => $skill->skill_category_id,
             'field' => "name"
         ])
-        @includeIf('components.text-editor', ['name' => 'description', 'value' => $skill->description])
+        @includeIf('components.core.text-editor', ['name' => 'description', 'value' => $skill->description])
         <button type="submit" class="btn">
             @if ($skill->id)
                 Edit

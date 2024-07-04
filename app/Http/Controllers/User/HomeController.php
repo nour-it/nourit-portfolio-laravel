@@ -28,14 +28,14 @@ class HomeController extends Controller
 
     public function index(Request $request, string $user)
     {
-        $user = User::where("username", $user)
-            ->with(["project" => fn ($q) => $q->with([])])
-            ->first();
-        if (NULL === $user) {
-            $this->redirect = redirect(route("home"), 301);
-            return $this->redirect;
-        }
         $default = function ($request) use ($user) {
+            $user = User::where("username", $user)
+                ->with(["project" => fn ($q) => $q->with([])])
+                ->first();
+            if (NULL === $user) {
+                $this->redirect = redirect(route("home"), 301);
+                return $this->redirect;
+            }
             $skills = $this->skillRepository->getUserSkills($user, 9);
             $qualifications = $this->qualificationRepository->getUserQualifications($user, 4);
             $header = "home-header";

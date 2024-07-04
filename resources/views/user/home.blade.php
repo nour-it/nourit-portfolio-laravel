@@ -2,9 +2,9 @@
 
 @section('header')
 @isset($header)
-@includeIf("components.$header")
+@includeIf("components.partial.$header")
 @else
-@includeIf('components.deep-header')
+@includeIf('components.partials.deep-header')
 @endisset
 @endsection
 

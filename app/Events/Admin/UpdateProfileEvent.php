@@ -4,6 +4,7 @@ namespace App\Events\Admin;
 
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\InteractsWithBroadcasting;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -12,14 +13,14 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 
-class UpdateProfileEvent
+class UpdateProfileEvent implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels, InteractsWithBroadcasting;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public Request $request, public User $user)
+    public function __construct(public array $request, public User $user)
     {
        
     }
@@ -32,7 +33,7 @@ class UpdateProfileEvent
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new PrivateChannel('demo'),
         ];
     }
 }

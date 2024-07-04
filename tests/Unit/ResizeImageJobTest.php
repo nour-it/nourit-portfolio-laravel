@@ -15,7 +15,7 @@ class ResizeImageJobTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function test_resize_image(): void
     {
         Bus::fake();
         Storage::fake("local");

@@ -4,7 +4,7 @@
     @isset($header)
         @includeIf('components.{{ $header }}')
     @else
-        @includeIf('components.deep-header')
+        @includeIf('components.partials.deep-header')
     @endisset
 @endsection
 

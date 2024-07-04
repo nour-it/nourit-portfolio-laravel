@@ -18,16 +18,6 @@ return new class extends Migration
             $table->dateTime("remove_at")->nullable();
         });
 
-        Schema::create('social_user', function (Blueprint $table) {
-            $table->id();
-            $table->string("link");
-            $table->string("type")->nullable();
-            $table->foreignid("user_id")->nullable()->references("id")->on("users")->nullOnDelete();
-            $table->foreignid("social_id")->nullable()->references("id")->on("socials")->nullOnDelete();
-            $table->dateTime("add_at")->nullable();
-            $table->dateTime("remove_at")->nullable();
-        });
-
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
             $table->string("path");
@@ -43,7 +33,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('resumes');
-        Schema::dropIfExists('social_user');
         Schema::dropIfExists('socials');
     }
 };

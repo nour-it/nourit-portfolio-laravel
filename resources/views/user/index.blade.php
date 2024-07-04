@@ -2,9 +2,9 @@
 
 @section('header')
     @isset($header)
-        @includeIf("components.$header")
+        @includeIf("components.partial.$header")
     @else
-        @includeIf('components.admin-header')
+        @includeIf('components.partial.admin-header')
     @endisset
 @endsection
 
