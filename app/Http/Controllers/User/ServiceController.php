@@ -8,13 +8,16 @@ use App\Models\Service;
 use App\Models\User;
 use App\Repository\ProjectRepository;
 use App\Repository\ServiceRepository;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
 
-    public function __construct(private ServiceRepository $serviceRepository)
-    {
+    public function __construct(
+        private ServiceRepository $serviceRepository,
+        private UserRepository $userRepository
+    ) {
     }
 
     public function index(Request $request, string $user)
@@ -25,9 +28,11 @@ class ServiceController extends Controller
             return $this->redirect;
         }
         $default = function ($request) use ($user) {
-            $services = $this->serviceRepository->findPublicServices();
+            $services = $this->serviceRepository->getUserServices($user);
+            $contactLinks = $this->userRepository->getContactLink($user);
+            $profileLinks = $this->userRepository->getProfileLink($user);
             $username = $user->username;
-            return view("user.services", compact('services', "username"))->render();
+            return view("user.services", compact('services', "username", "contactLinks", "profileLinks"))->render();
         };
         return $this->render($request, $default);
     }

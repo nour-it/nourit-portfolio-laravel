@@ -12,13 +12,13 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $this->user = $request->user();
         return $this->render($request, function ($request) {
-            $skills   = $this->user->skill()->limit(5)->get();
-            $projects = $this->user->project()->limit(5)->get();
-            $services = $this->user->service()->limit(5)->get();
+            $this->user     = $request->user();
+            $skills         = $this->user->skill()->limit(5)->get();
+            $projects       = $this->user->project()->limit(5)->get();
+            $services       = $this->user->service()->limit(5)->get();
             $qualifications = $this->user->qualification()->limit(5)->get();
-            $more     = true;
+            $more           = true;
             return view("pages.admin", compact('skills', 'projects', 'services', 'qualifications', "more"))->render();
         });
     }

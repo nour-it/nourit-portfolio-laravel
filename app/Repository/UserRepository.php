@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Models\Category;
+use App\Models\Social;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -46,5 +48,33 @@ class UserRepository
             "ip" => $request->ip(),
 
         ]);
+    }
+
+    public function getContactLink(User $user)
+    {
+        $linkIds = $this->getLinks("Contact");
+        return $user->link()
+            ->whereIn("id", $linkIds)
+            ->where("link", "!=", "")
+            ->get();
+    }
+
+    public function getProfileLink(User $user)
+    {
+        $linkIds = $this->getLinks("Profile");
+        return $user->link()
+            ->whereIn("id", $linkIds)
+            ->where("link", "!=", "")
+            ->get();
+    }
+
+    private function getLinks(string $type)
+    {
+        $category = Category::where(["name" => $type, 'type' => Social::class])
+            ->with(["link" => fn ($q) => $q->select("categorisable_id")])
+            ->first();
+
+        $linkIds = $category->link->pluck("categorisable_id");
+        return $linkIds;
     }
 }

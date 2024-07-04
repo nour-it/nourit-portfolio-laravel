@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateProfileEvent;
 use App\Http\Controllers\Controller;
@@ -33,6 +33,7 @@ class ProfileController extends Controller
     {
         $this->user = $request->user();
         broadcast(new UpdateProfileEvent($request->all(), $profile));
+        // UpdateProfileEvent::dispatch($request, $profile);
         $this->redirect = redirect(route("profile.index"));
         return $this->redirect;
     }

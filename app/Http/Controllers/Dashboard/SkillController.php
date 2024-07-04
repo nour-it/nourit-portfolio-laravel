@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateSkillEvent;
 use App\Http\Controllers\Controller;
@@ -21,9 +21,8 @@ class SkillController extends Controller
     {
         $this->user = $request->user();
         return $this->render($request, function ($request) {
-            $skills = Skill::paginate(15);
-            $this->view = view("pages.admin", compact('skills'));
-            return $this->view->render();
+            $skills = $this->user->skill()->select('*', 'skillables.add_at as new_at')->paginate(15);
+            return view("pages.admin", compact('skills'))->render();
         });
     }
 
@@ -35,8 +34,7 @@ class SkillController extends Controller
         return $this->render($request, function ($request) {
             $skill = new Skill();
             $categories = Category::where('type', Skill::class)->get();
-            $this->view = view("skill.edit", compact('skill', "categories"));
-            return $this->view->render();
+            return view("skill.edit", compact('skill', "categories"))->render();
         });
     }
 
@@ -63,8 +61,7 @@ class SkillController extends Controller
         return $this->render($request, function ($request) use ($skill) {
             $skill = Skill::findOrFail($skill);
             $categories = Category::where('type', Skill::class)->get();
-            $this->view = view("skill.edit", compact('skill', 'categories'));
-            return $this->view->render();
+            return view("skill.edit", compact('skill', 'categories'))->render();
         });
     }
 
@@ -85,7 +82,6 @@ class SkillController extends Controller
     {
         $skill->delete_at = new DateTime();
         $skill->save();
-        $this->redirect = redirect(route("skills.index"));
-        return $this->redirect->with("success", "skill delete successfully");
+        return redirect(route("skills.index"))->with("success", "skill delete successfully");
     }
 }

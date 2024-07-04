@@ -30,13 +30,7 @@ class ServiceSeeder extends Seeder
             Storage::allFiles("assets/img/service"),
             fn ($image) => ['path' => $image]
         );
-        $this->categories = Arr::map(
-            ['Web development'],
-            fn ($category) => [
-                'name' => $category,
-                "type" => Service::class,
-            ]
-        );
+        
 
         // l'id des categories de service commence par 6
         $this->services = Arr::map(
@@ -51,7 +45,6 @@ class ServiceSeeder extends Seeder
         );
 
         DB::table('images')->insert($this->images);
-        Category::insert($this->categories);
         foreach ($this->services as $service) {
             $tmp = Service::create(['title' => $service['title'], 'user_id' => $service['user_id']]);
             $c = Category::find($service['service_category_id']);

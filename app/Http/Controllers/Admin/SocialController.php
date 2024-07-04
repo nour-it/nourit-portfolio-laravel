@@ -12,7 +12,7 @@ use DateTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class SkillController extends Controller
+class SocialController extends Controller
 {
     /**
      * Display a listing of the resource.

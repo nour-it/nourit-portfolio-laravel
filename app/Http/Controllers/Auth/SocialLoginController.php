@@ -24,9 +24,11 @@ class SocialLoginController extends Controller
         if (method_exists($this, $socialType)) {
             $user = $this->$socialType();
             Auth::login($user);
-            return redirect(route("admin.home"))->with("success", "Connected successfully");
+            $this->redirect = redirect(route("admin.home"));
+            return $this->redirect->with("success", "Connected successfully");
         }else {
-            return redirect(route("admin.home"))->with("error", "this kind of authentication not implemented");
+            $this->redirect = redirect(route("admin.home"));
+            return $this->redirect->with("error", "this kind of authentication not implemented");
         }
     }
 

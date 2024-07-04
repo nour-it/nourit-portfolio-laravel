@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateServiceEvent;
 use App\Http\Controllers\Controller;
@@ -21,8 +21,7 @@ class ServiceController extends Controller
     {
         return $this->render($request, function ($request) {
             $services = Service::paginate(15);
-            $this->view = view("pages.admin", compact('services'));
-            return $this->view->render();
+            return view("pages.admin", compact('services'))->render();
         });
     }
 
@@ -34,8 +33,7 @@ class ServiceController extends Controller
         return $this->render($request, function ($request) {
             $service = new Service();
             $categories = Category::where('type', Service::class)->get();
-            $this->view = view("service.edit", compact('service', "categories"));
-            return $this->view->render();
+            return view("service.edit", compact('service', "categories"))->render();
         });
     }
 
@@ -58,8 +56,7 @@ class ServiceController extends Controller
         return $this->render($request, function ($request) use ($service) {
             $service = Service::findOrFail($service);
             $categories = Category::where('type', Service::class)->get();
-            $this->view = view("service.edit", compact('service', 'categories'));
-            return $this->view->render();
+            return view("service.edit", compact('service', 'categories'))->render();
         });
     }
 
@@ -81,7 +78,6 @@ class ServiceController extends Controller
     {
         $service->desable_at = new DateTime();
         $service->save();
-        $this->redirect = redirect(route("services.index"));
-        return $this->redirect->with("success", "service delete successfully");
+        return redirect(route("services.index"))->with("success", "service delete successfully");
     }
 }

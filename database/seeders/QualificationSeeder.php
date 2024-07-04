@@ -35,13 +35,7 @@ class QualificationSeeder extends Seeder
             Storage::allFiles("assets/img/qualification"),
             fn ($image) => ['path' => $image]
         );
-        $this->categories = Arr::map(
-            ['Education', 'Experience'],
-            fn ($category) => [
-                'name' => $category,
-                "type" => Qualification::class,
-            ]
-        );
+      
 
         $this->addresses = Arr::map([
             ["Togo", 'Lome', "CPAP"]
@@ -67,7 +61,6 @@ class QualificationSeeder extends Seeder
         );
 
         // DB::table('images')->insert($this->images);
-        Category::insert($this->categories);
 
         foreach ($this->qualifications as $key => $qualification) {
             $tmp = Qualification::create([

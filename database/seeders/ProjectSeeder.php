@@ -29,16 +29,10 @@ class ProjectSeeder extends Seeder
             Storage::files("assets/img/project/fruitnourmatching"),
             fn ($image) => ['path' => $image]
         );
-        $this->categories = Arr::map(
-            ['web', 'android', 'ios'],
-            fn ($category) => [
-                'name' => $category,
-                'type' => Project::class,
-            ]
-        );
+        
         $this->projects = Arr::map(
             [
-                ["Fruit Nour Matching", 2],
+                ["Fruit Nour Matching", 4],
             ],
             fn ($project) => [
                 'name' => $project[0],
@@ -48,7 +42,6 @@ class ProjectSeeder extends Seeder
         );
 
         DB::table('images')->insert($this->images);
-        Category::insert($this->categories);
         foreach ($this->projects as $project) {
             $tmp = Project::create(
                 [

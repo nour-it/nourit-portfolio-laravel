@@ -7,11 +7,11 @@
         </div>
         <form action="{{ route('login.attempt') }}" method="post" enctype="multipart/form-data">
             @csrf
-            @includeIf('components.input', [
+            @includeIf('components.core.input', [
                 'name' => 'email',
                 'holder' => 'user name or email',
             ])
-            @includeIf('components.input', [
+            @includeIf('components.core.input', [
                 'name' => 'password',
                 'holder' => 'password',
                 'type' => 'password',

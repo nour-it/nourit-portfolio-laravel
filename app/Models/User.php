@@ -41,7 +41,6 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
-
     public function service(): HasMany
     {
         return $this->hasMany(Service::class);
@@ -57,10 +56,20 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function link(): HasMany
+    {
+        return $this->hasMany(Link::class);
+    }
+
     // queries
 
     public function isValidate(): bool
     {
         return null == $this->confirmation_token && NULL !== $this->validate_at;
+    }
+
+    public function canAdmin(): bool
+    {
+        return $this->role->where('title', 'ADMIN')->first() != NULL;
     }
 }

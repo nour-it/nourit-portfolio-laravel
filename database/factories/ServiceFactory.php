@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Skill>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Service>
  */
-class SkillFactory extends Factory
+class ServiceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class SkillFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => fake()->word(),
-            "delete_at" => fake()->numberBetween(0, 1) ? fake()->dateTime() : null,
+            "title"        => fake()->word(),
             "description" => fake()->paragraph(fake()->numberBetween(3, 5)),
         ];
     }

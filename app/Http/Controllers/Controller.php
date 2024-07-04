@@ -24,7 +24,7 @@ class Controller extends BaseController
 
     protected View $view;
 
-    private string $html;
+    private ?string $html;
 
     public function render(Request $request, $render): Response|string
     {

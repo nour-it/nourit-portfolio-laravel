@@ -22,7 +22,7 @@
 
         @yield('content')
     </div>
-    @includeIf('components.footer', ['username' => $username ?? null])
+    @includeIf('components.partial.footer', ['username' => $username ?? null])
 </body>
 
 </html>

@@ -35,18 +35,18 @@
   position: relative;
 }
 
-.section_contact>div:nth-child(2)>div:nth-child(2)>form {
+.section_contact form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: calc(var(--space) *3);
 }
 
-.section_contact>div:nth-child(2)>div:nth-child(2)>form>input,
-.section_contact>div:nth-child(2)>div:nth-child(2)>form>textarea,
-.section_contact>div:nth-child(2)>div:nth-child(2)>form>input,
-.section_contact>div:nth-child(2)>div:nth-child(2)>form>select,
-.section_contact>div:nth-child(2)>div:nth-child(2)>form>textarea {
+.section_contact form>input,
+.section_contact form>textarea,
+.section_contact form>input,
+.section_contact form>select,
+.section_contact form>textarea {
   background: var(--color-body-background);
   font-family: 'Manrope';
   padding: calc(var(--space) *1) calc(var(--space) *2.5);
@@ -76,9 +76,9 @@
     gap: calc(var(--space) *16);
   }
 
-  .section_contact>div:nth-child(2)>div:nth-child(2)>form>input,
-  .section_contact>div:nth-child(2)>div:nth-child(2)>form>select,
-  .section_contact>div:nth-child(2)>div:nth-child(2)>form>textarea {
+  .section_contact form>input,
+  .section_contact form>select,
+  .section_contact form>textarea {
     width: 419px;
   }
 }

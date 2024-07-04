@@ -2,11 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Project;
 use App\Models\Role;
+use App\Models\Service;
+use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -46,8 +52,6 @@ class UserSeeder extends Seeder
         Role::find(1)->user()->attach(User::find(1));
         Role::find(2)->user()->attach(User::find(1));
 
-        if (app()->environment() != "production") {
-            User::factory()->count(3)->create();
-        }
+       
     }
 }

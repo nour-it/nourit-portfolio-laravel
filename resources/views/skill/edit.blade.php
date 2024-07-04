@@ -25,7 +25,7 @@
         </div>
         @includeIf('components.core.input', ['name' => 'name', 'value' => $skill->name, 'holder' => "Skill name"])
         @include('components.core.select', [
-            'label' => 'skill_category_id',
+            'label' => 'category_id',
             'options' => $categories,
             'value' => $skill->skill_category_id,
             'field' => "name"

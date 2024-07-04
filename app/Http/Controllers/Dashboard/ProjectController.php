@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateProjectEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\ProjectCategory;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -19,8 +20,7 @@ class ProjectController extends Controller
     {
         return $this->render($request, function ($request) {
             $projects = Project::paginate(15);
-            $this->view = view("pages.admin", compact('projects'));
-            return $this->view->render();
+            return view("pages.admin", compact('projects'))->render();
         });
     }
 
@@ -32,8 +32,7 @@ class ProjectController extends Controller
         return $this->render($request, function ($request) {
             $project = new Project();
             $categories = Category::where('type', Project::class)->get();
-            $this->view = view("project.edit", compact('project', "categories"));
-            return $this->view->render();
+            return view("project.edit", compact('project', "categories"))->render();
         });
     }
 
@@ -56,8 +55,7 @@ class ProjectController extends Controller
         return $this->render($request, function ($request) use ($project) {
             $project = Project::findOrFail($project);
             $categories = Category::where('type', Project::class)->get();
-            $this->view = view("project.edit", compact('project', 'categories'));
-            return $this->view->render();
+            return view("project.edit", compact('project', 'categories'))->render();
         });
     }
 
@@ -79,7 +77,6 @@ class ProjectController extends Controller
     {
         $project->delete_at = new DateTime();
         $project->save();
-        $this->redirect = redirect(route("projects.index"));
-        return $this->redirect->with("success", "project delete successfully");
+        return redirect(route("projects.index"))->with("success", "project delete successfully");
     }
 }

@@ -47,38 +47,49 @@
                 @includeIf('components.core.input', [
                     'name' => 'password',
                     'holder' => 'New Password',
+                    'type' => 'password'
                 ])
                 @includeIf('components.core.input', [
                     'name' => 'confirmation',
                     'holder' => 'Confirmation password',
+                    'type' => 'password'
                 ])
                 <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
                     Update
                 </button>
             </form>
             <div class="social">
-                <form action="" method="post" class="">
+                <form action="{{ route('profile.update', ['profile' => $user->id]) }}" method="post" class="">
+                    @csrf @method('PUT')
+                    <input type="hidden" name="social_count" id="social_count" value="{{ $socials->count() }}">
                     <h2>Socials</h2>
                     <table>
                         <tbody>
                             @foreach ($socials as $social)
+                            @php
+                                $link = $user->link->where("social_id",$social->id)->first();
+                                $category = $link?->category->first();
+                            @endphp
                                 <tr>
-                                    <td>icon</td>
+                                    <td><img src="{{ url($social->images[0]->path) }}" alt="" height="24" width="24" /></td>
                                     <td>
                                         @includeIf('components.core.input', [
                                             'name' => 'social_' . $social->id,
                                             'holder' => $social->name,
+                                            'value' => $link?->link
                                         ])
                                     </td>
                                     <td>
                                         @includeIf('components.core.select', [
                                             'options' => $types,
-                                            'label' => 'type_id',
-                                            'value' => '',
+                                            'label' => 'type_id_' . $social->id ,
+                                            'value' => $category?->id,
                                             'field' => 'name',
                                         ])
                                     </td>
-                                    <td>on/off</td>
+                                    <td>
+                                        <input type="checkbox" name="on_{{ $social->id }}" id="on_{{ $social->id }}" @if(is_null($link?->remove_at)) checked @endif>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

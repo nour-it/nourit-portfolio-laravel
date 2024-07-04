@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateQualificationEvent;
 use App\Http\Controllers\Controller;
@@ -21,8 +21,7 @@ class QualificationController extends Controller
     {
         return $this->render($request, function ($request) {
             $qualifications = Qualification::paginate(15);
-            $this->view = view("pages.admin", compact('qualifications'));
-            return $this->view->render();
+            return view("pages.admin", compact('qualifications'))->render();
         });
     }
 
@@ -34,8 +33,7 @@ class QualificationController extends Controller
         return $this->render($request, function ($request) {
             $qualification = new Qualification();
             $categories = Category::where('type', Qualification::class)->get();
-            $this->view = view("qualification.edit", compact('qualification', "categories"));
-            return $this->view->render();
+            return view("qualification.edit", compact('qualification', "categories"))->render();
         });
     }
 
@@ -58,8 +56,7 @@ class QualificationController extends Controller
         return $this->render($request, function ($request) use ($qualification) {
             $qualification = Qualification::findOrFail($qualification);
             $categories = Category::where('type', Qualification::class)->get();
-            $this->view = view("qualification.edit", compact('qualification', 'categories'));
-            return $this->view->render();
+            return view("qualification.edit", compact('qualification', 'categories'))->render();
         });
     }
 
@@ -80,7 +77,6 @@ class QualificationController extends Controller
     {
         $qualification->delete_at = new DateTime();
         $qualification->save();
-        $this->redirect = redirect(route("qualifications.index"));
-        return $this->redirect->with("success", "qualification delete successfully");
+        return redirect(route("qualifications.index"))->with("success", "qualification delete successfully");
     }
 }

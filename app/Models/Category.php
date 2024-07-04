@@ -26,6 +26,11 @@ class Category extends Model
         return $this->morphedByMany(Skill::class, "categorisable");
     }
 
+    public function link()
+    {
+        return $this->morphedByMany(Link::class, "categorisable");
+    }
+
     public function project()
     {
         return $this->morphedByMany(Project::class, "categorisable");

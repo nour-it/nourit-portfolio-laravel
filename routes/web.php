@@ -1,10 +1,19 @@
 <?php
 
+// Dashboard Controller
+use App\Http\Controllers\Dashboard\ProjectController as DashboardProjectController;
+use App\Http\Controllers\Dashboard\QualificationController as DashboardQualificationController;
+use App\Http\Controllers\Dashboard\ServiceController as DashboardServiceController;
+use App\Http\Controllers\Dashboard\SkillController as DashboardSkillController;
+use App\Http\Controllers\Dashboard\ProfileController as DashboardProfileController;
+use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
+
 // Admin Controller
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\QualificationController as AdminQualificationController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
+use App\Http\Controllers\Admin\SocialController as AdminSocialController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 
@@ -47,13 +56,26 @@ Route::prefix("auth")
 Route::prefix('dashboard')
     ->middleware('auth')
     ->group(function () {
-        Route::get("/", [AdminController::class, "index"])->name("admin.home");
-        Route::resource("/profile", AdminProfileController::class)->only(["index", "update"]);
-        Route::resource("/skills", AdminSkillController::class);
-        Route::resource("/projects", AdminProjectController::class);
-        Route::resource("/services", AdminServiceController::class);
-        Route::resource("/qualifications", AdminQualificationController::class);
-        Route::resource("/users", AdminUserController::class)->only(["index", "update"]);
+        Route::get("/", [AdminController::class, "index"])->name("dashboard.home");
+        Route::resource("/profile", DashboardProfileController::class)->only(["index", "update"]);
+        Route::resource("/skills", DashboardSkillController::class);
+        Route::resource("/projects", DashboardProjectController::class);
+        Route::resource("/services", DashboardServiceController::class);
+        Route::resource("/qualifications", DashboardQualificationController::class);
+        Route::resource("/users", DashboardUserController::class)->only(["index", "update"]);
+    })->name("dashboard.");
+
+Route::prefix('admin')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get("/_", [AdminController::class, "index"])->name("admin.home");
+        Route::resource("/_profile", AdminProfileController::class)->only(["index", "update"]);
+        Route::resource("/_skills", AdminSkillController::class);
+        Route::resource("/_socials", AdminSocialController::class);
+        Route::resource("/_projects", AdminProjectController::class);
+        Route::resource("/_services", AdminServiceController::class);
+        Route::resource("/_qualifications", AdminQualificationController::class);
+        Route::resource("/_users", AdminUserController::class)->only(["index", "update"]);
     });
 
 Route::prefix('{user}')

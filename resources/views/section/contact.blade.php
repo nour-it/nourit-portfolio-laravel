@@ -4,9 +4,10 @@
         <p class="text-gray-1">get in touch</p>
     </div>
     <div>
-        <div>
-            <h2 class="h2">Talk to me</h2>
-            <div class="border rounded"><svg id="email-svg" width="35" height="35">
+        @if ($contactLinks->count() > 0)
+            <div>
+                <h2 class="h2">Talk to me</h2>
+                {{-- <div class="border rounded"><svg id="email-svg" width="35" height="35">
                     <use xlink:href="{{ url('assets/icon/sprite.svg#email-svg') }}"></use>
                 </svg>
                 <h2 class="h2">Email</h2><span class="text-gray-2">reply.nour.it@gmail.com</span><a
@@ -32,8 +33,23 @@
                         width="15" height="15">
                         <use xlink:href="{{ url('assets/icon/sprite.svg#arrow-right-svg') }}"></use>
                     </svg></a>
+            </div> --}}
+                @foreach ($contactLinks as $link)
+                    <div class="border rounded">
+                        <img src={{ url($link->social->images->first()->path) }} alt="{{ $link->social->name }}"
+                            height="32">
+                        <h2 class="h2">{{ $link->social->name }}</h2>
+                        <span class="text-gray-2">{{ $link->link }}</span>
+                        <a href="{{ $link->link }}">
+                            <span>with me</span>
+                            <svg id="arrow-right-svg" width="15" height="15">
+                                <use xlink:href="{{ url('assets/icon/sprite.svg#arrow-right-svg') }}"></use>
+                            </svg>
+                        </a>
+                    </div>
+                @endforeach
             </div>
-        </div>
+        @endif
         <div>
             <h2 class="h2">Write to me</h2>
             @isset($username)

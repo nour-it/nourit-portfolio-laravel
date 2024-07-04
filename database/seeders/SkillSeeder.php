@@ -33,13 +33,7 @@ class SkillSeeder extends Seeder
             Storage::allFiles("assets/img/skill"),
             fn ($image) => ['path' => $image]
         );
-        $this->categories = Arr::map(
-            ['Frontend', 'Backend'],
-            fn ($category) => [
-                'name' => $category,
-                "type" => Skill::class,
-            ]
-        );
+        
         $this->skills = Arr::map(
             [
                 ["Figma", 1],
@@ -62,7 +56,7 @@ class SkillSeeder extends Seeder
         $user->skill()->sync([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
         DB::table('images')->insert($this->images);
-        Category::insert($this->categories);
+        
         foreach($this->skills as $skill) {
             $tmp = Skill::create(['name' => $skill['name']]);
             $tmp->category()->attach($skill['skill_category_id']);
