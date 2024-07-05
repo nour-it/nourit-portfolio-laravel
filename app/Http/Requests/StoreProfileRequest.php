@@ -28,7 +28,7 @@ class StoreProfileRequest extends FormRequest
 
         $rules = [
             "password"     => "nullable|string",
-            "confirmation" => "nullable|string",
+            "confirmation" => "nullable|string|same:password",
             "update_at"    => "nullable|date",
             "bio"          => "nullable|string",
             "about"        => "nullable|string",
@@ -36,22 +36,15 @@ class StoreProfileRequest extends FormRequest
             // "about_img"    => "nullable|image",
         ];
 
-        if ($user->username !== $request["username"]) {
+        if (isset($request["username"]) &&  $user->username !== $request["username"]) {
             $rules["username"] = "nullable|unique:users"; 
         }
 
-        if ($user->email !== $request["email"]) {
+        if ( isset($request["email"]) && $user->email !== $request["email"]) {
             $rules["email"] = "nullable|unique:users"; 
         }
 
         return $rules;
     }
 
-
-    public function messages(): array
-    {
-        return [
-            "username.unique" => "Already exists",
-        ];
-    }
 }

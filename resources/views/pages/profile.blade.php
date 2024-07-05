@@ -10,14 +10,11 @@
 
 @section('content')
     <main style="padding-top: calc(var(--space) * 1.5); display: flex; gap: calc(var(--space) * 4)">
-        <div class="edit">
-            <form action="{{ route('profile.update', ['profile' => $user->id]) }}" method="post">
-                @csrf @method('PUT')
+        <form action="{{ route('profile.update', ['profile' => $user->id]) }}" method="post" enctype="multipart/form-data">
+            @csrf @method('PUT')
+            <div class="edit">
                 <div style="display: flex; justify-content: space-between">
                     <h2>Personnal Information</h2>
-                    <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
-                        Update
-                    </button>
                 </div>
                 <div>
                     @includeIf('components.core.input', [
@@ -26,6 +23,18 @@
                         'type' => 'file',
                         'class' => '',
                     ])
+                    @foreach ($user->images as $image)
+                        @if ($image->category->first()->name == 'Profile')
+                            <img src="{{ url($image->path) }}" alt="user" width="250">
+                            @includeIf('components.core.input', [
+                                'name' => 'profile_id',
+                                'holder' => 'user name',
+                                'type' => 'hidden',
+                                'class' => '',
+                                'value' => $image->id
+                            ])
+                        @endif
+                    @endforeach
                 </div>
                 @includeIf('components.core.input', [
                     'name' => 'username',
@@ -45,20 +54,22 @@
                         'type' => 'file',
                         'class' => '',
                     ])
+                    @foreach ($user->images as $image)
+                        @if ($image->category->first()->name == 'About')
+                            <img src="{{ url($image->path) }}" alt="about" class="rounded" width="250">
+                            @includeIf('components.core.input', [
+                                'name' => 'about_id',
+                                'holder' => 'user name',
+                                'type' => 'hidden',
+                                'class' => '',
+                                'value' => $image->id
+                            ])
+                        @endif
+                    @endforeach
                 </div>
                 @includeIf('components.core.text-editor', ['name' => 'about', 'value' => $user->about])
-
-            </form>
-            <form action="" method="post">
-                <h2>Danger Zone</h2>
-                <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
-                    Delete Account
-                </button>
-            </form>
-        </div>
-        <div class="edit">
-            <form action="{{ route('profile.update', ['profile' => $user->id]) }}" method="post">
-                @csrf @method('PUT')
+            </div>
+            <div class="edit">
                 <h2>Reset Password</h2>
                 @includeIf('components.core.input', [
                     'name' => 'password',
@@ -70,13 +81,7 @@
                     'holder' => 'Confirmation password',
                     'type' => 'password',
                 ])
-                <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
-                    Update
-                </button>
-            </form>
-            <div class="social">
-                <form action="{{ route('profile.update', ['profile' => $user->id]) }}" method="post" class="">
-                    @csrf @method('PUT')
+                <div class="social">
                     <input type="hidden" name="social_count" id="social_count" value="{{ $socials->count() }}">
                     <h2>Socials</h2>
                     <table>
@@ -112,11 +117,17 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
-                        Update
-                    </button>
-                </form>
+                </div>
             </div>
-        </div>
+            <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
+                Update
+            </button>
+        </form>
+        <form action="" method="post">
+            <h2>Danger Zone</h2>
+            <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
+                Delete Account
+            </button>
+        </form>
     </main>
 @endsection

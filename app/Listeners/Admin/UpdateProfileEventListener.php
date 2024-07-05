@@ -2,6 +2,8 @@
 
 namespace App\Listeners\Admin;
 
+use App\Models\Category;
+use App\Models\Image;
 use App\Models\Link;
 use App\Models\User;
 use DateTime;
@@ -45,6 +47,7 @@ class UpdateProfileEventListener
         }
 
         $this->updateLink();
+        $this->updateImage();
 
         $this->user->save();
     }
@@ -64,7 +67,7 @@ class UpdateProfileEventListener
                 'user_id'   => $this->user->id,
                 "social_id" => $i,
                 "add_at"    => new DateTime(),
-                "remove_at" => isset($this->request['on_' . $i]) && $this->request['on_' . $i] == "on"  ? null : new DateTime() ,
+                "remove_at" => isset($this->request['on_' . $i]) && $this->request['on_' . $i] == "on"  ? null : new DateTime(),
             ];
         }
 
@@ -87,5 +90,32 @@ class UpdateProfileEventListener
             ->delete();
 
         DB::table('categorisables')->insert($categories);
+    }
+
+    private function updateImage()
+    {
+        if (isset($this->request["profile_id"])) {
+            if (isset($this->request["profile"])) {
+                Image::find($this->request["profile_id"])->update(["path" => $this->request["profile"]]);
+            }
+        } else {
+            if (isset($this->request["profile"])) {
+                $image = Image::create(["path" => $this->request["profile"]]);
+                $image->category()->attach(Category::find(11));
+                $this->user->images()->attach($image);
+            }
+        }
+
+        if (isset($this->request["about_img_id"])) {
+            if (isset($this->request["about_img"])) {
+                Image::find($this->request["about_img_id"])->update(["path" => $this->request["about_img"]]);
+            }
+        } else {
+            if (isset($this->request["about_img"])) {
+                $image = Image::create(["path" => $this->request["about_img"]]);
+                $image->category()->attach(Category::find(12));
+                $this->user->images()->attach($image);
+            }
+        }
     }
 }

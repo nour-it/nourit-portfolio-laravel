@@ -4,6 +4,6 @@
         <option value="{{ $option->id }}" {{ $option->id == $value ? "selected" : ""}} >{{ $option->$field }}</option>
     @endforeach
 </select>
-@error($value)
-    <span class="ft-red">category should not be empty</span>
+@error($label)
+    <span class="ft-red">{{ Arr::join($errors->get($label), ' | ') }}</span>
 @enderror
