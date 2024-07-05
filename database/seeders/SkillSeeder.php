@@ -30,7 +30,7 @@ class SkillSeeder extends Seeder
     public function run(): void
     {
         $this->images = Arr::map(
-            Storage::allFiles("assets/img/skill"),
+            Storage::files("assets/img/skill"),
             fn ($image) => ['path' => $image]
         );
         

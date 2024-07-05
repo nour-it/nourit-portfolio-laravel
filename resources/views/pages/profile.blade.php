@@ -19,6 +19,14 @@
                         Update
                     </button>
                 </div>
+                <div>
+                    @includeIf('components.core.input', [
+                        'name' => 'profile',
+                        'holder' => 'user name',
+                        'type' => 'file',
+                        'class' => '',
+                    ])
+                </div>
                 @includeIf('components.core.input', [
                     'name' => 'username',
                     'holder' => 'user name',
@@ -30,6 +38,14 @@
                     'value' => $user->email,
                 ])
                 @includeIf('components.core.text-editor', ['name' => 'bio', 'value' => $user->bio])
+                <div>
+                    @includeIf('components.core.input', [
+                        'name' => 'about_img',
+                        'holder' => 'about',
+                        'type' => 'file',
+                        'class' => '',
+                    ])
+                </div>
                 @includeIf('components.core.text-editor', ['name' => 'about', 'value' => $user->about])
 
             </form>
@@ -47,12 +63,12 @@
                 @includeIf('components.core.input', [
                     'name' => 'password',
                     'holder' => 'New Password',
-                    'type' => 'password'
+                    'type' => 'password',
                 ])
                 @includeIf('components.core.input', [
                     'name' => 'confirmation',
                     'holder' => 'Confirmation password',
-                    'type' => 'password'
+                    'type' => 'password',
                 ])
                 <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
                     Update
@@ -66,29 +82,31 @@
                     <table>
                         <tbody>
                             @foreach ($socials as $social)
-                            @php
-                                $link = $user->link->where("social_id",$social->id)->first();
-                                $category = $link?->category->first();
-                            @endphp
+                                @php
+                                    $link = $user->link->where('social_id', $social->id)->first();
+                                    $category = $link?->category->first();
+                                @endphp
                                 <tr>
-                                    <td><img src="{{ url($social->images[0]->path) }}" alt="" height="24" width="24" /></td>
+                                    <td><img src="{{ url($social->images[0]->path) }}" alt="" height="24"
+                                            width="24" /></td>
                                     <td>
                                         @includeIf('components.core.input', [
                                             'name' => 'social_' . $social->id,
                                             'holder' => $social->name,
-                                            'value' => $link?->link
+                                            'value' => $link?->link,
                                         ])
                                     </td>
                                     <td>
                                         @includeIf('components.core.select', [
                                             'options' => $types,
-                                            'label' => 'type_id_' . $social->id ,
+                                            'label' => 'type_id_' . $social->id,
                                             'value' => $category?->id,
                                             'field' => 'name',
                                         ])
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="on_{{ $social->id }}" id="on_{{ $social->id }}" @if(is_null($link?->remove_at)) checked @endif>
+                                        <input type="checkbox" name="on_{{ $social->id }}" id="on_{{ $social->id }}"
+                                            @if (is_null($link?->remove_at)) checked @endif>
                                     </td>
                                 </tr>
                             @endforeach

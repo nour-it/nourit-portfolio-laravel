@@ -8,8 +8,6 @@ use App\Models\User;
 use App\Repository\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
@@ -30,11 +28,13 @@ class RegisterController extends Controller
     {
         $user = $this->userRepository->findUserByUsernameOrMail($request->input("username"), $request->input("email"));
         if ($user) {
-            return redirect(route("register"))->with("error", "a user already exists");
+            $this->redirect = redirect(route("register"));
+            return $this->redirect->with("error", "a user already exists");
         }
         $user = $this->userRepository->createUserFromRequest($request);
         Mail::to($request->input("email"))->later(now()->addSecond(1), new RegisterMail($user));
-        return redirect(route("login"))->with("success", "an email was sent to your account");
+        $this->redirect = redirect(route("login"));
+        return $this->redirect->with("success", "an email was sent to your account");
     }
 
     public function confirme(Request $request, string $token)
@@ -42,6 +42,7 @@ class RegisterController extends Controller
         $user = User::where(['confirmation_token' => $token])->first();
         $user->confirmation_token = NULL;
         $user->save();
-        return redirect(route("login"))->with("success", "acount confirmed");
+        $this->redirect = redirect(route("login"));
+        return $this->redirect->with("success", "acount confirmed");
     }
 }

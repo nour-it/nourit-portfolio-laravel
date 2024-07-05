@@ -12,20 +12,20 @@ class ServiceController extends Controller
 {
     public function index(Request $request)
     {
-        $default = function ($request) {
+        return $this->render($request, function ($request) {
             $services = Service::where(["desable_at" => NULL])->paginate(15);
-            return view("pages.services", compact('services'))->render();
-        };
-        return $this->render($request, $default);
+            $this->view = view("pages.services", compact('services'));
+            return $this->view->render();
+        });
     }
 
     public function show(Request $request, int $service)
     {
-        $default = function ($request) use ($service){
+        return $this->render($request, function ($request) use ($service) {
             $services = Service::where(["delete_at" => NULL])->paginate(15);
             $service = Service::findOrFail($service);
-            return view("pages.services", compact('services', 'service'))->render();
-        };
-        return $this->render($request, $default);
+            $this->view = view("pages.services", compact('services', 'service'));
+            return $this->view->render();
+        });
     }
 }

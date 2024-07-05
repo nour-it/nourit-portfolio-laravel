@@ -8,19 +8,25 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Models\Category;
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use App\Repository\ProjectRepository;
 use DateTime;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+
+    public function __construct(private ProjectRepository $projectRepository)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         return $this->render($request, function ($request) {
-            $projects = Project::paginate(15);
-            return view("pages.admin", compact('projects'))->render();
+            $projects = $this->projectRepository->getUserProject($request->user());
+            $this->view = view("pages.dashboard", compact('projects'));
+            return $this->view->render();
         });
     }
 
@@ -32,7 +38,8 @@ class ProjectController extends Controller
         return $this->render($request, function ($request) {
             $project = new Project();
             $categories = Category::where('type', Project::class)->get();
-            return view("project.edit", compact('project', "categories"))->render();
+            $this->view = view("project.edit", compact('project', "categories"));
+            return $this->view->render();
         });
     }
 
@@ -55,7 +62,8 @@ class ProjectController extends Controller
         return $this->render($request, function ($request) use ($project) {
             $project = Project::findOrFail($project);
             $categories = Category::where('type', Project::class)->get();
-            return view("project.edit", compact('project', 'categories'))->render();
+            $this->view = view("project.edit", compact('project', 'categories'));
+            return $this->view->render();
         });
     }
 
@@ -64,7 +72,6 @@ class ProjectController extends Controller
      */
     public function update(StoreProjectRequest $request, Project $project)
     {
-        
         UpdateProjectEvent::dispatch($project, $request);
         $this->redirect = redirect(route("projects.index"));
         return $this->redirect->with("success", "project updated successfully");
@@ -77,6 +84,7 @@ class ProjectController extends Controller
     {
         $project->delete_at = new DateTime();
         $project->save();
-        return redirect(route("projects.index"))->with("success", "project delete successfully");
+        $this->redirect = redirect(route("projects.index"));
+        return $this->redirect->with("success", "project delete successfully");
     }
 }

@@ -8,20 +8,26 @@ use App\Http\Requests\StoreServiceRequest;
 use App\Models\Category;
 use App\Models\Project;
 use App\Models\Service;
+use App\Repository\ServiceRepository;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class ServiceController extends Controller
 {
+
+    public function __construct(private ServiceRepository $serviceRepository)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         return $this->render($request, function ($request) {
-            $services = Service::paginate(15);
-            return view("pages.admin", compact('services'))->render();
+            $services = $this->serviceRepository->getUserServices($request->user());
+            $this->view = view("pages.dashboard", compact('services'));
+            return $this->view->render();
         });
     }
 
@@ -33,7 +39,8 @@ class ServiceController extends Controller
         return $this->render($request, function ($request) {
             $service = new Service();
             $categories = Category::where('type', Service::class)->get();
-            return view("service.edit", compact('service', "categories"))->render();
+            $this->view = view("service.edit", compact('service', "categories"));
+            return $this->view->render();
         });
     }
 
@@ -56,7 +63,8 @@ class ServiceController extends Controller
         return $this->render($request, function ($request) use ($service) {
             $service = Service::findOrFail($service);
             $categories = Category::where('type', Service::class)->get();
-            return view("service.edit", compact('service', 'categories'))->render();
+            $this->view = view("service.edit", compact('service', 'categories'));
+            return $this->view->render();
         });
     }
 
@@ -65,7 +73,7 @@ class ServiceController extends Controller
      */
     public function update(StoreServiceRequest $request, Service $service)
     {
-        
+
         UpdateServiceEvent::dispatch($service, $request);
         $this->redirect = redirect(route("services.index"));
         return $this->redirect->with("success", "service updated successfully");
@@ -78,6 +86,7 @@ class ServiceController extends Controller
     {
         $service->desable_at = new DateTime();
         $service->save();
-        return redirect(route("services.index"))->with("success", "service delete successfully");
+        $this->redirect = redirect(route("services.index"));
+        return $this->redirect->with("success", "service delete successfully");
     }
 }

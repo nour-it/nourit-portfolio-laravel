@@ -22,28 +22,28 @@ class ServiceController extends Controller
 
     public function index(Request $request, string $user)
     {
-        $user = User::where("username", $user)->first();
-        if (NULL === $user) {
-            $this->redirect = redirect(route('service.page.index'), 301);
-            return $this->redirect;
-        }
-        $default = function ($request) use ($user) {
+        return $this->render($request, function ($request) use ($user) {
+            $user = User::where("username", $user)->first();
+            if (NULL === $user) {
+                $this->redirect = redirect(route('service.page.index'), 301);
+                return $this->redirect;
+            }
             $services = $this->serviceRepository->getUserServices($user);
             $contactLinks = $this->userRepository->getContactLink($user);
             $profileLinks = $this->userRepository->getProfileLink($user);
             $username = $user->username;
-            return view("user.services", compact('services', "username", "contactLinks", "profileLinks"))->render();
-        };
-        return $this->render($request, $default);
+            $this->view = view("user.services", compact('services', "username", "contactLinks", "profileLinks"));
+            return $this->view->render();
+        });
     }
 
     public function show(Request $request, int $service)
     {
-        $default = function ($request) use ($service) {
+        return $this->render($request, function ($request) use ($service) {
             $services = $this->serviceRepository->findPublicServices();
             $service = Service::findOrFail($service);
-            return view("user.services", compact('services', 'service'))->render();
-        };
-        return $this->render($request, $default);
+            $this->view = view("user.services", compact('services', 'service'));
+            return $this->view->render();
+        });
     }
 }

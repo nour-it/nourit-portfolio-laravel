@@ -12,4 +12,10 @@ class Image extends Model
     public $timestamps = false;
     
     public $fillable = ['path'];
+
+    public function category()
+    {
+        return $this->morphToMany(Category::class, "categorisable");
+    }
+
 }

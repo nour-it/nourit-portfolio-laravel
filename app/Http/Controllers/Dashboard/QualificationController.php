@@ -6,22 +6,27 @@ use App\Events\Admin\UpdateQualificationEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQualificationRequest;
 use App\Models\Category;
-use App\Models\Project;
 use App\Models\Qualification;
+use App\Repository\QualificationRepository;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class QualificationController extends Controller
 {
+
+    public function __construct(private QualificationRepository $qualificationRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         return $this->render($request, function ($request) {
-            $qualifications = Qualification::paginate(15);
-            return view("pages.admin", compact('qualifications'))->render();
+            $qualifications = $this->qualificationRepository->getUserQualifications($request->user());
+            $this->view = view("pages.dashboard", compact('qualifications'));
+            return $this->view->render();
         });
     }
 
@@ -33,7 +38,8 @@ class QualificationController extends Controller
         return $this->render($request, function ($request) {
             $qualification = new Qualification();
             $categories = Category::where('type', Qualification::class)->get();
-            return view("qualification.edit", compact('qualification', "categories"))->render();
+            $this->view = view("qualification.edit", compact('qualification', "categories"));
+            return $this->view->render();
         });
     }
 
@@ -56,7 +62,8 @@ class QualificationController extends Controller
         return $this->render($request, function ($request) use ($qualification) {
             $qualification = Qualification::findOrFail($qualification);
             $categories = Category::where('type', Qualification::class)->get();
-            return view("qualification.edit", compact('qualification', 'categories'))->render();
+            $this->view = view("qualification.edit", compact('qualification', 'categories'));
+            return $this->view->render();
         });
     }
 
@@ -77,6 +84,7 @@ class QualificationController extends Controller
     {
         $qualification->delete_at = new DateTime();
         $qualification->save();
-        return redirect(route("qualifications.index"))->with("success", "qualification delete successfully");
+        $this->redirect = redirect(route("qualifications.index"));
+        return $this->redirect->with("success", "qualification delete successfully");
     }
 }

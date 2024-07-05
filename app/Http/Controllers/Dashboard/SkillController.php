@@ -8,12 +8,18 @@ use App\Http\Requests\StoreSkillRequest;
 use App\Models\Category;
 use App\Models\Skill;
 use App\Models\SkillCategory;
+use App\Repository\SkillRepository;
 use DateTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
+
+    public function __construct(private SkillRepository $skillRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -21,8 +27,9 @@ class SkillController extends Controller
     {
         $this->user = $request->user();
         return $this->render($request, function ($request) {
-            $skills = $this->user->skill()->select('*', 'skillables.add_at as new_at')->paginate(15);
-            return view("pages.admin", compact('skills'))->render();
+            $skills = $this->skillRepository->getUserSkills($request->user());
+            $this->view = view("pages.dashboard", compact('skills'));
+            return $this->view->render();
         });
     }
 
@@ -34,11 +41,12 @@ class SkillController extends Controller
         return $this->render($request, function ($request) {
             $skill = new Skill();
             $categories = Category::where('type', Skill::class)->get();
-            return view("skill.edit", compact('skill', "categories"))->render();
+            $this->view = view("skill.edit", compact('skill', "categories"));
+            return $this->view->render();
         });
     }
 
-      
+
     /**
      * store a newly created resource in storage.
      *
@@ -61,7 +69,8 @@ class SkillController extends Controller
         return $this->render($request, function ($request) use ($skill) {
             $skill = Skill::findOrFail($skill);
             $categories = Category::where('type', Skill::class)->get();
-            return view("skill.edit", compact('skill', 'categories'))->render();
+            $this->view = view("skill.edit", compact('skill', 'categories'));
+            return $this->view->render();
         });
     }
 
@@ -82,6 +91,7 @@ class SkillController extends Controller
     {
         $skill->delete_at = new DateTime();
         $skill->save();
-        return redirect(route("skills.index"))->with("success", "skill delete successfully");
+        $this->redirect = redirect(route("skills.index"));
+        return $this->redirect->with("success", "skill delete successfully");
     }
 }

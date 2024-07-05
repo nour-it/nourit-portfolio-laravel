@@ -1,5 +1,5 @@
 <header class="header" style="--max-width: 1400px;">
-    <a class="logo" href="{{ route("admin.home") }}">Nour<span>It</span></a>
+    <a class="logo" href="{{ route("dashboard.home") }}">Nour<span>It</span></a>
     <div>
         <form action="{{ route('logout') }}" method="POST">
             @csrf

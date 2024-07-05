@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Events\ViewSkillPageEvent;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
-use App\Models\Skill;
 use App\Models\User;
-use App\Repository\ProjectRepository;
 use App\Repository\QualificationRepository;
 use App\Repository\SkillRepository;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
@@ -25,12 +22,11 @@ class HomeController extends Controller
     ) {
     }
 
-
     public function index(Request $request, string $user)
     {
         $default = function ($request) use ($user) {
             $user = User::where("username", $user)
-                ->with(["project" => fn ($q) => $q->with([])])
+                ->with(["project" => fn ($q) => $q->with([]), "images" => fn ($q) => $q->with(['category'])])
                 ->first();
             if (NULL === $user) {
                 $this->redirect = redirect(route("home"), 301);
@@ -52,6 +48,11 @@ class HomeController extends Controller
     {
         $receiver = $this->userRepository->findUserByUsernameOrMail($user);
         $message = $request->only('name', 'email', 'project');
+        $sender = Auth::user();
+        if ($sender) {
+            $message['name'] = $sender->username;
+            $message['email'] = $sender->email;
+        }
         Mail::to($receiver)->send(new ContactMail($message));
         $this->redirect = redirect(route("user.home", ['user' => $user]));
         return $this->redirect->with('success', 'Mail Send Successfully');

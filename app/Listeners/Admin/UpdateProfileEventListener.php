@@ -52,6 +52,8 @@ class UpdateProfileEventListener
 
     private function updateLink()
     {
+        if (!isset($this->request["social_count"])) return;
+
         $ids = $this->user->link->pluck("id");
         $this->user->link()->delete();
 

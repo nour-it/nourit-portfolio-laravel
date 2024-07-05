@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->hasMany(Link::class);
     }
 
+    public function images(): BelongsToMany
+    {
+        return $this->morphToMany(Image::class, "imageable");
+    }
+
     // queries
 
     public function isValidate(): bool

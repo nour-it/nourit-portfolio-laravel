@@ -4,7 +4,9 @@
         <div class="text-black-2">
             <hr> Web and Mobile App developer
         </div>
-        {!! $user->bio !!}
+        <div>
+            {!! $user->bio !!}
+        </div>
         <a href="#contact" class="btn">
             say hello
             <svg id="prime_send-svg" width="24" height="24">
@@ -13,6 +15,10 @@
         </a>
     </div>
     <div>
-        <img src="{{ url('assets/img/logo512.png') }}" alt="user">
+        @foreach ($user->images as $image)
+            @if ($image->category->first()->name == 'Profile')
+                <img src="{{ url($image->path) }}" alt="user">
+            @endif
+        @endforeach
     </div>
 </section>

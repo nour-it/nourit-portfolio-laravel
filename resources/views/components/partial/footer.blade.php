@@ -25,13 +25,16 @@
             </li>
         </ul>
         <ul>
-            @foreach ($profileLinks as $link)
-                <li>
-                    <a href="{{ $link->link }}">
-                        <img src={{ url($link->social->images->first()->path) }} alt="{{ $link->social->name }}" height="32">
-                    </a>
-                </li>
-            @endforeach
+            @isset($profileLinks)
+                @foreach ($profileLinks as $link)
+                    <li>
+                        <a href="{{ $link->link }}">
+                            <img src={{ url($link->social->images->first()->path) }} alt="{{ $link->social->name }}"
+                                height="32">
+                        </a>
+                    </li>
+                @endforeach
+            @endisset
         </ul>
     </nav><span class="copy-right">@krish4alex. All rights reserved</span>
 </footer>

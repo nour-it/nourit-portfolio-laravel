@@ -62,14 +62,12 @@ Route::prefix('dashboard')
         Route::resource("/projects", DashboardProjectController::class);
         Route::resource("/services", DashboardServiceController::class);
         Route::resource("/qualifications", DashboardQualificationController::class);
-        Route::resource("/users", DashboardUserController::class)->only(["index", "update"]);
     })->name("dashboard.");
 
 Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
         Route::get("/_", [AdminController::class, "index"])->name("admin.home");
-        Route::resource("/_profile", AdminProfileController::class)->only(["index", "update"]);
         Route::resource("/_skills", AdminSkillController::class);
         Route::resource("/_socials", AdminSocialController::class);
         Route::resource("/_projects", AdminProjectController::class);

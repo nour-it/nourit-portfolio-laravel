@@ -26,8 +26,8 @@ class UserFactory extends Factory
             "google_id"            => null,
             "google_token"         => null,
             "google_refresh_token" => null,
-            "bio"                  => fake("fr_FR")->paragraph(),
-            "about"                => fake("fr_FR")->paragraph(),
+            "bio"                  => "<p>" . fake("fr_FR")->paragraphs(3, true) . "</p>",
+            "about"                => "<p>" . fake("fr_FR")->paragraphs(3, true) . "</p>",
             "validate_at"          => fake()->date()
         ];
     }

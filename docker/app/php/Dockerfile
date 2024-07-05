@@ -22,6 +22,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www
 
+COPY start.sh /var/www/start.sh
+
+RUN composer install 
+
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD ["./start.sh"]

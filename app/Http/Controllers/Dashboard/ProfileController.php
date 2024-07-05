@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateProfileEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProfileRequest;
 use App\Models\Category;
 use App\Models\Social;
 use App\Models\User;
@@ -29,11 +30,10 @@ class ProfileController extends Controller
         });
     }
 
-    public function update(Request $request, User $profile)
+    public function update(StoreProfileRequest $request, User $profile)
     {
         $this->user = $request->user();
         broadcast(new UpdateProfileEvent($request->all(), $profile));
-        // UpdateProfileEvent::dispatch($request, $profile);
         $this->redirect = redirect(route("profile.index"));
         return $this->redirect;
     }

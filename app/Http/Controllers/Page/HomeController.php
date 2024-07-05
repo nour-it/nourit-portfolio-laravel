@@ -28,7 +28,8 @@ class HomeController extends Controller
             $skills = $this->skillRepository->getAvailableSkills();
             ViewSkillPageEvent::dispatch($request->ip());
             $header = "home-header";
-            return view("pages.home", compact("skills", "header"))->render();
+            $this->view = view("pages.home", compact("skills", "header"));
+            return $this->view->render();
         };
         return $this->render($request, $default);
     }
@@ -37,6 +38,7 @@ class HomeController extends Controller
     {
         $message = $request->only('name', 'email', 'project');
         Mail::to(User::first())->send(new ContactMail($message));
-        return redirect(route("home"))->with('success', 'Mail Send Successfully');
+        $this->redirect = redirect(route("home"));
+        return $this->redirect->with('success', 'Mail Send Successfully');
     }
 }

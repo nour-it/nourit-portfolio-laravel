@@ -56,6 +56,7 @@ class UserRepository
         return $user->link()
             ->whereIn("id", $linkIds)
             ->where("link", "!=", "")
+            ->where(["remove_at" => NULL])
             ->get();
     }
 
@@ -65,6 +66,7 @@ class UserRepository
         return $user->link()
             ->whereIn("id", $linkIds)
             ->where("link", "!=", "")
+            ->where(["remove_at" => NULL])
             ->get();
     }
 

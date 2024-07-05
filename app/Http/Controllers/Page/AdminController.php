@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Page;
 
+use App\Helper;
 use App\Http\Controllers\Controller;
-use App\Models\Project;
-use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -19,7 +18,8 @@ class AdminController extends Controller
             $services       = $this->user->service()->limit(5)->get();
             $qualifications = $this->user->qualification()->limit(5)->get();
             $more           = true;
-            return view("pages.admin", compact('skills', 'projects', 'services', 'qualifications', "more"))->render();
+            $this->view = view(Helper::ADMIN_PAGE, compact('skills', 'projects', 'services', 'qualifications', "more"));
+            return $this->view->render();
         });
     }
 }

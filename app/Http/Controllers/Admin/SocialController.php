@@ -8,6 +8,7 @@ use App\Http\Requests\StoreSkillRequest;
 use App\Models\Category;
 use App\Models\Skill;
 use App\Models\SkillCategory;
+use App\Models\Social;
 use DateTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class SocialController extends Controller
     {
         $this->user = $request->user();
         return $this->render($request, function ($request) {
-            $skills = Skill::paginate(15);
+            $skills = Social::paginate(15);
             $this->view = view("pages.admin", compact('skills'));
             return $this->view->render();
         });
