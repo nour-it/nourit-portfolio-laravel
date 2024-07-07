@@ -29,6 +29,6 @@ class ServiceTest extends TestCase
         // $this->assertDatabaseCount("services", 2);
         $this->assertFileExists($created_file . '/demo.png');
         $response->assertStatus(302);
-        exec("rm -rf {$created_file}");
+        // exec("rm -rf {$created_file}");
     }
 }

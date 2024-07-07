@@ -11,7 +11,7 @@ class ProjectRepository
 
     public function __construct(
         private Project $project,
-        private ?Category $category
+        private Category $category
     ) {
     }
 

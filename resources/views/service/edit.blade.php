@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    @if (Str::contains(request()->url(), 'dashboard/skills'))
+    @if (Str::contains(request()->url(), 'dashboard/services'))
         {{-- USER --}}
         <div class="edit">
             @if ($service->id)
@@ -29,7 +29,7 @@
             @includeIf('components.core.input', ['name' => 'title', 'value' => $service->title])
             @includeIf('components.core.select', [
                 'options' => $categories,
-                'label' => 'service_category_id',
+                'label' => 'category_id',
                 'value' => $service->service_category_id,
                 'field' => 'name',
             ])

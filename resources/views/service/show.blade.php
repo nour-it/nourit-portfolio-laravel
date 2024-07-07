@@ -1,6 +1,6 @@
 <div class="projects info">
     <div class="project border rounded"
-        style="background-image: url({{ url($service->images[0]->path ?? "service.png") }}); background-color: var(--cover);">
+        style="background-image: url('{{ url($service->images[0]->path ?? "service.png") }}'); background-color: var(--cover);">
         <div class="rounded" style="background: var(--color-body-background);"><svg id="android" width="24"
                 height="24">
                 <use xlink:href="/icon/sprite.svg#android"></use>

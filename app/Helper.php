@@ -22,19 +22,21 @@ class Helper
             $paths[$key] = Arr::map($files, function ($file) use ($path) {
                 if ($file === NULL) return;
                 $name = $file->getClientOriginalName();
+                $folder = $path;
                 $path = $file->storeAs($path, $name);
-                ResizeImageJob::dispatch($path, $path . "/");
+                ResizeImageJob::dispatch($path, $folder . "/");
                 return $path;
             });
         } else {
             $file = $files;
             if ($file !== NULL) {
                 $name = $file->getClientOriginalName();
+                $folder = $path;
                 $paths[$key] = $file->storeAs($path, $name);
-                ResizeImageJob::dispatch($paths[$key], $path . "/");
+                ResizeImageJob::dispatch($paths[$key], $folder . "/");
             }
         }
-        // dd($path);
+        
         return $paths[$key];
     }
 }

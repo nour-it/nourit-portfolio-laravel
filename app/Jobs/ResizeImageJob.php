@@ -19,9 +19,9 @@ class ResizeImageJob implements ShouldQueue
     private string $uploadPath = "upload/";
 
     private array $dimensions = [
-        'thumb' => [100, 100],
+        'thumb'  => [100, 100],
         'medium' => [300, 300],
-        'large' => [500, 500],
+        'large'  => [500, 500],
     ];
 
     private string $input;
@@ -32,7 +32,7 @@ class ResizeImageJob implements ShouldQueue
     public function __construct(public string $name, public ?string $folder)
     {
         if (NULL !== $this->folder) {
-            $this->input = storage_path('app/' . $this->folder . $this->name);
+            $this->input = storage_path('app/' . $this->name);
         } else {
             $this->input = storage_path('app/' . $this->uploadPath . $this->name);
         }
