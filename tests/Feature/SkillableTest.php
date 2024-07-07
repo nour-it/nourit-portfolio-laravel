@@ -30,5 +30,30 @@ class SkillableTest extends TestCase
         exec("rm -rf {$created_file}");
     }
 
+    public function test_render_user_skill_dashboard()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route('skills.index'));
+        $response->assertStatus(200);
+    }
+
+    public function test_render_user_skill_edition_page()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route("skills.create"));
+        $response->assertStatus(200);
+        $response = $this->get(route("skills.edit", ['skill' => $user->skill()->first()->id]));
+        $response->assertStatus(200);
+    }
+
+    public function test_render_skill_admin_page()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route('_skills.index'));
+        $response->assertStatus(200);
+    }
 
 }

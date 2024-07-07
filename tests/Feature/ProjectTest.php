@@ -66,4 +66,30 @@ class ProjectTest extends TestCase
         // $this->assertDatabaseCount("categorisables", 12);
         $response->assertStatus(302);
     }
+
+    public function test_render_user_project_dashboard()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route('projects.index'));
+        $response->assertStatus(200);
+    }
+
+    public function test_render_user_project_edition_page()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route("projects.create"));
+        $response->assertStatus(200);
+        $response = $this->get(route("projects.edit", ['project' => $user->project()->first()->id]));
+        $response->assertStatus(200);
+    }
+
+    public function test_render_projet_admin_page()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route('_projects.index'));
+        $response->assertStatus(200);
+    }
 }

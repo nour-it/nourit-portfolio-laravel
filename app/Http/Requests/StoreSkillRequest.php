@@ -24,7 +24,7 @@ class StoreSkillRequest extends FormRequest
         return [
             'name'        => 'required',
             'category_id' => "required|integer",
-            'create_at'      => 'date|nullable',
+            'create_at'   => 'date|nullable',
             'delete_at'   => 'date|nullable',
         ];
     }

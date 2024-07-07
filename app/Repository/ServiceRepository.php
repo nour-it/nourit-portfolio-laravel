@@ -19,7 +19,7 @@ class ServiceRepository
     public function getUserServices(User $user)
     {
         return $user->service()
-            ->where(['services.desable_at' => NULL])
+            // ->where(['services.desable_at' => NULL])
             ->with(["category", "images"])
             ->paginate(15);
     }

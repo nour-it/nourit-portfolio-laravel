@@ -20,6 +20,11 @@ class LoginController extends Controller
 
     public function index(Request $request)
     {
+        $user = $request->user();
+        if ($user) {
+            $this->redirect = redirect("dashboard.home");
+            return $this->redirect;
+        }
         return $this->render($request, function ($request) {
             $this->view = view('auth.loging');
             return $this->view->render();
@@ -34,7 +39,7 @@ class LoginController extends Controller
             $this->redirect = redirect(route("login"), 302);
             return $this->redirect->with("error", "user not found");
         }
-        
+
         if ($user->isValidate() && Hash::check($request->input('password'), $user->password)) {
             Auth::login($user);
             $user->lastlogin_at = new DateTime();
@@ -42,7 +47,7 @@ class LoginController extends Controller
             $user->save();
             return redirect(route("dashboard.home"));
         } else {
-            
+
             $this->redirect = redirect(route("login"), 302);
             return $this->redirect->with("error", "Invalid user");
         }
@@ -54,7 +59,4 @@ class LoginController extends Controller
         $this->redirect = redirect(route("home"), 302);
         return $this->redirect;
     }
-
- 
-
 }

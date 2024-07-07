@@ -19,6 +19,11 @@ class RegisterController extends Controller
 
     public function index(Request $request)
     {
+        $user = $request->user();
+        if ($user) {
+            $this->redirect = redirect("dashboard.home");
+            return $this->redirect;
+        }
         return $this->render($request, function ($request) {
             return view('auth.register');
         });

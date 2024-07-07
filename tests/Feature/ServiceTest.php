@@ -31,4 +31,30 @@ class ServiceTest extends TestCase
         $response->assertStatus(302);
         // exec("rm -rf {$created_file}");
     }
+
+    public function test_render_user_service_dashboard()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route('services.index'));
+        $response->assertStatus(200);
+    }
+
+    public function test_render_user_service_edition_page()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route("services.create"));
+        $response->assertStatus(200);
+        $response = $this->get(route("services.edit", ['service' => $user->service()->first()->id]));
+        $response->assertStatus(200);
+    }
+
+    public function test_render_service_admin_page()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route('_services.index'));
+        $response->assertStatus(200);
+    }
 }
