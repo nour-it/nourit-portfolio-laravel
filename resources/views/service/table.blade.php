@@ -1,4 +1,4 @@
-@if (Str::contains(request()->url(), 'dashboard/services'))
+@if (Str::contains(request()->url(), 'dashboard'))
     {{-- USER --}}
     <table>
         <thead>

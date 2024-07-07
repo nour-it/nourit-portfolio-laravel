@@ -22,7 +22,7 @@ class LoginController extends Controller
     {
         $user = $request->user();
         if ($user) {
-            $this->redirect = redirect("dashboard.home");
+            $this->redirect = redirect(route("dashboard.home"));
             return $this->redirect;
         }
         return $this->render($request, function ($request) {

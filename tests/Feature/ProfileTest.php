@@ -10,6 +10,14 @@ use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
+    public function test_render_user_dashboar_page()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route("dashboard.home"));
+        $response->assertStatus(200);
+    }
+
     public function test_render_user_profile_page()
     {
         $user = User::first();
