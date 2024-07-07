@@ -16,7 +16,7 @@
                 'holder' => 'password',
                 'type' => 'password',
             ])
-            <div class="center">
+            <div class="center" style="height: max-content">
                 <button type="submit" class="btn" style="margin-bottom: calc(var(--space) * 2)">
                     Login
                 </button>
@@ -29,6 +29,10 @@
                 </a>
                 <p>
                     If you have an acount you can create one <a href="{{ route('register') }}"
+                        style="color: var(--color-red)">here</a>
+                </p>
+                <p>
+                    Forget your password ? enter your email an click <a href="{{ route('register') }}"
                         style="color: var(--color-red)">here</a>
                 </p>
             </div>

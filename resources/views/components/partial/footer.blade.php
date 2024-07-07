@@ -24,6 +24,7 @@
                 @endif
             </li>
         </ul>
+        
         <ul>
             @isset($profileLinks)
                 @foreach ($profileLinks as $link)

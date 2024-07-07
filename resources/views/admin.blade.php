@@ -12,25 +12,24 @@
     <title>{{ $username ?? 'Nour It ' }} | Portfolio</title>
     @vite(['resources/css/style.scss'])
 </head>
-
 <body>
     @yield('header')
     <div class="container" style="display: flex; gap: calc(var(--space) * 2); --max-width: 1400px">
         <aside>
             <ul>
-                <li class="text-black-1 @if (request()->is('dashboard/profile')) {{ 'active' }} @endif">
+                <li class="text-black-1 @if (Str::contains(request()->url(), 'dashboard/profile')) {{ 'active' }} @endif">
                     <a href="{{ route('profile.index') }}">Profile</a>
                 </li>
-                <li class="text-black-1 @if (request()->is('dashboard/projects')) {{ 'active' }} @endif">
+                <li class="text-black-1 @if (Str::contains(request()->url(), 'dashboard/projects')) {{ 'active' }} @endif">
                     <a href="{{ route('projects.index') }}">Projects</a>
                 </li>
-                <li class="text-black-1  @if (request()->is('dashboard/skills')) {{ 'active' }} @endif">
+                <li class="text-black-1  @if (Str::contains(request()->url(), 'dashboard/skills')) {{ 'active' }} @endif">
                     <a href="{{ route('skills.index') }}">Skills</a>
                 </li>
-                <li class="text-black-1  @if (request()->is('dashboard/services')) {{ 'active' }} @endif">
+                <li class="text-black-1  @if (Str::contains(request()->url(), 'dashboard/services')) {{ 'active' }} @endif">
                     <a href="{{ route('services.index') }}">Services</a>
                 </li>
-                <li class="text-black-1  @if (request()->is('dashboard/qualifications')) {{ 'active' }} @endif">
+                <li class="text-black-1  @if (Str::contains(request()->url(), 'dashboard/qualifications')) {{ 'active' }} @endif">
                     <a href="{{ route('qualifications.index') }}">Qualifications</a>
                 </li>
             </ul>
@@ -38,22 +37,22 @@
                 <h2>Admin</h2>
                 <hr>
                 <ul>
-                    <li class="text-black-1  @if (request()->is('admin/_users')) {{ 'active' }} @endif">
+                    <li class="text-black-1  @if (Str::contains(request()->url(), 'admin/_users')) {{ 'active' }} @endif">
                         <a href="{{ route('_users.index') }}">Users</a>
                     </li>
-                    <li class="text-black-1  @if (request()->is('admin/_skills')) {{ 'active' }} @endif">
+                    <li class="text-black-1  @if (Str::contains(request()->url(), 'admin/_skills')) {{ 'active' }} @endif">
                         <a href="{{ route('_skills.index') }}">Skills</a>
                     </li>
-                    <li class="text-black-1  @if (request()->is('admin/_socials')) {{ 'active' }} @endif">
+                    <li class="text-black-1  @if (Str::contains(request()->url(), 'admin/_socials')) {{ 'active' }} @endif">
                         <a href="{{ route('_socials.index') }}">Socials</a>
                     </li>
-                    <li class="text-black-1  @if (request()->is('admin/_projects')) {{ 'active' }} @endif">
+                    <li class="text-black-1  @if (Str::contains(request()->url(), 'admin/_projects')) {{ 'active' }} @endif">
                         <a href="{{ route('_projects.index') }}">Projects</a>
                     </li>
-                    <li class="text-black-1  @if (request()->is('admin/_services')) {{ 'active' }} @endif">
+                    <li class="text-black-1  @if (Str::contains(request()->url(), 'admin/_services')) {{ 'active' }} @endif">
                         <a href="{{ route('_services.index') }}">Services</a>
                     </li>
-                    <li class="text-black-1  @if (request()->is('admin/_qualifications')) {{ 'active' }} @endif">
+                    <li class="text-black-1  @if (Str::contains(request()->url(), 'admin/_qualifications')) {{ 'active' }} @endif">
                         <a href="{{ route('_qualifications.index') }}">Qualifications</a>
                     </li>
                 </ul>
@@ -63,5 +62,4 @@
     </div>
     @vite(['resources/js/app.js'])
 </body>
-
 </html>

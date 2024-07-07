@@ -84,32 +84,42 @@ table tr>td:nth-child(5) div {
     padding-inline: calc(var(--space));
 }
 
-.edit {
-    margin-top: calc(var(--space) * 3);
-    width: 50%;
-}
+// .edit {
+//     margin-top: calc(var(--space) * 3);
+//     width: 50%;
+// }
 
-.edit form {
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--space) * 2);
-}
+// form {
+//     display: flex;
+//     flex-direction: column;
+//     gap: calc(var(--space) * 2);
+// }
 
-.edit form input,
-.edit form input:focus-visible,
-.edit form select,
-.edit form textarea {
+ form input,
+ form input:focus-visible,
+ form select,
+ form textarea {
     background: var(--color-body-background);
     font-family: 'Manrope';
     padding: calc(var(--space) *1) calc(var(--space) *2.5);
     color: var(--color-text-black-2);
-    width: 100%;
+    width: 100% !important;
+    margin-block: calc(var(--space) * 2);
 }
 
-.social form input,
-.social form input:focus-visible,
-.social form select,
-.social form textarea {
+.edit li {
+    display: flex;
+    gap: calc(var(--space) * 2);
+    align-items: center;
+}
+.edit li input{
+    width: max-content !important;
+}
+
+.social input,
+.social input:focus-visible,
+.social select,
+.social textarea {
     border: none;
     outline: none;
 }

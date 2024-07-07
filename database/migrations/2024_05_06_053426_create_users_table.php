@@ -33,6 +33,7 @@ return new class extends Migration
             $table->dateTime('validate_at')->nullable();
             $table->dateTime('delete_at')->nullable();
             $table->dateTime('lastlogin_at')->nullable();
+            $table->text('post')->nullable();
             $table->text('bio')->nullable();
             $table->text('about')->nullable();
         });

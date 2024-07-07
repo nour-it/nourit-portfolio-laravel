@@ -30,8 +30,10 @@ class StoreProfileRequest extends FormRequest
             "password"     => "nullable|string",
             "confirmation" => "nullable|string|same:password",
             "update_at"    => "nullable|date",
+            "post"         => "nullable|string",
             "bio"          => "nullable|string",
             "about"        => "nullable|string",
+            "resume"       => "nullable",
             // "profile"      => "nullable|image",
             // "about_img"    => "nullable|image",
         ];

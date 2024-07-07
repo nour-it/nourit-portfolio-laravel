@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <main style="padding-top: calc(var(--space) * 1.5); display: flex; gap: calc(var(--space) * 4)">
+    <main style="padding-top: calc(var(--space) * 1.5); display: flex; gap: calc(var(--space) * 4); flex-direction: column">
         <form action="{{ route('profile.update', ['profile' => $user->id]) }}" method="post" enctype="multipart/form-data">
             @csrf @method('PUT')
             <div class="edit">
@@ -25,13 +25,13 @@
                     ])
                     @foreach ($user->images as $image)
                         @if ($image->category->first()->name == 'Profile')
-                            <img src="{{ url($image->path) }}" alt="user" width="250">
+                            @includeIf('components.core.img', ['src' => url($image->path), 'alt' => 'user'])
                             @includeIf('components.core.input', [
                                 'name' => 'profile_id',
                                 'holder' => 'user name',
                                 'type' => 'hidden',
                                 'class' => '',
-                                'value' => $image->id
+                                'value' => $image->id,
                             ])
                         @endif
                     @endforeach
@@ -46,6 +46,11 @@
                     'holder' => 'email',
                     'value' => $user->email,
                 ])
+                @includeIf('components.core.input', [
+                    'name' => 'post',
+                    'holder' => 'role',
+                    'value' => $user->post,
+                ])
                 @includeIf('components.core.text-editor', ['name' => 'bio', 'value' => $user->bio])
                 <div>
                     @includeIf('components.core.input', [
@@ -56,13 +61,13 @@
                     ])
                     @foreach ($user->images as $image)
                         @if ($image->category->first()->name == 'About')
-                            <img src="{{ url($image->path) }}" alt="about" class="rounded" width="250">
+                            @includeIf('components.core.img', ['src' => url($image->path), 'alt' => 'user'])
                             @includeIf('components.core.input', [
                                 'name' => 'about_id',
                                 'holder' => 'user name',
                                 'type' => 'hidden',
                                 'class' => '',
-                                'value' => $image->id
+                                'value' => $image->id,
                             ])
                         @endif
                     @endforeach
@@ -81,6 +86,25 @@
                     'holder' => 'Confirmation password',
                     'type' => 'password',
                 ])
+                <div class="resume">
+                    <h2>Resumes</h2>
+                    @includeIf('components.core.input', [
+                        'name' => 'resume',
+                        'holder' => 'user name',
+                        'type' => 'file',
+                        'class' => '',
+                        'multiple' => true,
+                    ])
+                    <ul>
+                        @foreach ($user->resume as $resume)
+                            <li>
+                                {{ $resume->path }}
+                                <input type="radio" name="resume_id" id="resume_id" value="{{ $resume->id }}"
+                                    @if (!$resume->remove_at) checked @endif>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
                 <div class="social">
                     <input type="hidden" name="social_count" id="social_count" value="{{ $socials->count() }}">
                     <h2>Socials</h2>

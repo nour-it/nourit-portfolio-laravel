@@ -40,8 +40,9 @@ class LoginController extends Controller
             $user->lastlogin_at = new DateTime();
             $user->ip = request()->ip();
             $user->save();
-            return redirect(route("admin.home"));
+            return redirect(route("dashboard.home"));
         } else {
+            
             $this->redirect = redirect(route("login"), 302);
             return $this->redirect->with("error", "Invalid user");
         }

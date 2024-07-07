@@ -39,6 +39,7 @@ class UpdateProfileEventListener
 
         $this->user->email    = $this->request['email']     ?? $this->user->email;
         $this->user->username = $this->request['username']  ?? $this->user->username;
+        $this->user->post     = $this->request['post']       ?? $this->user->post;
         $this->user->bio      = $this->request['bio']       ?? $this->user->bio;
         $this->user->about    = $this->request['about']     ?? $this->user->about;
 
@@ -47,11 +48,11 @@ class UpdateProfileEventListener
         }
 
         $this->updateLink();
+        $this->updateResume();
         $this->updateImage();
 
         $this->user->save();
     }
-
 
     private function updateLink()
     {
@@ -116,6 +117,21 @@ class UpdateProfileEventListener
                 $image->category()->attach(Category::find(12));
                 $this->user->images()->attach($image);
             }
+        }
+    }
+
+    private function updateResume()
+    {
+        if (isset($this->request['resume'])) {
+            $this->user->resume()->create([
+                'path' => $this->request['resume'],
+                'add_at' => new DateTime(),
+
+            ]);
+        }
+        if (isset($this->request['resume_id'])) {
+            $this->user->resume()->update(["remove_at" => new DateTime()]);
+            $this->user->resume()->where("id", $this->request['resume_id'])->update(["remove_at" => NULL]);
         }
     }
 }

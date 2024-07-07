@@ -26,7 +26,11 @@ class HomeController extends Controller
     {
         $default = function ($request) use ($user) {
             $user = User::where("username", $user)
-                ->with(["project" => fn ($q) => $q->with([]), "images" => fn ($q) => $q->with(['category'])])
+                ->with([
+                    "project" => fn ($q) => $q->with([]),
+                    "images" => fn ($q) => $q->with(['category']),
+                    "resume" => fn ($q) => $q->where("remove_at", "!=", NULL),
+                ])
                 ->first();
             if (NULL === $user) {
                 $this->redirect = redirect(route("home"), 301);

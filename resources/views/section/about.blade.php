@@ -38,15 +38,17 @@
             <p>
                 {!! $user->about !!}
             </p>
-            <a downlaod="https://firebasestorage.googleapis.com/v0/b/nour-it-portfolio.appspot.com/o/resumes%2Fseydou-nouroudine.resume.en.pdf?alt=media&amp;token=6fc43bcb-c0ef-4e0f-be2e-72e96a0d1810"
-                class="btn"
-                href="https://firebasestorage.googleapis.com/v0/b/nour-it-portfolio.appspot.com/o/resumes%2Fseydou-nouroudine.resume.en.pdf?alt=media&amp;token=6fc43bcb-c0ef-4e0f-be2e-72e96a0d1810"
-                target="_blanck" style="transform: scale(1); opacity: 1;">
-                Download CV
-                <svg id="docuemt-svg" width="24" height="24">
-                    <use xlink:href="{{ url('assets/icon/sprite.svg#docuemt-svg') }}"></use>
-                </svg>
-            </a>
+
+            @foreach ($user->resume as $resume)
+                <a downlaod="{{ route('download', ['file' => $resume->path]) }}"
+                    href="{{ route('download', ['file' => $resume->path]) }}" target="_blanck" class="btn"
+                    style="transform: scale(1); opacity: 1;">
+                    Download CV
+                    <svg id="docuemt-svg" width="24" height="24">
+                        <use xlink:href="{{ url('assets/icon/sprite.svg#docuemt-svg') }}"></use>
+                    </svg>
+                </a>
+            @endforeach
         </div>
     </div>
 </section>

@@ -16,7 +16,7 @@
         @endisset
         @isset($skills)
             <h2>Skills</h1>
-                @includeIf('skill.table', ['skills' => $skills, 'more' => $more ?? false])
+                @includeIf('skill.table', ['skills' => $skills, 'more' => $more ?? false, 'user' => $user])
         @endisset
         @isset($services)
             <h2>Services</h1>

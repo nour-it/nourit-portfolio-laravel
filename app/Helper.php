@@ -8,13 +8,14 @@ use Illuminate\Support\Arr;
 class Helper
 {
 
-    const ADMIN_PAGE = "pages.admin";
+    const ADMIN_PAGE     = "pages.admin";
+    const DASHBOARD_PAGE = "pages.dashboard";
 
     const USER_COUNT = 10;
 
     static public function uploadFiles(string $key, string $path, Request $request)
     {
-        $files = $request->file($key);
+        $files = $request->allFiles($key);
         $paths = [];
         if (is_array($files)) {
             $paths[$key] = Arr::map($files, function ($file) use ($path) {
@@ -30,6 +31,7 @@ class Helper
                 $paths[$key] = $file->storeAs($path, $name);
             }
         }
-        return $paths;
+
+        return $paths[$key];
     }
 }

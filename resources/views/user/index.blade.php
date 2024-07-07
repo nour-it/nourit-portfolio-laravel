@@ -24,7 +24,11 @@
                 @foreach ($users as $user)
                     <tr>
                         <td>
-                            {{ $user->id }}
+                            @foreach ($user->images as $image)
+                                @if ($image->category->first()->name == 'Profile')
+                                    @includeIf('components.core.img', ['src' => url($image->path),'alt' => 'user', 'width' => 50])
+                                @endif
+                            @endforeach
                         </td>
                         <td>{{ $user->username }}</td>
                         <td>

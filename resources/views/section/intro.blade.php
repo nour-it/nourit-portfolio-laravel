@@ -2,7 +2,7 @@
     <div>
         <div class="logo">Nour<span>It</span></div>
         <div class="text-black-2">
-            <hr> Web and Mobile App developer
+            <hr> {{ $user->post }}
         </div>
         <div>
             {!! $user->bio !!}

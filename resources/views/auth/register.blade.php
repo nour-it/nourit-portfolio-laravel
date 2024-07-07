@@ -8,19 +8,19 @@
         <form action="{{ route('register.new') }}" method="post" enctype="multipart/form-data">
             @csrf
             @includeIf('components.core.input', [
-                'name' => 'username',
+                'name'   => 'username',
                 'holder' => 'user name',
             ])
             @includeIf('components.core.input', [
-                'name' => 'email',
+                'name'   => 'email',
                 'holder' => 'email',
             ])
             @includeIf('components.core.input', [
-                'name' => 'password',
+                'name'   => 'password',
                 'holder' => 'password',
-                'type' => 'password',
+                'type'   => 'password',
             ])
-            <div class="center">
+            <div class="center" style="height: max-content">
                 <button type="submit" class="btn">
                     Register
                 </button>

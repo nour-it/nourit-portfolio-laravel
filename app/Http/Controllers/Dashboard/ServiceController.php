@@ -25,8 +25,9 @@ class ServiceController extends Controller
     public function index(Request $request)
     {
         return $this->render($request, function ($request) {
+            $user = $request->user();
             $services = $this->serviceRepository->getUserServices($request->user());
-            $this->view = view("pages.dashboard", compact('services'));
+            $this->view = view("pages.dashboard", compact('services', 'user'));
             return $this->view->render();
         });
     }

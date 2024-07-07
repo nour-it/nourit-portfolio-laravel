@@ -2,25 +2,25 @@
 
 namespace App\Events\Admin;
 
-use App\Models\Qualification;
+use App\Models\Category;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 
-class UpdateQualificationEvent implements ShouldBroadcast
+class UpdateCategoryEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public Qualification $qualification, public Request $request)
+    public function __construct(public Category $category, public array $request, public string $type)
     {
+        //
     }
 
     /**

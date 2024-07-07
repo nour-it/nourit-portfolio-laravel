@@ -25,10 +25,10 @@ class SkillController extends Controller
      */
     public function index(Request $request)
     {
-        $this->user = $request->user();
         return $this->render($request, function ($request) {
             $skills = $this->skillRepository->getUserSkills($request->user());
-            $this->view = view("pages.dashboard", compact('skills'));
+            $user = $request->user();
+            $this->view = view("pages.dashboard", compact('skills', 'user'));
             return $this->view->render();
         });
     }

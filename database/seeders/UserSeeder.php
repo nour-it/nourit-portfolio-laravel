@@ -2,20 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Image;
-use App\Models\Project;
 use App\Models\Role;
-use App\Models\Service;
-use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
-use DateTime;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 class UserSeeder extends Seeder
 {
@@ -29,7 +20,8 @@ class UserSeeder extends Seeder
             "email"       => env("MAIL_FROM_ADDRESS"),
             "password"    => Hash::make(env("PASSWORD")),
             "validate_at" => Carbon::now(),
-            'bio'         => "<div>
+            'post'        => "Web and Mobile App developer",
+            'bio'         => "
                         <p>Hi, I'm Nouroudine, a web developer with over fourth years of experience in the industry. I specialize in
                             front-end development and have a strong foundation in HTML, CSS, and JavaScript. I am also proficient in
                             popular web development framework like React.</p>
@@ -37,7 +29,7 @@ class UserSeeder extends Seeder
                             open-source projects and enjoy experimenting with new technologies. In my free time, you can find me
                             attending hackathons or working on personal projects to hone my skills.</p>
                         <p>I'm excited to join your team and contribute to building innovative and impactful web applications.</p>
-                    </div>",
+                   ",
 
             'about'     => "<p style=\"opacity: 1;\">In my previous role, I was responsible for building and maintaining a suite of web
                 applications for a large
@@ -53,8 +45,5 @@ class UserSeeder extends Seeder
 
         Role::find(1)->user()->attach(User::find(1));
         Role::find(2)->user()->attach(User::find(1));
-
-
-    
     }
 }
