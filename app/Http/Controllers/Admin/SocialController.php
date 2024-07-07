@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\Admin\UpdateSkillEvent;
+use App\Events\Admin\UpdateSocialEvent;
+use App\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSkillRequest;
+use App\Http\Requests\StoreSocialRequest;
 use App\Models\Category;
 use App\Models\Skill;
 use App\Models\SkillCategory;
@@ -12,6 +15,7 @@ use App\Models\Social;
 use DateTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class SocialController extends Controller
 {
@@ -22,8 +26,9 @@ class SocialController extends Controller
     {
         $this->user = $request->user();
         return $this->render($request, function ($request) {
-            $skills = Social::paginate(15);
-            $this->view = view("pages.admin", compact('skills'));
+            $user = $request->user();
+            $socials = Social::paginate(15);
+            $this->view = view("pages.admin", compact('socials', 'user'));
             return $this->view->render();
         });
     }
@@ -34,24 +39,25 @@ class SocialController extends Controller
     public function create(Request $request)
     {
         return $this->render($request, function ($request) {
-            $skill = new Skill();
-            $categories = Category::where('type', Skill::class)->get();
-            $this->view = view("skill.edit", compact('skill', "categories"));
+            $_social = new Social();
+            $user = $request->user();
+            $this->view = view("social.edit", compact("_social", "user"));
             return $this->view->render();
         });
     }
 
-      
+
     /**
      * store a newly created resource in storage.
      *
      * @param  mixed $request
      * @return RedirectResponse
      */
-    public function store(StoreSkillRequest $request): RedirectResponse
+    public function store(StoreSocialRequest $request): RedirectResponse
     {
-        $skill = new Skill();
-        UpdateSkillEvent::dispatch($skill, $request);
+        $social = new Social();
+        $paths = [...Helper::uploadFiles("icon", "assets/icon/social", $request)];
+        broadcast(new UpdateSocialEvent($social, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("skills.index"));
         return $this->redirect->with("success", "skill add successfully");
     }
@@ -59,12 +65,12 @@ class SocialController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, int $skill)
+    public function edit(Request $request, int $_social)
     {
-        return $this->render($request, function ($request) use ($skill) {
-            $skill = Skill::findOrFail($skill);
-            $categories = Category::where('type', Skill::class)->get();
-            $this->view = view("skill.edit", compact('skill', 'categories'));
+        return $this->render($request, function ($request) use ($_social) {
+            $_social = Social::findOrFail($_social);
+            $user = $request->user();
+            $this->view = view("social.edit", compact('_social', 'user'));
             return $this->view->render();
         });
     }
@@ -72,10 +78,11 @@ class SocialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreSkillRequest $request, Skill $skill)
+    public function update(StoreSocialRequest $request, Social $_social)
     {
-        UpdateSkillEvent::dispatch($skill, $request);
-        $this->redirect = redirect(route("skills.index"));
+        $paths = [...Helper::uploadFiles("icon", "assets/icon/social", $request)];
+        broadcast(new UpdateSocialEvent($_social, Arr::collapse([$request->all(), $paths])));
+        $this->redirect = redirect(route("_socials.index"));
         return $this->redirect->with("success", "skill updated successfully");
     }
 

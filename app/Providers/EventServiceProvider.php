@@ -8,6 +8,7 @@ use App\Events\Admin\UpdateProjectEvent;
 use App\Events\Admin\UpdateQualificationEvent;
 use App\Events\Admin\UpdateServiceEvent;
 use App\Events\Admin\UpdateSkillEvent;
+use App\Events\Admin\UpdateSocialEvent;
 use App\Events\ViewSkillPageEvent;
 use App\Listeners\Admin\UpdateCategoryEventListener;
 use App\Listeners\Admin\UpdateProfileEventListener;
@@ -15,6 +16,7 @@ use App\Listeners\Admin\UpdateProjectEventListener;
 use App\Listeners\Admin\UpdateQualificationEventListener;
 use App\Listeners\Admin\UpdateServiceEventListener;
 use App\Listeners\Admin\UpdateSkillEventListener;
+use App\Listeners\Admin\UpdateSocialEventListener;
 use App\Listeners\ViewSkillPageListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -53,6 +55,9 @@ class EventServiceProvider extends ServiceProvider
         UpdateCategoryEvent::class => [
             UpdateCategoryEventListener::class
         ],
+        UpdateSocialEvent::class => [
+            UpdateSocialEventListener::class
+        ]
     ];
 
     /**
