@@ -17,7 +17,7 @@ class UpdateQualificationEventListener
 
     private array $qualifications;
 
-    private Request $request;
+    private array $request;
 
     private User $user;
 
@@ -36,29 +36,21 @@ class UpdateQualificationEventListener
     {
         $this->qualification = $event->qualification;
         $this->request       = $event->request;
-        $this->user          = $this->request->user();
+        $this->user          = request()->user();
 
-        $this->qualification->name       = $this->request->input("name");
-        $this->qualification->description = $this->request->input("description");
-        $this->qualification->create_at   = $this->request->input("create_at", Carbon::now());
-        $this->qualification->desable_at  = $this->request->input("desable_at");
+        $this->qualification->name        = $this->request["name"] ??  $this->qualification->name;
+        $this->qualification->description = $this->request["description"] ??  $this->qualification->description;
+        $this->qualification->create_at   = $this->request["create_at"] ??  $this->qualification->create_at;
+        $this->qualification->desable_at  = $this->request["desable_at"] ?? $this->qualification->desable_at;
         $this->qualification->user_id     = $this->user->id;
         $this->qualification->save();
 
-        $this->qualification->category()->sync($this->request->input("category_id"));
-        
-        $image = $this->request->file("image");
-        if ($image) {
-            $folder = "upload/" . $this->user->id . "/qualifications/" . Str::lower($this->qualification->name) ;
-            $name   = Str::lower($this->qualification->name) . "." . $image->getClientOriginalExtension();
-            $path   = $image->storeAs(
-                $folder,
-                $name,
-                "local"
-            );
-            ResizeImageJob::dispatch($name, $folder . "/");
+        $this->qualification->category()->sync($this->request["category_id"]);
+
+        if (isset($this->request["image"])) {
+
             $this->qualification->images()->createMany([
-                ['path' => $path]
+                ['path' => $this->request["image"]]
             ]);
         }
     }

@@ -11,9 +11,8 @@ class SkillRepository
 
     public function __construct(
         private Skill $skill,
-        private Category $category    
-    )
-    {
+        private Category $category
+    ) {
     }
 
     public function getUserSkills(User $user, ?int $limit = 15)
@@ -34,10 +33,11 @@ class SkillRepository
     public function getCategories()
     {
         return $this->category->where('type', Skill::class)
+            ->with(["skill" => fn ($q) => $q->select('skills.id')])
             ->get();
     }
 
-    public function findCategory(int $categoryId) 
+    public function findCategory(int $categoryId)
     {
         return $this->category->find($categoryId);
     }

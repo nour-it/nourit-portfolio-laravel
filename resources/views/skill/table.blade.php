@@ -48,6 +48,7 @@
             <th>#</th>
             <th>Name</th>
             <th>Status</th>
+            <th>Skill</th>
             <th>Actions</th>
         </thead>
         <tbody>
@@ -66,6 +67,9 @@
                         <div
                             class="dot @if ($category->delete_at) {{ 'red' }} @else {{ 'green' }} @endif">
                         </div>
+                    </td>
+                    <td>
+                        {{ $category->skill->count() }}
                     </td>
                     <td>
                         <div style="display: flex; gap: calc(var(--space) * 1)">

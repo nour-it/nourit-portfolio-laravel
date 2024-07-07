@@ -19,7 +19,7 @@ class UpdateQualificationEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public Qualification $qualification, public Request $request)
+    public function __construct(public Qualification $qualification, public array $request)
     {
     }
 

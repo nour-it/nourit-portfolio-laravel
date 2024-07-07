@@ -49,8 +49,7 @@ class Controller extends BaseController
 
     private function cleanHTML()
     {
+        $this->html = Str::replace(["  "], [" "], $this->html);
         $this->html = Str::replace(["\n\n", " \n", "\n "], ["\n", "", "\n"], $this->html);
-        $this->html = Str::replace(["   ", "\t",], [" ", " "], $this->html);
-   
     }
 }

@@ -27,7 +27,7 @@ class QualificationTest extends TestCase
         ]);
 
         $this->assertDatabaseCount("qualifications", 2);
-        $this->assertFileExists($created_file . '/demo_qualification.png');
+        $this->assertFileExists($created_file . '/demo.png');
         $response->assertStatus(302);
         exec("rm -rf {$created_file}");
     }

@@ -19,7 +19,7 @@ class UpdateProjectEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public Project $project, public Request $request )
+    public function __construct(public Project $project, public array $request )
     {
         //
     }

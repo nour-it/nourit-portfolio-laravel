@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateSkillEvent;
+use App\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSkillRequest;
 use App\Models\Category;
@@ -12,6 +13,8 @@ use App\Repository\SkillRepository;
 use DateTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class SkillController extends Controller
 {
@@ -55,8 +58,10 @@ class SkillController extends Controller
      */
     public function store(StoreSkillRequest $request): RedirectResponse
     {
+        $user = $request->user();
         $skill = new Skill();
-        UpdateSkillEvent::dispatch($skill, $request);
+        $paths = [...Helper::uploadFiles("icon", "upload/" . $user->id . "/skills/" . Str::lower($request->input("name")), $request)];
+        broadcast(new UpdateSkillEvent($skill, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("skills.index"));
         return $this->redirect->with("success", "skill add successfully");
     }
@@ -79,7 +84,9 @@ class SkillController extends Controller
      */
     public function update(StoreSkillRequest $request, Skill $skill)
     {
-        UpdateSkillEvent::dispatch($skill, $request);
+        $user = $request->user();
+        $paths = [...Helper::uploadFiles("icon", "upload/" . $user->id . "/skills/" . Str::lower($request->input("name")), $request)];
+        broadcast(new UpdateSkillEvent($skill, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("skills.index"));
         return $this->redirect->with("success", "skill updated successfully");
     }

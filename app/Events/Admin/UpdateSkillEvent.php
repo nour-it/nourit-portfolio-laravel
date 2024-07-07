@@ -19,7 +19,7 @@ class UpdateSkillEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public Skill $skill, public Request $request)
+    public function __construct(public Skill $skill, public array $request)
     {
        
     }

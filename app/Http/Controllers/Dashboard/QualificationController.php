@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateQualificationEvent;
+use App\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQualificationRequest;
 use App\Models\Category;
@@ -10,6 +11,9 @@ use App\Models\Qualification;
 use App\Repository\QualificationRepository;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+
 
 class QualificationController extends Controller
 {
@@ -48,8 +52,10 @@ class QualificationController extends Controller
      */
     public function store(StoreQualificationRequest $request)
     {
+        $user = $request->user();
         $qualification = new Qualification();
-        UpdateQualificationEvent::dispatch($qualification, $request);
+        $paths = [...Helper::uploadFiles("image", "upload/" . $user->id . "/qualifications/" . Str::lower($request->input("name")), $request)];
+        broadcast(new UpdateQualificationEvent($qualification, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("qualifications.index"));
         return $this->redirect->with("success", "qualification add successfully");
     }

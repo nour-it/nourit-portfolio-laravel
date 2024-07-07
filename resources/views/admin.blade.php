@@ -11,6 +11,9 @@
     <meta name="description" content="" />
     <title>{{ $username ?? 'Nour It ' }} | Portfolio</title>
     @vite(['resources/css/style.scss'])
+
+
+    
 </head>
 <body>
     @yield('header')

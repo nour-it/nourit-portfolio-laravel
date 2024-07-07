@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Helper;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -20,6 +21,6 @@ class DatabaseTest extends TestCase
     public function test_seed()
     {   
         $this->seed();
-        // $this->assertDatabaseCount("users", 4);
+        $this->assertDatabaseCount("users", Helper::USER_COUNT + 1);
     }
 }

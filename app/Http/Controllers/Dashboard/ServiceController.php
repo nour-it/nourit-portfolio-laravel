@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateServiceEvent;
+use App\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreServiceRequest;
 use App\Models\Category;
@@ -11,7 +12,9 @@ use App\Models\Service;
 use App\Repository\ServiceRepository;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
@@ -50,8 +53,10 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
+        $user = $request->user();
         $service = new Service();
-        UpdateServiceEvent::dispatch($service, $request);
+        $paths = [...Helper::uploadFiles("image", "upload/" . $user->id . "/services/" . Str::lower($request->input("title")), $request)];
+        broadcast(new UpdateServiceEvent($service, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("services.index"));
         return $this->redirect->with("success", "project add successfully");
     }
@@ -74,8 +79,9 @@ class ServiceController extends Controller
      */
     public function update(StoreServiceRequest $request, Service $service)
     {
-
-        UpdateServiceEvent::dispatch($service, $request);
+        $user = $request->user();
+        $paths = [...Helper::uploadFiles("image", "upload/" . $user->id . "/services/" . Str::lower($request->input("title")), $request)];
+        broadcast(new UpdateServiceEvent($service, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("services.index"));
         return $this->redirect->with("success", "service updated successfully");
     }

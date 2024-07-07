@@ -19,7 +19,7 @@ class UpdateServiceEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public Service $service, public Request $request)
+    public function __construct(public Service $service, public array $request)
     {
         //
     }

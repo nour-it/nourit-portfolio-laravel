@@ -5,6 +5,7 @@ namespace App\Listeners\Admin;
 use App\Events\Admin\UpdateSkillEvent;
 use App\Jobs\ResizeImageJob;
 use App\Models\Category;
+use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
@@ -12,7 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class UpdateSkillEventListener 
+class UpdateSkillEventListener
 {
 
     use InteractsWithQueue;
@@ -21,34 +22,32 @@ class UpdateSkillEventListener
 
     private User $user;
 
+    private array $request;
+
+    private Skill $skill;
+
+
     public function handle(UpdateSkillEvent $event): void
     {
-        $skill = $event->skill;
-        $request = $event->request;
-        $skill->name = $request->input("name");
-        $skill->description = $request->input("description");
-        $skill->create_at = $request->input("create_at", Carbon::now());
-        $skill->delete_at = $request->input("delete_at");
-        $skill->save();
+        $this->user = request()->user();
 
-        $skill->category()->sync($request->input("category_id"));
-    
-        $this->user = $request->user();
+        $this->skill              = $event->skill;
+        $this->request            = $event->request;
+        $this->skill->name        = $this->request["name"] ??  $this->skill->name;
+        $this->skill->description = $this->request["description"] ??  $this->skill->description;
+        $this->skill->create_at   = $this->request["create_at"] ?? $this->skill->create_at;
+        $this->skill->delete_at   = $this->request["delete_at"] ?? $this->skill->delete_at;
+
+        $this->skill->save();
+
+        $this->skill->category()->sync($this->request["category_id"]);
+
         $skills = $this->user->skill()->get()->pluck("id")->toArray();
-        $this->user->skill()->sync([...$skills, $skill->id]);
-        
-        $icon = $request->file("icon");
-        if ($icon) {
-            $folder = "upload/" . $this->user->id . "/skills/" . Str::lower($skill->name) ;
-            $name = Str::lower($skill->name) . "." . $icon->getClientOriginalExtension();
-            $path = $icon->storeAs(
-                $folder,
-                $name,
-                "local"
-            );
-            ResizeImageJob::dispatch($name, $folder . "/");
-            $images = $skill->images()->createMany([
-                ['path' => $path]
+        $this->user->skill()->sync([...$skills, $this->skill->id]);
+
+        if (isset($this->request["icon"])) {
+            $this->skill->images()->createMany([
+                ['path' => $this->request["icon"]]
             ]);
         }
     }

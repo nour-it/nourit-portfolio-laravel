@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Events\Admin\UpdateProjectEvent;
+use App\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Category;
@@ -11,6 +12,8 @@ use App\Models\ProjectCategory;
 use App\Repository\ProjectRepository;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -48,8 +51,10 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $skill = new Project();
-        UpdateProjectEvent::dispatch($skill, $request);
+        $user = $request->user();
+        $project = new Project();
+        $paths = [...Helper::uploadFiles("image", "upload/" . $user->id . "/projects/" . Str::lower($request->input("name")), $request)];
+        broadcast(new UpdateProjectEvent($project, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("projects.index"));
         return $this->redirect->with("success", "project add successfully");
     }
@@ -72,7 +77,9 @@ class ProjectController extends Controller
      */
     public function update(StoreProjectRequest $request, Project $project)
     {
-        UpdateProjectEvent::dispatch($project, $request);
+        $user = $request->user();
+        $paths = [...Helper::uploadFiles("image", "upload/" . $user->id . "/projects/" . Str::lower($request->input("name")), $request)];
+        broadcast(new UpdateProjectEvent($project, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("projects.index"));
         return $this->redirect->with("success", "project updated successfully");
     }

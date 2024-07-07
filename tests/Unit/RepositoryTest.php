@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\User;
 use App\Repository\ProjectRepository;
@@ -22,7 +23,7 @@ class RepositoryTest extends TestCase
     {
         parent::setUp();
         $this->userRepository = new UserRepository(new User());
-        $this->projectRepository = new ProjectRepository(new Project());
+        $this->projectRepository = new ProjectRepository(new Project(), new Category());
     }
 
 

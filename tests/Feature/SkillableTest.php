@@ -25,7 +25,7 @@ class SkillableTest extends TestCase
             "category_id" => Category::where('type', Skill::class)->first()->id
         ]);
         $this->assertDatabaseHas("skills", ["name" => "demo_skill"]);
-        $this->assertFileExists($created_file . '/demo_skill.png');
+        $this->assertFileExists($created_file . '/demo.png');
         $response->assertStatus(302);
         exec("rm -rf {$created_file}");
     }

@@ -18,7 +18,7 @@ class UpdateServiceEventListener
 
     private array $services;
 
-    private Request $request;
+    private array $request;
 
     private User $user;
 
@@ -37,29 +37,20 @@ class UpdateServiceEventListener
     {
         $this->service = $event->service;
         $this->request = $event->request;
-        $this->user     = $this->request->user();
+        $this->user    = request()->user();
 
-        $this->service->title       = $this->request->input("title");
-        $this->service->description = $this->request->input("description");
-        $this->service->create_at   = $this->request->input("create_at", Carbon::now());
-        $this->service->desable_at  = $this->request->input("desable_at");
+        $this->service->title       = $this->request["title"] ?? $this->service->title;
+        $this->service->description = $this->request["description"] ?? $this->service->description;
+        $this->service->create_at   = $this->request["create_at"] ?? Carbon::now();
+        $this->service->desable_at  = $this->request["desable_at"] ?? $this->service->desable_at;
         $this->service->user_id     = $this->user->id;
         $this->service->save();
 
-        $this->service->category()->sync($this->request->input("category_id"));
-        
-        $image = $this->request->file("image");
-        if ($image) {
-            $folder = "upload/" . $this->user->id . "/services/" . Str::lower($this->service->title) ;
-            $name   = Str::lower($this->service->title) . "." . $image->getClientOriginalExtension();
-            $path   = $image->storeAs(
-                $folder,
-                $name,
-                "local"
-            );
-            ResizeImageJob::dispatch($name, $folder . "/");
+        $this->service->category()->sync($this->request["category_id"]);
+
+        if (isset($this->request["image"])) {
             $this->service->images()->createMany([
-                ['path' => $path]
+                ['path' =>  $this->request["image"]]
             ]);
         }
     }

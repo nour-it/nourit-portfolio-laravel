@@ -70,7 +70,8 @@
                     <td>
                         <div style="display: flex; gap: calc(var(--space) * 1)">
                             <a href="{{ route('_socials.edit', ['_social' => $category->id]) }}">edit</a>
-                            <form action="{{ route('_socials.destroy', ['_social' => $category->id]) }}" method="POST">
+                            <form action="{{ route('_socials.destroy', ['_social' => $category->id]) }}"
+                                method="POST">
                                 @method('DELETE') @csrf
                                 <button type="submit">delete</button>
                             </form>
