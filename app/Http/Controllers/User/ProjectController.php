@@ -21,9 +21,14 @@ class ProjectController extends Controller
     public function index(Request $request, string $user)
     {
         return $this->render($request, function ($request) use ($user): string {
-            $user = User::where("username", $user)->first();
+            $slug = $user;
+            $user = $this->userRepository->findUserByUsernameOrSlug($user, $slug);
             if (NULL === $user) {
-                $this->redirect = redirect(route("project.page.index"), 301);
+                $this->redirect = redirect(route("home"), 301);
+                return $this->redirect;
+            }
+            if ($user->slug != $slug) {
+                $this->redirect = redirect(route("user.project.page.index", ["user" => $user->slug]), 301);
                 return $this->redirect;
             }
             $projects = $this->projectRepository->getUserProject($user);

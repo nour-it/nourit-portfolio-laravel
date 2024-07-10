@@ -293,3 +293,21 @@ aside{
   top: 60px;
   height: max-content;
 }
+.pagination {
+  padding: calc(var(--space) * 1);
+  margin-top: calc(var(--space) * 2);
+}
+.pagination,
+.pagination > * {
+  display: flex;
+  justify-content: space-between;
+}
+.pagination > * {
+  flex-grow: 1;
+}
+.pagination > *:last-child > * {
+  margin-left: auto;
+}
+.pagination .active {
+  color: red;
+} 

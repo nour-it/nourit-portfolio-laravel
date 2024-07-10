@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\User\HomeController as UserHomeController;
 use App\Http\Controllers\User\ProjectController as UserProjectController;
 use App\Http\Controllers\User\ServiceController as UserServiceController;
+use App\Http\Controllers\User\SkillController as UserSkillController;
 
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\FileController;
@@ -69,6 +70,7 @@ Route::prefix('dashboard')
 
 Route::prefix('admin')
     ->middleware('auth')
+    ->middleware("can:admin")
     ->group(function () {
         Route::get("/_", [AdminController::class, "index"])->name("admin.home");
         Route::resource("/_skills", AdminSkillController::class);
@@ -84,6 +86,7 @@ Route::prefix('{user}')
         Route::get('/',                     [UserHomeController::class, "index"])->name('user.home');
         Route::get('/projects',             [UserProjectController::class, "index"])->name('user.project.page.index');
         Route::get('/services',             [UserServiceController::class, "index"])->name('user.service.page.index');
+        Route::get('/skills',               [UserSkillController::class, "index"])->name('user.skill.page.index');
     });
 
 Route::prefix("mail")

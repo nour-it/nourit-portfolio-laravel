@@ -1,6 +1,9 @@
 <section class="section__intro" id="home">
     <div>
-        <div class="logo">Nour<span>It</span></div>
+        <div class="logo">
+        {{ Str::substr($user->username, 0, strrpos($user->username, ' ')) }}
+        <span> {{ Str::substr($user->username, strrpos($user->username, ' ')) }}</span>
+        </div>
         <div class="text-black-2">
             <hr> {{ $user->post }}
         </div>

@@ -26,14 +26,14 @@ class UpdateProjectEventListener
         $this->project->add_at      = $this->request["add_at"] ?? $this->project->add_at;
         $this->project->delete_at   = $this->request["delete_at"] ?? $this->project->delete_at;
         $this->project->user_id     = $this->user->id;
-        
+
         $this->project->save();
 
         $this->project->category()->sync($this->request["category_id"]);
 
-        $skill = $this->request["skill_id"];
-
-        if (NULL !== $skill) {
+        
+        if (isset($this->request["skill_id"])) {
+            $skill = $this->request["skill_id"];
             $skills = $this->project->skill()->get()->pluck("skillable_id")->toArray();
             if (empty(array_filter($skills, function ($s) use ($skill) {
                 return $s == $skill;

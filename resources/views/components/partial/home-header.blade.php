@@ -2,7 +2,7 @@
     <div>
 
         <a class="logo" href="/@auth{{ 'dashboard' }} @endauth">
-            Nour<span>It</span>
+            Port<span>Folio</span>
         </a>
         <span class="hover">
             <svg id="sun" width="24" height="24">

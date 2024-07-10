@@ -68,7 +68,7 @@
                         </div>
                     </td>
                     <td>
-                        {{ $category->project->count() }}
+                        {{ $category->project }}
                     </td>
                     <td>
                         <div style="display: flex; gap: calc(var(--space) * 1)">
@@ -91,3 +91,5 @@
         <a href="{{ route('_projects.create') }}" class="btn right" style="margin-top: 20px">New</a>
     @endif
 @endif
+
+@includeIf('components.core.pagination', ['data' => $projects])

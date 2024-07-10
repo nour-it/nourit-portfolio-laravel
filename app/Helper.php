@@ -11,8 +11,7 @@ class Helper
 
     const ADMIN_PAGE     = "pages.admin";
     const DASHBOARD_PAGE = "pages.dashboard";
-
-    const USER_COUNT = 1;
+    const USER_COUNT     = 1;
 
     static public function uploadFiles(string $key, string $path, Request $request)
     {
@@ -36,7 +35,7 @@ class Helper
                 ResizeImageJob::dispatch($paths[$key], $folder . "/");
             }
         }
-        
+
         return $paths[$key];
     }
 }

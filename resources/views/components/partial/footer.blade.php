@@ -1,5 +1,10 @@
 <footer class="footer">
-    <div class="logo">Nour<span>It</span></div>
+    @isset($user)
+        <div class="logo">
+            {{ Str::substr($user->username, 0, strrpos($user->username, ' ')) }}
+            <span> {{ Str::substr($user->username, strrpos($user->username, ' ')) }}</span>
+        </div>
+    @endisset
     <nav>
         <ul>
             <li class="h2">
@@ -24,7 +29,7 @@
                 @endif
             </li>
         </ul>
-        
+
         <ul>
             @isset($profileLinks)
                 @foreach ($profileLinks as $link)

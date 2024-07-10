@@ -15,7 +15,6 @@ class ProjectRepository
     ) {
     }
 
-
     public function getUserProject(User $user, ?int $limit = 15)
     {
         return $user->project()
@@ -38,7 +37,7 @@ class ProjectRepository
     public function getCategories()
     {
         return $this->category->where('type', Project::class)
-            ->with(["project" => fn ($q) => $q->select('projects.id')])
-            ->get();
+            ->withCount(["project as project"])
+            ->paginate();
     }
 }

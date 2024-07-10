@@ -17,6 +17,7 @@
 </head>
 <body>
     @yield('header')
+    <hr style="position: sticky; top: 60px;">
     <div class="container" style="display: flex; gap: calc(var(--space) * 2); --max-width: 1400px">
         <aside>
             <ul>

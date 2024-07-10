@@ -21,7 +21,8 @@ class QualificationController extends Controller
     {
         return $this->render($request, function ($request) {
             $qualifications = Qualification::paginate(15);
-            $this->view = view("pages.admin", compact('qualifications'));
+            $user = $request->user();
+            $this->view = view("pages.admin", compact('qualifications', 'user'));
             return $this->view->render();
         });
     }

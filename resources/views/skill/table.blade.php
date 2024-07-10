@@ -91,3 +91,5 @@
         <a href="{{ route('_skills.create') }}" class="btn right" style="margin-top: 20px">New</a>
     @endif
 @endif
+
+@includeIf('components.core.pagination', ['data' => $skills])

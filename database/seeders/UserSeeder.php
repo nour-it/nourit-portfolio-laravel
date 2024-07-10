@@ -7,6 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -15,8 +16,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $username = env("MAIL_FROM_NAME");
         User::insert([
-            "username"    => env("MAIL_FROM_NAME"),
+            "username"    => $username,
+            "slug"        => Str::slug($username),
             "email"       => env("MAIL_FROM_ADDRESS"),
             "password"    => Hash::make(env("PASSWORD")),
             "validate_at" => Carbon::now(),

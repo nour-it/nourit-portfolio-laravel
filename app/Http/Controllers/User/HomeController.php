@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
-use App\Models\User;
 use App\Repository\QualificationRepository;
 use App\Repository\SkillRepository;
 use App\Repository\UserRepository;
@@ -25,15 +24,14 @@ class HomeController extends Controller
     public function index(Request $request, string $user)
     {
         $default = function ($request) use ($user) {
-            $user = User::where("username", $user)
-                ->with([
-                    "project" => fn ($q) => $q->with([]),
-                    "images" => fn ($q) => $q->with(['category']),
-                    "resume" => fn ($q) => $q->where("remove_at", "!=", NULL),
-                ])
-                ->first();
+            $slug = $user;
+            $user = $this->userRepository->findUserByUsernameOrSlug($user, $slug);
             if (NULL === $user) {
                 $this->redirect = redirect(route("home"), 301);
+                return $this->redirect;
+            }
+            if ($user->slug != $slug) {
+                $this->redirect = redirect(route("user.home", ["user" => $user->slug]), 301);
                 return $this->redirect;
             }
             $skills = $this->skillRepository->getUserSkills($user, 9);

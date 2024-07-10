@@ -34,7 +34,7 @@ class SkillRepository
     {
         return $this->category->where('type', Skill::class)
             ->with(["skill" => fn ($q) => $q->select('skills.id')])
-            ->get();
+            ->paginate();
     }
 
     public function findCategory(int $categoryId)

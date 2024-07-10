@@ -8,26 +8,46 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class UserRepository
 {
+    private ?string $filter;
+    private ?string $order = "asc";
 
-
-    public function __construct(private User $user)
-    {
+    public function __construct(
+        private User $user,
+        private ?Category $category = new Category()
+    ) {
     }
 
     public function findAll(?int $limit = 15)
     {
-        return $this->user
+        $sql = $this->user
             ->with([
-                "role"          => fn ($q) => $q->select("title"),
-                "skill"         => fn ($q) => $q->with([]),
-                "project"       => fn ($q) => $q->with([]),
-                "service"       => fn ($q) => $q->with([]),
-                "qualification" => fn ($q) => $q->with([]),
+                "role"  => fn ($q) => $q->select('title'),
             ])
-            ->paginate($limit);
+            ->withCount([
+                "skill as skill",
+                "project as project",
+                "service as service",
+                "qualification as qualification",
+            ]);
+
+        $this->filter = request()->get("filter");
+        $this->order = request()->get("order");
+
+        if ($this->filter) {
+            if (!$this->order) {
+                $this->order = "asc";
+            }
+            $sql->orderBy($this->filter, $this->order);
+        }
+
+        // dd($sql->dump()->paginate($limit));
+
+        return $sql->paginate($limit);
     }
 
     public function findUserByUsernameOrMail(?string $username = '', ?string  $email = ""): User | null
@@ -38,10 +58,26 @@ class UserRepository
         ])->first();
     }
 
+    public function findUserByUsernameOrSlug(?string $username = "", ?string $slug = ""): User | null
+    {
+        return $this->user->orWhere([
+            'username' => $username,
+            'slug'    => $slug
+        ])
+            ->with([
+                "project" => fn ($q) => $q->with([]),
+                "images" => fn ($q) => $q->with(['category']),
+                "resume" => fn ($q) => $q->where("remove_at", "!=", NULL),
+            ])
+            ->first();
+    }
+
     public function createUserFromRequest(Request $request): User
     {
-        return User::create([
-            "username" => $request->input("username"),
+        $username = $request->input("username");
+        return $this->user->create([
+            "username" => $username,
+            "slug" => Str::slug($username),
             "email" => $request->input("email"),
             "password" => Hash::make($request->input("password")),
             "confirmation_token" =>  Crypt::encrypt($request->input("email")),

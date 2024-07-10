@@ -13,6 +13,8 @@
         "dotenv": "^16.3.1",
         "firebase": "^10.1.0",
         "froala-editor": "^4.2.0",
+        "laravel-echo": "^1.16.1",
+        "pusher-js": "^8.4.0-rc2",
         "quill": "2.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
