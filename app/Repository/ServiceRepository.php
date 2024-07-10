@@ -32,7 +32,7 @@ class ServiceRepository
     public function getCategories()
     {
         return $this->category->where('type', Service::class)
-            ->with(["service" => fn ($q) => $q->select('services.id')])
+            ->withCount(["service as service"])
             ->get();
     }
 

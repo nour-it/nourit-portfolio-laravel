@@ -2,25 +2,36 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\Admin\UpdateCategoryEvent;
 use App\Events\Admin\UpdateQualificationEvent;
+use App\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\StoreQualificationRequest;
 use App\Models\Category;
 use App\Models\Project;
 use App\Models\Qualification;
+use App\Repository\QualificationRepository;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
 class QualificationController extends Controller
 {
+    private Category $category;
+
+    public function __construct(private QualificationRepository $qualificationRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         return $this->render($request, function ($request) {
-            $qualifications = Qualification::paginate(15);
+            $qualifications = $this->qualificationRepository->getCategories();
             $user = $request->user();
             $this->view = view("pages.admin", compact('qualifications', 'user'));
             return $this->view->render();
@@ -33,9 +44,9 @@ class QualificationController extends Controller
     public function create(Request $request)
     {
         return $this->render($request, function ($request) {
-            $qualification = new Qualification();
-            $categories = Category::where('type', Qualification::class)->get();
-            $this->view = view("qualification.edit", compact('qualification', "categories"));
+            $user = $request->user();
+            $_qualification = new Category();
+            $this->view = view("qualification.edit", compact('_qualification', "user"));
             return $this->view->render();
         });
     }
@@ -43,23 +54,24 @@ class QualificationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQualificationRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $qualification = new Qualification();
-        UpdateQualificationEvent::dispatch($qualification, $request);
-        $this->redirect = redirect(route("qualifications.index"));
+        $this->category = new Category();
+        $paths = [...Helper::uploadFiles("icon", "assets/icon/category/qualification", $request)];
+        broadcast(new UpdateCategoryEvent($this->category, Arr::collapse([$request->all(), $paths]), Qualification::class));
+        $this->redirect = redirect(route("_qualifications.index"));
         return $this->redirect->with("success", "qualification add successfully");
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, int $qualification)
+    public function edit(Request $request, int $_qualification)
     {
-        return $this->render($request, function ($request) use ($qualification) {
-            $qualification = Qualification::findOrFail($qualification);
-            $categories = Category::where('type', Qualification::class)->get();
-            $this->view = view("qualification.edit", compact('qualification', 'categories'));
+        return $this->render($request, function ($request) use ($_qualification) {
+            $user = $request->user();
+            $_qualification =  $this->qualificationRepository->findCategory($_qualification);
+            $this->view = view("qualification.edit", compact('_qualification', 'user'));
             return $this->view->render();
         });
     }
@@ -69,7 +81,8 @@ class QualificationController extends Controller
      */
     public function update(StoreQualificationRequest $request, Qualification $qualification)
     {
-        UpdateQualificationEvent::dispatch($qualification, $request);
+        $paths = [...Helper::uploadFiles("icon", "assets/icon/category/qualification", $request)];
+        broadcast(new UpdateCategoryEvent($this->category, Arr::collapse([$request->all(), $paths]), Qualification::class));
         $this->redirect = redirect(route("qualifications.index"));
         return $this->redirect->with("success", "qualification updated successfully");
     }
@@ -77,11 +90,12 @@ class QualificationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Qualification $qualification)
+    public function destroy(Category $_qualification)
     {
-        $qualification->delete_at = new DateTime();
-        $qualification->save();
-        $this->redirect = redirect(route("qualifications.index"));
+        $this->category = $_qualification;
+        $this->category->delete_at = new DateTime();
+        $this->category->save();
+        $this->redirect = redirect(route("_qualifications.index"));
         return $this->redirect->with("success", "qualification delete successfully");
     }
 }

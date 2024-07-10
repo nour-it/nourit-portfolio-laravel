@@ -8,22 +8,22 @@
     <nav>
         <ul>
             <li class="h2">
-                @if ($username)
-                    <a href="{{ route('user.home', ['user' => $username]) }}">About</a>
+                @if ($user)
+                    <a href="{{ route('user.home', ['user' => $user->slug]) }}">About</a>
                 @else
                     <a href="/">About</a>
                 @endif
             </li>
             <li class="h2">
-                @if ($username)
-                    <a href="{{ route('user.project.page.index', ['user' => $username]) }}">Projects</a>
+                @if ($user)
+                    <a href="{{ route('user.project.page.index', ['user' => $user->slug]) }}">Projects</a>
                 @else
                     <a href="/projects">Projects</a>
                 @endif
             </li>
             <li class="h2">
-                @if ($username)
-                    <a href="{{ route('user.service.page.index', ['user' => $username]) }}">Services</a>
+                @if ($user)
+                    <a href="{{ route('user.service.page.index', ['user' => $user->slug]) }}">Services</a>
                 @else
                     <a href="/services">Services</a>
                 @endif

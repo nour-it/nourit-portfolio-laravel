@@ -47,7 +47,7 @@
             <th>#</th>
             <th>title</th>
             <th>Status</th>
-            <th>Service</th>
+            <th>Services</th>
             <th>Actions</th>
         </thead>
         <tbody>
@@ -68,7 +68,7 @@
                         </div>
                     </td>
                     <td>
-                        {{ $category->service->count() }}
+                        {{ $category->service }}
                     </td>
                     <td>
                         <div style="display: flex; gap: calc(var(--space) * 1)">

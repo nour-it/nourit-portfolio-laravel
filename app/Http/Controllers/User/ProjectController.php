@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\User;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
@@ -31,11 +30,11 @@ class ProjectController extends Controller
                 $this->redirect = redirect(route("user.project.page.index", ["user" => $user->slug]), 301);
                 return $this->redirect;
             }
-            $projects = $this->projectRepository->getUserProject($user);
+            $projects     = $this->projectRepository->getUserProject($user);
             $contactLinks = $this->userRepository->getContactLink($user);
             $profileLinks = $this->userRepository->getProfileLink($user);
-            $username = $user->username;
-            $this->view = view("user.projects", compact('projects', "username", "contactLinks", "profileLinks"));
+            $username     = $user->username;
+            $this->view   = view("user.projects", compact('projects', "username", "contactLinks", "profileLinks", "user"));
             return $this->view->render();
         });
     }
@@ -43,8 +42,8 @@ class ProjectController extends Controller
     public function show(Request $request, int $project)
     {
         return $this->render($request, function ($request) use ($project) {
-            $projects = $this->projectRepository->findPublicProject();
-            $project = Project::findOrFail($project);
+            $projects   = $this->projectRepository->findPublicProject();
+            $project    = Project::findOrFail($project);
             $this->view = view("user.projects", compact('projects', 'project'));
             return $this->view->render();
         });

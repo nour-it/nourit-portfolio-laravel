@@ -37,7 +37,7 @@ class ServiceController extends Controller
             $contactLinks = $this->userRepository->getContactLink($user);
             $profileLinks = $this->userRepository->getProfileLink($user);
             $username = $user->username;
-            $this->view = view("user.services", compact('services', "username", "contactLinks", "profileLinks"));
+            $this->view = view("user.services", compact('services', "user", "contactLinks", "profileLinks"));
             return $this->view->render();
         });
     }
