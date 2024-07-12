@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>portfolio-laravel Documentation</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
+    <link rel="stylesheet" href="../docs/css/theme-default.print.css" media="print">
+
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/obsidian.min.css">
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jets/0.14.1/jets.min.js"></script>
+
+    <style id="language-style">
+        /* starts out as display none and is replaced with js later  */
+                    body .content .bash-example code { display: none; }
+                    body .content .javascript-example code { display: none; }
+            </style>
+
+    <script>
+        var tryItOutBaseUrl = "http://localhost";
+        var useCsrf = Boolean();
+        var csrfUrl = "/sanctum/csrf-cookie";
+    </script>
+    <script src="../docs/js/tryitout-4.37.1.js"></script>
+
+    <script src="../docs/js/theme-default-4.37.1.js"></script>
+
+</head>
+
+<body data-languages="[&quot;bash&quot;,&quot;javascript&quot;]">
+
+<a href="#" id="nav-button">
+    <span>
+        MENU
+        <img src="../docs/images/navbar.png" alt="navbar-image"/>
+    </span>
+</a>
+<div class="tocify-wrapper">
+    
+            <div class="lang-selector">
+                                            <button type="button" class="lang-button" data-language-name="bash">bash</button>
+                                            <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
+                    </div>
+    
+    <div class="search">
+        <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+
+    <div id="toc">
+                    <ul id="tocify-header-introduction" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="introduction">
+                    <a href="#introduction">Introduction</a>
+                </li>
+                            </ul>
+                    <ul id="tocify-header-authenticating-requests" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="authenticating-requests">
+                    <a href="#authenticating-requests">Authenticating requests</a>
+                </li>
+                            </ul>
+                    <ul id="tocify-header-endpoints" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="endpoints">
+                    <a href="#endpoints">Endpoints</a>
+                </li>
+                                    <ul id="tocify-subheader-endpoints" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-users">
+                                <a href="#endpoints-GETapi-users">GET api/users</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+            </div>
+
+    <ul class="toc-footer" id="toc-footer">
+                    <li style="padding-bottom: 5px;"><a href="../docs/collection.json">View Postman collection</a></li>
+                            <li style="padding-bottom: 5px;"><a href="../docs/openapi.yaml">View OpenAPI spec</a></li>
+                <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
+    </ul>
+
+    <ul class="toc-footer" id="last-updated">
+        <li>Last updated: July 11, 2024</li>
+    </ul>
+</div>
+
+<div class="page-wrapper">
+    <div class="dark-box"></div>
+    <div class="content">
+        <h1 id="introduction">Introduction</h1>
+<aside>
+    <strong>Base URL</strong>: <code>http://localhost</code>
+</aside>
+<p>This documentation aims to provide all the information you need to work with our API.</p>
+<aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
+You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
+
+        <h1 id="authenticating-requests">Authenticating requests</h1>
+<p>This API is not authenticated.</p>
+
+        <h1 id="endpoints">Endpoints</h1>
+
+    
+
+                                <h2 id="endpoints-GETapi-users">GET api/users</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-users">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/users" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/users"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-users">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;current_page&quot;: 1,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;username&quot;: &quot;nour it&quot;,
+            &quot;slug&quot;: &quot;nour-it&quot;,
+            &quot;email&quot;: &quot;reply.nourit@gmail.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$uFEFimQVdzOzRViMmmg8D.5Qs6Ed5RnaHMAf3/Pqne1nz9cEi/mpu&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: &quot;172.19.0.1&quot;,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;2024-07-09 11:01:35&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: &quot;2024-07-11 08:17:48&quot;,
+            &quot;post&quot;: &quot;Web and Mobile App developer&quot;,
+            &quot;bio&quot;: &quot;\n                        &lt;p&gt;Hi, I&#039;m Nouroudine, a web developer with over fourth years of experience in the industry. I specialize in\n                            front-end development and have a strong foundation in HTML, CSS, and JavaScript. I am also proficient in\n                            popular web development framework like React.&lt;/p&gt;\n                        &lt;p&gt;My passion for web development extends beyond my professional work. I am an active contributor to several\n                            open-source projects and enjoy experimenting with new technologies. In my free time, you can find me\n                            attending hackathons or working on personal projects to hone my skills.&lt;/p&gt;\n                        &lt;p&gt;I&#039;m excited to join your team and contribute to building innovative and impactful web applications.&lt;/p&gt;\n                   &quot;,
+            &quot;about&quot;: &quot;&lt;p style=\&quot;opacity: 1;\&quot;&gt;In my previous role, I was responsible for building and maintaining a suite of web\n                applications for a large\n                e-commerce company. I worked closely with designers and product managers to ensure that the applications\n                were user-friendly and met the needs of our customers. I also collaborated with back-end developers to\n                integrate our front-end code with the company&#039;s API.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;username&quot;: &quot;Camden D&#039;Amore&quot;,
+            &quot;slug&quot;: &quot;camden-damore&quot;,
+            &quot;email&quot;: &quot;beulah.dibbert@weimann.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$FKw8CzePngu/dzVZg05E7eF9Qu.PlYpC.ZgUze23ZCkeqBOcIVcKS&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;2003-11-30 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Ea ad et fuga magnam nobis. Eos nobis et et esse. Cumque sed nihil molestias voluptas corrupti ullam rem.\n\nQuidem et harum hic aliquid suscipit. Ullam ut est suscipit facilis praesentium. Rerum et laborum excepturi fuga.\n\nCorrupti consequatur minus repudiandae aliquid sed est labore. Repellendus voluptas veniam vero et. Cupiditate eaque itaque dolor enim corporis.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Porro aut et quibusdam similique et quia. Quo laborum ea dignissimos. Consequuntur est dolores deleniti et eligendi libero. Itaque voluptatum ad aut numquam autem.\n\nDeserunt voluptatem aliquam qui autem labore minus consequuntur. Id accusamus et suscipit eius. Laudantium corrupti facilis pariatur ipsum debitis.\n\nQuasi consequatur nostrum illum ut qui. Odit officiis consequatur deleniti vitae nobis libero tempora cupiditate. Non et enim qui vel amet ea ad.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;username&quot;: &quot;Lesly Kessler&quot;,
+            &quot;slug&quot;: &quot;lesly-kessler&quot;,
+            &quot;email&quot;: &quot;jeramie.schneider@yahoo.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$gWmgxvamIjvsHqanpCo9U.GXL0SeMDkJOKpnhLURWsvAMZbBuss5K&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;2001-09-03 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Cumque aut molestias deserunt sint eum. Et aliquam voluptas natus et possimus nemo. Ut consectetur ea blanditiis magni voluptatum quae corporis id.\n\nRerum numquam accusantium nostrum. Vel recusandae odit reiciendis dolores. Nostrum harum similique incidunt et ad quaerat placeat nemo.\n\nDeleniti molestias eligendi aliquam quia officiis quaerat labore. Dolorem est autem voluptas. Et sint sed illum rem id quo. Animi iusto consequatur eum odit dolorem officiis.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Sed fugiat repudiandae quis doloremque nulla illum soluta. Velit et ut quo doloremque alias eum. Placeat necessitatibus aut provident maiores. Corrupti libero illum ut et nihil tempora magni animi. Repellendus ea expedita ut ad est voluptate eveniet aut.\n\nUt ratione quas est nemo et sint. Et ut harum reprehenderit rerum reprehenderit ipsum. Et fuga cum voluptatem suscipit.\n\nAutem totam et impedit totam vel et. Natus perferendis distinctio atque accusamus. Fugit at est hic eos.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 4,
+            &quot;username&quot;: &quot;Nicolette Morissette PhD&quot;,
+            &quot;slug&quot;: &quot;nicolette-morissette-phd&quot;,
+            &quot;email&quot;: &quot;cyril.ritchie@hotmail.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$rGg9tvfPCVwhCh7TQ0pEwu8uJYk26EppdWdH0ksBedN5a2uGY4546&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;2007-12-07 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;In omnis est vel enim. Quo explicabo explicabo doloremque debitis suscipit eius. Autem quis itaque tempora sit reiciendis dolorem qui sint. Delectus dolores minus sapiente voluptate.\n\nSimilique maiores optio debitis et impedit similique odio. Aliquid non non eum libero voluptas laborum voluptatibus. Consequatur dicta debitis tempore molestiae.\n\nQuisquam ab dolores consequatur eligendi cum repellat minus possimus. Iusto est architecto iste. Quis et asperiores et et libero quaerat. Id consequatur non harum non.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Sed aspernatur inventore tenetur eius ut exercitationem repellendus. Tempore neque cupiditate quisquam facilis adipisci qui. Vitae quo numquam totam quisquam id iusto praesentium voluptatem.\n\nUnde aliquid nisi consequatur culpa consectetur doloremque eos. Sapiente qui quod ullam. Ex explicabo quibusdam non perferendis vel earum quaerat.\n\nId aut nostrum dolorum laudantium in nihil nesciunt. Accusamus exercitationem facere at cupiditate illo ex. Dolor molestias exercitationem dolor. Expedita saepe voluptatem alias beatae minus in commodi voluptatem.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 5,
+            &quot;username&quot;: &quot;Ms. Estell Spencer&quot;,
+            &quot;slug&quot;: &quot;ms-estell-spencer&quot;,
+            &quot;email&quot;: &quot;uschuppe@franecki.net&quot;,
+            &quot;password&quot;: &quot;$2y$12$XdELOWJnG3jV2wTByYW9t.mfwFq8PtV2flRyJcM9X1SqmLiurfMzq&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;1982-04-10 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Quos consequatur aut aliquam quo dolor molestiae. Pariatur et alias aut. Perspiciatis et sint dolorem quis sunt necessitatibus. Quia laboriosam laudantium ut. Est exercitationem provident ipsum qui tempore in.\n\nNon iure neque minima exercitationem in. Minus veritatis vero exercitationem molestiae eaque placeat molestiae. Ut tenetur repellat in amet.\n\nRerum accusamus ullam minus illo. Ad optio delectus quo asperiores provident consequatur perferendis.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Sequi eius voluptatibus tenetur qui est quidem. Doloremque harum molestias autem dicta quae tempore. Illum non aut error ut alias iusto.\n\nAccusantium dolores architecto necessitatibus inventore et repellendus quia. Vitae numquam temporibus iste consequatur.\n\nUt inventore alias aliquam accusamus nihil a officia. Commodi esse impedit ipsam non nostrum consequatur. Alias sit eaque et nostrum voluptatem ut perferendis. Aspernatur repellendus non quae sunt est minus vero.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 6,
+            &quot;username&quot;: &quot;Mr. Emerald Lynch&quot;,
+            &quot;slug&quot;: &quot;mr-emerald-lynch&quot;,
+            &quot;email&quot;: &quot;yhills@yahoo.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$f74FF4Wm1v5z5QiWNQ9EvOhF/VmObwpFSqAevMm84PnT29PGFfC9.&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;1972-10-04 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Et in placeat temporibus sint veniam. Quo nulla pariatur ea est eveniet facere aut. Omnis repudiandae perspiciatis perferendis eos corrupti.\n\nA odio est dicta cumque dolores. Veniam dolor fugiat qui voluptas ullam est corrupti nemo. Est ut quia mollitia quia commodi incidunt doloribus.\n\nRerum sunt deleniti consectetur similique dolorum commodi itaque totam. Illum tempore omnis deleniti alias ut. Debitis aut corporis explicabo et sit eligendi. Quos odio quam repellendus vel perspiciatis aut ex.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Dignissimos rerum reprehenderit est laborum eum blanditiis. Quod fugiat sunt praesentium sequi fugit. Sit repellendus nam dolorem. Dolorem exercitationem occaecati est voluptates fugiat qui dolores rerum.\n\nVoluptatum id praesentium et reprehenderit delectus et. Beatae modi qui nostrum recusandae tempora quae. Eos aut sunt aliquid architecto ea in eligendi animi.\n\nSed iste nisi sequi explicabo natus. Impedit in aut cupiditate est distinctio recusandae. Ipsum laborum pariatur in ullam.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 7,
+            &quot;username&quot;: &quot;Ms. Elody Kessler V&quot;,
+            &quot;slug&quot;: &quot;ms-elody-kessler-v&quot;,
+            &quot;email&quot;: &quot;sanford.noemie@hotmail.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$JfZHVOESfM6kIAQvx.r0Ge0H0xXKBCCvwJKiOE3KV.l6Oznpf2mJe&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;2008-10-17 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Numquam fuga quia nulla sint sunt eum laudantium. Ratione deserunt reiciendis hic velit amet. Ea porro odit eaque quo modi dolore molestiae. Qui ratione reiciendis corrupti expedita fugit iste quisquam.\n\nRepellendus labore iste odio dolor numquam ut eveniet. Quia ea nesciunt quibusdam eligendi aperiam. Necessitatibus consequuntur ratione tempora amet sapiente placeat rerum. Aliquid vel sint fugiat minus ut nihil omnis. Fugiat tempore omnis est animi architecto odio nemo.\n\nRecusandae enim consequatur dolores occaecati laborum. Sed voluptates et ratione soluta libero architecto consectetur. Rem repellat vel ratione omnis sed recusandae consequatur. Facere quas libero id consequuntur dolorum vero ex omnis.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Ab error voluptatem unde dolorum laudantium occaecati. Sit consequatur optio veniam ratione eos sint est. Ea officiis nihil quia incidunt saepe a. Esse temporibus dolorum dolorem labore. Rerum doloribus ut expedita recusandae sint tempore error et.\n\nNulla voluptatem qui fugit enim. Nihil quas porro vitae enim. Quis a quis sunt libero nemo voluptates laudantium. Aut consequatur quia autem rerum esse et dolorem. Sit consequuntur officiis sapiente nostrum aut odit.\n\nIure modi tempore repellendus non perspiciatis deserunt. Aut sed quis fugit.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 8,
+            &quot;username&quot;: &quot;Prof. Ahmed Kub Jr.&quot;,
+            &quot;slug&quot;: &quot;prof-ahmed-kub-jr&quot;,
+            &quot;email&quot;: &quot;rubye.sawayn@gmail.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$/dKAb5MHErU42WGSXyzDt.YOYmFyf7Q7uWkh9q7Q2kRVl1taby102&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;1974-10-05 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Id libero ipsum sunt soluta voluptate occaecati. Esse inventore distinctio optio ab velit debitis culpa. Nihil ut nemo numquam consequatur eum adipisci.\n\nCumque esse dignissimos qui quaerat adipisci. Voluptatum assumenda rem reprehenderit dolores voluptas debitis. Sed doloribus sit pariatur provident hic saepe. Pariatur consequuntur ut autem mollitia aliquid. Quasi nihil dolore omnis qui consequatur dolores.\n\nEnim voluptatem enim voluptatem quasi. Rerum quis rerum aspernatur sint. Facere recusandae fugiat consequatur et nesciunt aut odio. Sequi officia dolor velit est.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Vitae dolores corrupti minima saepe voluptatem ad. Odit non et vel officia. Quaerat perferendis ipsum explicabo. Numquam rem dolorem voluptates quo aut provident vel. Architecto et odit laboriosam voluptas.\n\nIure iste explicabo magni et minus. Distinctio laboriosam placeat ipsam eius. Et sapiente excepturi perspiciatis et itaque molestias mollitia vel.\n\nDolore exercitationem quasi atque quo neque ea optio. Molestiae molestiae ut inventore eos. Repellat enim doloremque laborum. Sit a ducimus vero vel.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 9,
+            &quot;username&quot;: &quot;Lourdes Conn II&quot;,
+            &quot;slug&quot;: &quot;lourdes-conn-ii&quot;,
+            &quot;email&quot;: &quot;elouise.mclaughlin@hotmail.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$/KdSHxVwMb7N8a.FnIWRZ.vA1hTW4.WXlWcH.V62lQUam62zg2FC2&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;2022-01-26 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Sit unde quod vel neque. Et consequatur sint velit corrupti vel corrupti eligendi consequatur. Recusandae libero cupiditate quia cum quia similique. Soluta et quaerat id vero consequatur sunt qui quia. Doloribus voluptatum dolorem doloremque officia eum.\n\nVeniam perspiciatis id necessitatibus eligendi omnis. Magni eveniet sunt dolorum blanditiis magnam sed. Eos nisi similique et nostrum dicta quia sit.\n\nConsequuntur tenetur et nihil omnis. Rerum dolorem blanditiis tempora quia perspiciatis. Repellat sit voluptas quo culpa nemo porro. Beatae molestiae voluptatem culpa mollitia sed dicta.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Aspernatur officia a repudiandae quibusdam et repellat. Eum minima et repellat culpa. A sed quam perferendis explicabo architecto minima dolorum. Quaerat quam temporibus sapiente sunt aut. Aut magni quo aut non omnis.\n\nEst alias enim accusantium eius et. Reprehenderit aut laborum est error est molestias. Atque facere numquam et cum qui facilis eveniet. Eum cum doloribus amet. Soluta dolores sunt cumque et.\n\nTemporibus qui nam quod tenetur sint vitae amet omnis. Commodi temporibus et molestiae aut voluptatem autem. Architecto impedit dolore voluptate et ut et quo.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 10,
+            &quot;username&quot;: &quot;Prof. Cole Kiehn&quot;,
+            &quot;slug&quot;: &quot;prof-cole-kiehn&quot;,
+            &quot;email&quot;: &quot;zschulist@steuber.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$HXb6GdcCuAuQC7cswNeAmug5VQyBswDfMIZU1FRls2y8Ad9tA2bG2&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;1991-02-14 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Repellat voluptatem molestias quas animi aliquid et consequuntur. Nulla libero ipsum consequuntur eum. Asperiores ea vel voluptatem dicta esse officia. Sit earum ut molestiae hic. Quidem officia omnis in temporibus id blanditiis ut.\n\nAut ut odit aut. Alias natus vel inventore nam quas fugit voluptas. Dolor et ex voluptas sed voluptatibus error.\n\nFuga omnis et vitae atque sed rerum. Voluptas ea aut enim deserunt voluptates dolorum. Alias quae doloribus fugit rerum.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Ad officiis odio voluptate vitae omnis corrupti dolorum. At consequuntur inventore sit laudantium.\n\nDolorum occaecati illo repellendus quidem nobis odio consequatur. Nam quibusdam quisquam expedita. Dolores rerum voluptate ad odio aut ut. Tempore qui libero eos inventore eos sit.\n\nOfficia ipsam et officiis quod delectus quae assumenda. Voluptate blanditiis qui eos iure perferendis ea. Velit corporis quidem ut quo odit nostrum temporibus. Voluptatem itaque perferendis id sed minima aliquid ipsam porro. Ipsa esse harum sapiente odio consequatur.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 11,
+            &quot;username&quot;: &quot;Jazmin Feest&quot;,
+            &quot;slug&quot;: &quot;jazmin-feest&quot;,
+            &quot;email&quot;: &quot;presley.hettinger@bogisich.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$5beX3DR82Y3nwMy7JC6FL.G8c3ZfXViS.BspZvyalTFSGECT4x/eK&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;2012-03-10 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Nemo harum occaecati soluta eos sapiente repellat. Sequi ut est nulla aut sunt aut. Omnis illo fuga aut.\n\nLaborum voluptas est consequatur est. Sed voluptas iste itaque ipsa molestiae similique. Quia dolores omnis iure in qui.\n\nLaborum eos ipsam doloremque perferendis neque dolorum hic distinctio. Quas et facere voluptatem. Quos molestias consequatur voluptatem sed illum.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Quam exercitationem aut eveniet. Expedita non aut cumque aut.\n\nEnim nihil quidem non quas perspiciatis. Ut tempora et vero similique illum architecto. Mollitia tempore fugiat laudantium minus et. Minima et sed est dolor. Sit assumenda rerum commodi sunt amet dolorum.\n\nCulpa repellat minus facilis voluptatum quas. Esse est labore voluptates modi pariatur eos. Unde voluptas quas sequi assumenda qui iusto neque consequuntur. Ratione quis aut doloribus a iusto dolore libero.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 12,
+            &quot;username&quot;: &quot;Curt Pacocha&quot;,
+            &quot;slug&quot;: &quot;curt-pacocha&quot;,
+            &quot;email&quot;: &quot;bjakubowski@mcglynn.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$7qG3eicK0SJEhU/.wv5p0eAhK4oF9HvbirVvfYteSwuG1NdWdeia6&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;1991-04-10 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Neque iure et non consequatur hic. Excepturi suscipit et error adipisci perspiciatis praesentium aliquid non. Amet repellat iste labore ut culpa ut.\n\nDolores cum molestiae enim ipsum distinctio rem et ex. Odio dolores autem aliquam commodi aut.\n\nDolores culpa ab molestiae ex. Qui officia aut est accusamus aperiam a voluptas cum. Odio similique odit est aspernatur minus.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Facere beatae praesentium quis nobis labore id. Nam nobis voluptas consequatur nisi. Non sequi esse sit sit consequuntur.\n\nAut tempora vel deleniti nobis numquam autem delectus. Iste repellendus doloremque et asperiores. Velit voluptate veritatis impedit voluptatem qui excepturi. Facilis iste delectus dolorum molestias rerum qui.\n\nQui praesentium ullam libero molestiae. Aut culpa facere aut doloremque iusto distinctio rem.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 13,
+            &quot;username&quot;: &quot;Myrtis Schimmel&quot;,
+            &quot;slug&quot;: &quot;myrtis-schimmel&quot;,
+            &quot;email&quot;: &quot;jaylan22@vonrueden.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$y1T/QTnldi1JFZb5J.uoL.WrNEV5yuzzvjJSRM3TbXZW6gldbZhvu&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;1995-10-20 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Autem in consectetur sit non sit non. Illum totam consequatur rerum excepturi molestias et. Ratione et qui illo sint et qui velit. Quo est repellat aut culpa natus.\n\nVero ut quo ut laborum atque modi. Cum corporis et esse vero culpa. Dolorem aspernatur quibusdam et quo. Maxime quasi qui delectus unde explicabo alias.\n\nDistinctio id voluptatem voluptatem vel. Repudiandae impedit corrupti nisi quos quos nihil quos. Eveniet sit cum sint qui ipsum commodi consequuntur.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Autem nulla quam earum ratione. Eum et porro numquam est doloribus esse. Distinctio autem autem pariatur sit reiciendis libero in hic.\n\nNobis sed quod voluptatibus ratione. Vel qui tempore laudantium cum. Qui mollitia nulla possimus veritatis autem blanditiis. Minus quia possimus velit eaque dicta minus.\n\nNihil ducimus molestias vero aliquid deserunt laboriosam cupiditate. Libero voluptatem doloribus molestiae quisquam minima. Et sed rerum deserunt a.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 14,
+            &quot;username&quot;: &quot;Isabella Kihn&quot;,
+            &quot;slug&quot;: &quot;isabella-kihn&quot;,
+            &quot;email&quot;: &quot;msteuber@schimmel.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$Tl2TeYI/858UkHwq3Mq4H.gfquba5gP5N0vyX8wENykYT08O07BF2&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;2020-09-14 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Libero cupiditate dicta ea cumque. Ducimus nam similique vel adipisci aut sint quia laudantium. Reiciendis inventore quae et. Et ut modi sequi impedit consequuntur voluptatem necessitatibus.\n\nError quo quis minus modi iure maxime. Molestias sunt sequi autem ut. Ipsum qui qui quas dicta itaque in. Vel necessitatibus voluptas ut fuga.\n\nMagnam consequatur sunt cum sint ab. Aliquam laudantium ullam sunt totam. Tempora atque et cum expedita sed.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Tenetur eum rerum eius quasi dolorum doloribus. Possimus excepturi incidunt voluptatem eos molestiae. Et sed accusantium perferendis et accusamus. Eius accusantium ad debitis minus veniam quis.\n\nOccaecati voluptatem tenetur error molestiae. Suscipit et rem rerum et ullam. Fuga et repudiandae qui nulla voluptas. Soluta quo officia at exercitationem velit incidunt.\n\nNisi quos id culpa. Aspernatur autem labore distinctio optio. Aut tempore aut at officiis perspiciatis sapiente amet. Quaerat corrupti nihil perferendis.&lt;/p&gt;&quot;
+        },
+        {
+            &quot;id&quot;: 15,
+            &quot;username&quot;: &quot;Jamarcus Herman&quot;,
+            &quot;slug&quot;: &quot;jamarcus-herman&quot;,
+            &quot;email&quot;: &quot;fcremin@hotmail.com&quot;,
+            &quot;password&quot;: &quot;$2y$12$aEuO4.SHUz7B9uckptYkxeOG2eQlp0Gr19.noX15P/0XoXSzx/haG&quot;,
+            &quot;token&quot;: null,
+            &quot;confirmation_token&quot;: null,
+            &quot;delete_token&quot;: null,
+            &quot;google_id&quot;: null,
+            &quot;google_token&quot;: null,
+            &quot;google_refresh_token&quot;: null,
+            &quot;ip&quot;: null,
+            &quot;create_at&quot;: null,
+            &quot;update_at&quot;: null,
+            &quot;validate_at&quot;: &quot;1971-03-13 00:00:00&quot;,
+            &quot;delete_at&quot;: null,
+            &quot;lastlogin_at&quot;: null,
+            &quot;post&quot;: null,
+            &quot;bio&quot;: &quot;&lt;p&gt;Aliquid nemo veniam modi et sint modi eos officiis. Quae et repudiandae repudiandae neque. Delectus dolores accusantium qui incidunt. Inventore laboriosam nemo totam est consequatur velit.\n\nArchitecto molestiae aliquam et praesentium quis repellat. Qui et inventore tenetur voluptatem quos ab. Distinctio voluptate esse quod dolores nihil. Quis tenetur reprehenderit dignissimos itaque doloremque neque.\n\nDeleniti qui facilis fuga quia. Dolores dicta ab impedit minus aut at velit. Impedit alias temporibus est. In a dignissimos veritatis est ducimus officiis quidem.&lt;/p&gt;&quot;,
+            &quot;about&quot;: &quot;&lt;p&gt;Voluptatibus voluptatem quia ut exercitationem animi. Assumenda quia et et praesentium enim perferendis blanditiis. Alias tenetur tempora cupiditate autem molestiae molestias exercitationem.\n\nExcepturi vitae eveniet quasi accusantium. Eum impedit eaque delectus quos et dolorem iste. Est repellat eius ducimus atque autem vitae qui. Recusandae non exercitationem veniam atque.\n\nDolorem voluptatibus sapiente ipsa iusto fugit. Quis aliquid sit reprehenderit quisquam. Quod modi doloribus veritatis suscipit omnis quia totam.&lt;/p&gt;&quot;
+        }
+    ],
+    &quot;first_page_url&quot;: &quot;http://localhost/api/users?page=1&quot;,
+    &quot;from&quot;: 1,
+    &quot;last_page&quot;: 3,
+    &quot;last_page_url&quot;: &quot;http://localhost/api/users?page=3&quot;,
+    &quot;links&quot;: [
+        {
+            &quot;url&quot;: null,
+            &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+            &quot;active&quot;: false
+        },
+        {
+            &quot;url&quot;: &quot;http://localhost/api/users?page=1&quot;,
+            &quot;label&quot;: &quot;1&quot;,
+            &quot;active&quot;: true
+        },
+        {
+            &quot;url&quot;: &quot;http://localhost/api/users?page=2&quot;,
+            &quot;label&quot;: &quot;2&quot;,
+            &quot;active&quot;: false
+        },
+        {
+            &quot;url&quot;: &quot;http://localhost/api/users?page=3&quot;,
+            &quot;label&quot;: &quot;3&quot;,
+            &quot;active&quot;: false
+        },
+        {
+            &quot;url&quot;: &quot;http://localhost/api/users?page=2&quot;,
+            &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+            &quot;active&quot;: false
+        }
+    ],
+    &quot;next_page_url&quot;: &quot;http://localhost/api/users?page=2&quot;,
+    &quot;path&quot;: &quot;http://localhost/api/users&quot;,
+    &quot;per_page&quot;: 15,
+    &quot;prev_page_url&quot;: null,
+    &quot;to&quot;: 15,
+    &quot;total&quot;: 32
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-users" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-users"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-users"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-users" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-users">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-users" data-method="GET"
+      data-path="api/users"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-users', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-users"
+                    onclick="tryItOut('GETapi-users');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-users"
+                    onclick="cancelTryOut('GETapi-users');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-users"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/users</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-users"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-users"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+            
+
+        
+    </div>
+    <div class="dark-box">
+                    <div class="lang-selector">
+                                                        <button type="button" class="lang-button" data-language-name="bash">bash</button>
+                                                        <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
+                            </div>
+            </div>
+</div>
+</body>
+</html>

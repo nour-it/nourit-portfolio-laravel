@@ -12,6 +12,8 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Log;
 
 class UpdateProfileEvent implements ShouldBroadcast
 {
@@ -22,7 +24,6 @@ class UpdateProfileEvent implements ShouldBroadcast
      */
     public function __construct(public array $request, public User $user)
     {
-       
     }
 
     /**
@@ -36,4 +37,6 @@ class UpdateProfileEvent implements ShouldBroadcast
             new PrivateChannel('demo'),
         ];
     }
+
+  
 }

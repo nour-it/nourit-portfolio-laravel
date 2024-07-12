@@ -29,3 +29,4 @@ public/assets
 
 *.old
 
+!*blog*

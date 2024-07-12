@@ -30,6 +30,22 @@ class User extends Authenticatable
         'token'
     ];
 
+    public $hidden = [
+        'password',
+        'confirmation_token',
+        'google_token',
+        'google_refresh_token',
+        'google_id',
+        'token',
+        "delete_token",
+        "ip",
+        "create_at",
+        "update_at",
+        "validate_at",
+        "delete_at",
+        "lastlogin_at",
+    ];
+
     // relations
 
     public function skill(): MorphToMany

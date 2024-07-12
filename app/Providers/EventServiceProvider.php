@@ -35,7 +35,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         ViewSkillPageEvent::class => [
-            ViewSkillPageListener::class
+            // ViewSkillPageListener::class
         ],
         UpdateSkillEvent::class => [
             UpdateSkillEventListener::class

@@ -11,3 +11,15 @@ import ImageFileViewer from './ImageFileViewer';
 window.Quill = Quill;
 
 ImageFileViewer.listen()
+
+// Echo.private(`demo`)
+//     .listen("App\\Events\\Admin\\UpdateProfileEvent", (e) => {
+//         console.log(e);
+//     })
+//     .listen("UpdateProfileEvent", (e) => {
+//         console.log(e);
+//     })
+//     .listen(".demo.brodcast", (e) => {
+//         console.log(e);
+//     })
+

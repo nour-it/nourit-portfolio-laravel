@@ -1,6 +1,8 @@
 <?php
 
 // Dashboard Controller
+
+use App\Events\ViewSkillPageEvent;
 use App\Http\Controllers\Dashboard\ProjectController as DashboardProjectController;
 use App\Http\Controllers\Dashboard\QualificationController as DashboardQualificationController;
 use App\Http\Controllers\Dashboard\ServiceController as DashboardServiceController;
@@ -31,7 +33,13 @@ use App\Http\Controllers\Page\LoginController;
 use App\Http\Controllers\Page\ProjectController;
 use App\Http\Controllers\Page\RegisterController;
 use App\Http\Controllers\Page\ServiceController;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/test', function () {
+    ViewSkillPageEvent::dispatch(request()->ip());
+    return "demo";
+});
 
 Route::get('/home',                 [HomeController::class, "index"])->name('home');
 
@@ -97,4 +105,6 @@ Route::prefix("mail")
 
 
 
-Route::fallback(fn () => redirect('/nour it'));
+Route::fallback(fn () => redirect('/home'));
+
+

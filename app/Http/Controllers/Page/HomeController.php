@@ -26,7 +26,6 @@ class HomeController extends Controller
     {
         $default = function ($request) {
             $skills = $this->skillRepository->getAvailableSkills();
-            ViewSkillPageEvent::dispatch($request->ip());
             $header = "home-header";
             $this->view = view("pages.home", compact("skills", "header"));
             return $this->view->render();

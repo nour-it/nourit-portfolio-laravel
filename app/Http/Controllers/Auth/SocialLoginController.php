@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Lib\Auth\GoogleAuthenticationService;
 use App\Lib\Auth\SocialAuthServiceInterface;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
 {
@@ -45,10 +43,10 @@ class SocialLoginController extends Controller
         if (Arr::has($this->activeAuthService, $socialType)) {
             $user = $this->services[$socialType]->getUser();
             Auth::login($user);
-            $this->redirect = redirect(route("admin.home"));
+            $this->redirect = redirect(route("dashboard.home"));
             return $this->redirect->with("success", "Connected successfully");
         } else {
-            $this->redirect = redirect(route("admin.home"));
+            $this->redirect = redirect(route("dashboard.home"));
             return $this->redirect->with("error", "this kind of authentication not implemented");
         }
     }

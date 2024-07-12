@@ -20,9 +20,10 @@ services:
   php:
     build: docker/app/php
     restart: "${RESTART}"
-    command: php-fpm
+    command: "php-fpm"
     ports:
       - "${PHP_PORT}:8000"
+      - "8080:8080"
     volumes:
       - "${PHP_CONF}:/usr/local/etc/php/php.ini"
       - "${PROJECT_DIR}:/var/www"
@@ -55,13 +56,13 @@ services:
       - "${MAIL_PORT_D}:1080"
       - "1025:1025"
 
-  # redis:
-  #   build: docker/cache/redis
-  #   restart: "${RESTART}"
-  #   ports:
-  #     - "${REDIS_PORT}:6379"
-  #   volumes:
-  #     - "${CACHE_DIR}/redis:/data"
+  redis:
+    build: docker/cache/redis
+    restart: "${RESTART}"
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - "${CACHE_DIR}/redis:/data"
 
   # typesense:
   #   build: docker/search/typesense

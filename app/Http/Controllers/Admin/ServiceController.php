@@ -79,7 +79,7 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    publarray: Object[]ic function update(StoreCategoryRequest $request, Category $_service)
+    public function update(StoreCategoryRequest $request, Category $_service)
     {
         $this->category = $_service;
         $paths = [...Helper::uploadFiles("icon", "assets/icon/category/service", $request)];

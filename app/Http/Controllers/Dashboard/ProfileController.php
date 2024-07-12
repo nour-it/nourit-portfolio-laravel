@@ -39,7 +39,8 @@ class ProfileController extends Controller
             ...Helper::uploadFiles("profile", $folder . "images/profile", $request),
             ...Helper::uploadFiles("about_img", $folder . "images/about", $request),
         ];
-        broadcast(new UpdateProfileEvent([...$request->all(), ...$paths], $profile));
+        broadcast(new UpdateProfileEvent([...$request->all(), ...$paths], $profile))->via('pusher');
+        // UpdateProfileEvent::dispatch([...$request->all(), ...$paths], $profile);
         $this->redirect = redirect(route("profile.index"));
         return $this->redirect;
     }

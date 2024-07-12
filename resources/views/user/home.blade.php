@@ -9,10 +9,10 @@
 @endsection
 
 @section('content')
-@includeIf('section.intro')
-@includeIf('section.about', ['user' => $user])
-@includeIf('section.service')
+@includeIf('section.user.intro')
+@includeIf('section.user.about', ['user' => $user])
+@includeIf('section.user.service')
 @includeIf('skill.index', ['skills' => $skills])
-@includeIf('section.blog', ['qualifications' => $qualifications])
-@includeIf('section.contact', ['username' => $username ?? ""])
+@includeIf('section.user.blog', ['qualifications' => $qualifications])
+@includeIf('section.user.contact', ['username' => $username ?? ""])
 @endsection
