@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\Admin\UpdateSkillEvent;
+use App\Events\Admin\UpdateCategoryEvent;
 use App\Events\Admin\UpdateSocialEvent;
 use App\Helper;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreSkillRequest;
-use App\Http\Requests\StoreSocialRequest;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
-use App\Models\Skill;
-use App\Models\SkillCategory;
 use App\Models\Social;
 use DateTime;
 use Illuminate\Http\RedirectResponse;
@@ -53,10 +50,10 @@ class SocialController extends Controller
      * @param  mixed $request
      * @return RedirectResponse
      */
-    public function store(StoreSocialRequest $request): RedirectResponse
+    public function store(StoreCategoryRequest $request): RedirectResponse
     {
         $social = new Social();
-        $paths = [...Helper::uploadFiles("icon", "assets/icon/social", $request)];
+        $paths = [...Helper::uploadFiles("icon", "assets/icon/category/social", $request)];
         broadcast(new UpdateSocialEvent($social, Arr::collapse([$request->all(), $paths])));
         $this->redirect = redirect(route("skills.index"));
         return $this->redirect->with("success", "skill add successfully");
@@ -68,7 +65,7 @@ class SocialController extends Controller
     public function edit(Request $request, int $_social)
     {
         return $this->render($request, function ($request) use ($_social) {
-            $_social = Social::findOrFail($_social);
+            $_social = Category::findOrFail($_social);
             $user = $request->user();
             $this->view = view("social.edit", compact('_social', 'user'));
             return $this->view->render();
@@ -78,10 +75,10 @@ class SocialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreSocialRequest $request, Social $_social)
+    public function update(StoreCategoryRequest $request, Category $_social)
     {
-        $paths = [...Helper::uploadFiles("icon", "assets/icon/social", $request)];
-        broadcast(new UpdateSocialEvent($_social, Arr::collapse([$request->all(), $paths])));
+        $paths = [...Helper::uploadFiles("icon", "assets/icon/category/social", $request)];
+        broadcast(new UpdateCategoryEvent($_social, Arr::collapse([$request->all(), $paths]), Social::class));
         $this->redirect = redirect(route("_socials.index"));
         return $this->redirect->with("success", "skill updated successfully");
     }
@@ -89,10 +86,10 @@ class SocialController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Skill $skill)
+    public function destroy(Category $_skill)
     {
-        $skill->delete_at = new DateTime();
-        $skill->save();
+        $_skill->delete_at = new DateTime();
+        $_skill->save();
         $this->redirect = redirect(route("skills.index"));
         return $this->redirect->with("success", "skill delete successfully");
     }

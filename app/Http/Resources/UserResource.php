@@ -15,7 +15,6 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        dump($this->resource);
         $jwt = JWT::encode($this->resource->toArray(), env("APP_KEY"), 'HS256');
         return [
             'data' => $jwt

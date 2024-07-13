@@ -18,14 +18,14 @@ class SkillRepository
     public function getUserSkills(User $user, ?int $limit = 15)
     {
         return $user->skill()
-            ->where(['skillables.delete_at' => NULL])
+            ->where(['skillables.delete_at' => null])
             ->with(["category", "images"])
             ->paginate($limit);
     }
 
     public function getAvailableSkills()
     {
-        return $this->skill->where(['delete_at' => NULL])
+        return $this->skill->where(['delete_at' => null])
             ->with("category", "images")
             ->paginate(15);
     }
@@ -33,12 +33,14 @@ class SkillRepository
     public function getCategories()
     {
         return $this->category->where('type', Skill::class)
-            ->with(["skill" => fn ($q) => $q->select('skills.id')])
+            ->withCount(["skill as skill"])
             ->paginate();
     }
 
     public function findCategory(int $categoryId)
     {
-        return $this->category->find($categoryId);
+        return $this->category
+
+            ->find($categoryId);
     }
 }

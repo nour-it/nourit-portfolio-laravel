@@ -19,7 +19,6 @@ use Illuminate\Support\Arr;
 
 class SkillController extends Controller
 {
-
     private Category $category;
 
     public function __construct(private SkillRepository $skillRepository)
@@ -34,7 +33,7 @@ class SkillController extends Controller
         return $this->render($request, function ($request) {
             $user = $request->user();
             $skills = $this->skillRepository->getCategories();
-            $this->view = view("pages.admin", compact('skills', 'user'));
+            $this->view = view('pages.admin', compact('skills', 'user'));
             return $this->view->render();
         });
     }
@@ -47,11 +46,10 @@ class SkillController extends Controller
         return $this->render($request, function ($request) {
             $_skill = new Category();
             $user = $request->user();
-            $this->view = view("skill.edit", compact('_skill', "user"));
+            $this->view = view('skill.edit', compact('_skill', 'user'));
             return $this->view->render();
         });
     }
-
 
     /**
      * store a newly created resource in storage.
@@ -62,10 +60,10 @@ class SkillController extends Controller
     public function store(StoreCategoryRequest $request): RedirectResponse
     {
         $this->category = new Category();
-        $paths = [...Helper::uploadFiles("icon", "assets/icon/category/skill", $request)];
+        $paths = [...Helper::uploadFiles('icon', 'assets/icon/category/skill', $request)];
         broadcast(new UpdateCategoryEvent($this->category, Arr::collapse([$request->all(), $paths]), Skill::class));
-        $this->redirect = redirect(route("_skills.index"));
-        return $this->redirect->with("success", "skill add successfully");
+        $this->redirect = redirect(route('_skills.index'));
+        return $this->redirect->with('success', 'skill add successfully');
     }
 
     /**
@@ -76,7 +74,7 @@ class SkillController extends Controller
         return $this->render($request, function ($request) use ($_skill) {
             $user = $request->user();
             $_skill = $this->skillRepository->findCategory($_skill);
-            $this->view = view("skill.edit", compact('_skill', 'user'));
+            $this->view = view('skill.edit', compact('_skill', 'user'));
             return $this->view->render();
         });
     }
@@ -87,10 +85,10 @@ class SkillController extends Controller
     public function update(StoreCategoryRequest $request, Category $_skill)
     {
         $this->category = $_skill;
-        $paths = [...Helper::uploadFiles("icon", "assets/icon/category/skill", $request)];
+        $paths = [...Helper::uploadFiles('icon', 'assets/icon/category/skill', $request)];
         broadcast(new UpdateCategoryEvent($this->category, Arr::collapse([$request->all(), $paths]), Skill::class));
-        $this->redirect = redirect(route("_skills.index"));
-        return $this->redirect->with("success", "skill updated successfully");
+        $this->redirect = redirect(route('_skills.index'));
+        return $this->redirect->with('success', 'skill updated successfully');
     }
 
     /**
@@ -100,7 +98,7 @@ class SkillController extends Controller
     {
         $_skill->delete_at = new DateTime();
         $_skill->save();
-        $this->redirect = redirect(route("_skills.index"));
-        return $this->redirect->with("success", "skill delete successfully");
+        $this->redirect = redirect(route('_skills.index'));
+        return $this->redirect->with('success', 'skill delete successfully');
     }
 }

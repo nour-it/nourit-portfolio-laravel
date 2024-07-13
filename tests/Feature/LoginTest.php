@@ -12,8 +12,8 @@ class LoginTest extends TestCase
     public function test_login_attempt_with_valid_user(): void
     {
         $response = $this->post(route('login.attempt', [
-            'email' => "reply.nourit@gmail.com",
-            'password' => "0000",
+            'email' => env("MAIL_FROM_ADDRESS"),
+            'password' => env("PASSWORD "),
         ]));
         $response->assertStatus(302);
     }

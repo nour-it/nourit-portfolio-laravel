@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-@if (Str::contains(request()->url(), 'dashboard/services'))
+@if (Str::contains(request()->url(), 'dashboard/qualifications'))
 {{-- USER --}}
     <div class="edit">
         @if ($qualification->id)

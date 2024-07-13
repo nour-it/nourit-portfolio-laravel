@@ -6,6 +6,7 @@ use App\Events\Admin\UpdateCategoryEvent;
 use App\Events\Admin\UpdateProjectEvent;
 use App\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Category;
 use App\Models\Project;
@@ -52,7 +53,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
         $this->category = new Category();
         $paths = [...Helper::uploadFiles("icon", "assets/icon/category/project", $request)];
@@ -77,7 +78,7 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreProjectRequest $request, Category $_project)
+    public function update(StoreCategoryRequest $request, Category $_project)
     {
         $this->category = $_project;
         $paths = [...Helper::uploadFiles("icon", "assets/icon/category/project", $request)];

@@ -30,3 +30,5 @@ public/assets
 *.old
 
 !*blog*
+
+.scribe

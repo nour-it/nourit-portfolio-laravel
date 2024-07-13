@@ -33,8 +33,8 @@ class UpdateCategoryEventListener
         $this->request  = $event->request;
         $this->type     = $event->type;
 
-        $this->category->name        = $this->request['name'];
-        $this->category->description = $this->request['description'];
+        $this->category->name        = $this->request['name'] ?? $this->category->name;
+        $this->category->description = $this->request['description'] ??  $this->category->description;
         $this->category->type        = $this->type;
 
         $this->category->save();

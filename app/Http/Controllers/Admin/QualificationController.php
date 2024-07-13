@@ -3,19 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\Admin\UpdateCategoryEvent;
-use App\Events\Admin\UpdateQualificationEvent;
 use App\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\StoreQualificationRequest;
 use App\Models\Category;
-use App\Models\Project;
 use App\Models\Qualification;
 use App\Repository\QualificationRepository;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
 
 class QualificationController extends Controller
 {
@@ -79,8 +75,9 @@ class QualificationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreQualificationRequest $request, Qualification $qualification)
+    public function update(StoreCategoryRequest $request, Category $_qualification)
     {
+        $this->category = $_qualification;
         $paths = [...Helper::uploadFiles("icon", "assets/icon/category/qualification", $request)];
         broadcast(new UpdateCategoryEvent($this->category, Arr::collapse([$request->all(), $paths]), Qualification::class));
         $this->redirect = redirect(route("qualifications.index"));

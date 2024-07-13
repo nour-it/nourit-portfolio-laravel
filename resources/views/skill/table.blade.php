@@ -69,7 +69,7 @@
                         </div>
                     </td>
                     <td>
-                        {{ $category->skill->count() }}
+                        {{ $category->skill }}
                     </td>
                     <td>
                         <div style="display: flex; gap: calc(var(--space) * 1)">

@@ -76,7 +76,7 @@ class ProfileTest extends TestCase
         $this->assertEquals($username, $user->username);
     }
 
-    public function test_render_user_admin_page()
+    public function test_render_user_dashboard_page()
     {
         $user = User::first();
         Auth::login($user);
