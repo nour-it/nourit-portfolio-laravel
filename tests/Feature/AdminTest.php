@@ -18,17 +18,17 @@ class AdminTest extends TestCase
 
     public function test_valide_admin(): void
     {
-        $response = $this->get(route('admin.home'));
+        $response = $this->get(route('admin.report'));
         $response->assertStatus(403);
 
         $user = User::find(User::count());
         Auth::login($user);
-        $response = $this->get(route('admin.home'));
+        $response = $this->get(route('admin.report'));
         $response->assertStatus(403);
 
         $user = User::find(1);
         Auth::login($user);
-        $response = $this->get(route('admin.home'));
+        $response = $this->get(route('admin.report'));
         $response->assertStatus(200);
 
     }

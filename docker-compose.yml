@@ -15,6 +15,7 @@ services:
       - "php"
       - "mysql"
       - "mail"
+      - "redis"
 
   # APP
   php:
@@ -29,6 +30,7 @@ services:
       - "${PROJECT_DIR}:/var/www"
     links:
       - "mysql"
+      - "redis"
 
   node_js:
     build: docker/app/nodejs

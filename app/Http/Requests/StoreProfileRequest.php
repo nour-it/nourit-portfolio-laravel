@@ -34,8 +34,8 @@ class StoreProfileRequest extends FormRequest
             "bio"          => "nullable|string",
             "about"        => "nullable|string",
             "resume"       => "nullable",
-            // "profile"      => "nullable|image",
-            // "about_img"    => "nullable|image",
+            "profile"      => "nullable|image",
+            "about_img"    => "nullable|image",
         ];
 
         if (isset($request["username"]) &&  $user->username !== $request["username"]) {

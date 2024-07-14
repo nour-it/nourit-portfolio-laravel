@@ -1,8 +1,6 @@
 <?php
 
 // Dashboard Controller
-
-use App\Events\ViewSkillPageEvent;
 use App\Http\Controllers\Dashboard\ProjectController as DashboardProjectController;
 use App\Http\Controllers\Dashboard\QualificationController as DashboardQualificationController;
 use App\Http\Controllers\Dashboard\ServiceController as DashboardServiceController;
@@ -13,6 +11,7 @@ use App\Http\Controllers\Dashboard\ProfileController as DashboardProfileControll
 // Admin Controller
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\QualificationController as AdminQualificationController;
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
@@ -33,12 +32,13 @@ use App\Http\Controllers\Page\LoginController;
 use App\Http\Controllers\Page\ProjectController;
 use App\Http\Controllers\Page\RegisterController;
 use App\Http\Controllers\Page\ServiceController;
-use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
-    ViewSkillPageEvent::dispatch(request()->ip());
-    return "demo";
+    phpinfo();
+    // Redis::set("demo", "demo");
+    // return Redis::get("demo");
 });
 
 Route::get('/home',                 [HomeController::class, "index"])->name('home');
@@ -80,7 +80,7 @@ Route::prefix('admin')
     ->middleware('auth')
     ->middleware("can:admin")
     ->group(function () {
-        Route::get("/_", [AdminController::class, "index"])->name("admin.home");
+        Route::get("/_report", [AdminReportController::class, "index"])->name("admin.report");
         Route::resource("/_skills", AdminSkillController::class);
         Route::resource("/_socials", AdminSocialController::class);
         Route::resource("/_projects", AdminProjectController::class);

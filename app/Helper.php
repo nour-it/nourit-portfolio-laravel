@@ -9,9 +9,10 @@ use Illuminate\Support\Arr;
 class Helper
 {
 
-    const ADMIN_PAGE     = "pages.admin";
-    const DASHBOARD_PAGE = "pages.dashboard";
-    const USER_COUNT     = 1;
+    CONST ADMIN_PAGE        = "pages.admin";
+    CONST ADMIN_REPORT_PAGE = "pages.report";
+    CONST DASHBOARD_PAGE    = "pages.dashboard";
+    CONST USER_COUNT        = 1;
 
     static public function uploadFiles(string $key, string $path, Request $request)
     {

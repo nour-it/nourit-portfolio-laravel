@@ -18,7 +18,10 @@
         @if (session('error'))
             <div>{{ session('error') }}</div>
         @endif
-        @yield('content')
+      
+        <div class="transition-fade" id="swup">
+            @yield('content')
+        </div>
     </div>
 </body>
 

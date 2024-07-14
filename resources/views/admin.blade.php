@@ -13,8 +13,9 @@
     @vite(['resources/css/style.scss'])
 
 
-    
+
 </head>
+
 <body>
     @yield('header')
     <hr style="position: sticky; top: 60px;">
@@ -41,6 +42,9 @@
                 <h2>Admin</h2>
                 <hr>
                 <ul>
+                    <li class="text-black-1  @if (Str::contains(request()->url(), 'admin/_report')) {{ 'active' }} @endif">
+                        <a href="{{ route('admin.report') }}">Report</a>
+                    </li>
                     <li class="text-black-1  @if (Str::contains(request()->url(), 'admin/_users')) {{ 'active' }} @endif">
                         <a href="{{ route('_users.index') }}">Users</a>
                     </li>
@@ -62,8 +66,11 @@
                 </ul>
             @endif
         </aside>
-        @yield('content')
+        <div class="transition-fade" id="swup">
+            @yield('content')
+        </div>
     </div>
     @vite(['resources/js/app.js'])
 </body>
+
 </html>

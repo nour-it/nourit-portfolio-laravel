@@ -7,9 +7,9 @@ use App\Models\Social;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
 
 class UserRepository
 {
@@ -26,7 +26,7 @@ class UserRepository
     {
         $sql = $this->user
             ->with([
-                "role"  => fn ($q) => $q->select('title'),
+                "role" => fn($q) => $q->select('title'),
             ])
             ->withCount([
                 "skill as skill",
@@ -50,11 +50,11 @@ class UserRepository
         return $sql->paginate($limit);
     }
 
-    public function findUserByUsernameOrMail(?string $username = '', ?string  $email = ""): User | null
+    public function findUserByUsernameOrMail(?string $username = '', ?string $email = ""): User | null
     {
         return $this->user->orWhere([
             'username' => $username,
-            'email'    => $email
+            'email' => $email,
         ])->first();
     }
 
@@ -62,12 +62,12 @@ class UserRepository
     {
         return $this->user->orWhere([
             'username' => $username,
-            'slug'    => $slug
+            'slug' => $slug,
         ])
             ->with([
-                "project" => fn ($q) => $q->with([]),
-                "images" => fn ($q) => $q->with(['category']),
-                "resume" => fn ($q) => $q->where("remove_at", "!=", NULL),
+                "project" => fn($q) => $q->with([]),
+                "images" => fn($q) => $q->with(['category']),
+                "resume" => fn($q) => $q->where("remove_at", "!=", null),
             ])
             ->first();
     }
@@ -80,7 +80,7 @@ class UserRepository
             "slug" => Str::slug($username),
             "email" => $request->input("email"),
             "password" => Hash::make($request->input("password")),
-            "confirmation_token" =>  Crypt::encrypt($request->input("email")),
+            "confirmation_token" => Crypt::encrypt($request->input("email")),
             "ip" => $request->ip(),
 
         ]);
@@ -92,7 +92,7 @@ class UserRepository
         return $user->link()
             ->whereIn("id", $linkIds)
             ->where("link", "!=", "")
-            ->where(["remove_at" => NULL])
+            ->where(["remove_at" => null])
             ->get();
     }
 
@@ -102,17 +102,27 @@ class UserRepository
         return $user->link()
             ->whereIn("id", $linkIds)
             ->where("link", "!=", "")
-            ->where(["remove_at" => NULL])
+            ->where(["remove_at" => null])
             ->get();
     }
 
     private function getLinks(string $type)
     {
         $category = Category::where(["name" => $type, 'type' => Social::class])
-            ->with(["link" => fn ($q) => $q->select("categorisable_id")])
+            ->with(["link" => fn($q) => $q->select("categorisable_id")])
             ->first();
 
         $linkIds = $category->link->pluck("categorisable_id");
         return $linkIds;
+    }
+
+    public function report()
+    {
+        return DB::table(DB::raw('(SELECT SUBSTR(`validate_at`, 1, 4) AS `year` FROM users) as years'))
+            ->selectRaw('`year`, count(`year`) as count')
+            ->whereNot('year', NULL)
+            ->groupBy("year")
+            ->orderBy("year")
+            ->get();
     }
 }

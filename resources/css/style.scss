@@ -50,12 +50,12 @@ li {
   margin-inline: auto;
 }
 
-.container > * {
+.container>* {
   padding-inline: calc(var(--space) * 1);
 }
 
-.container > section,
-.container > footer {
+.container>section,
+.container>footer {
   padding-top: calc(var(--space) * 1);
 }
 
@@ -210,7 +210,7 @@ li {
   justify-content: center;
 }
 
-section > div:first-child {
+section>div:first-child {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,7 +224,7 @@ section > div:first-child {
   gap: calc(var(--space));
 }
 
-.card-3 > :nth-child(2) {
+.card-3> :nth-child(2) {
   display: flex;
   align-items: center;
   gap: calc(var(--space));
@@ -257,12 +257,12 @@ section > div:first-child {
 
 // Desktop
 @media (width > 800px) {
-  .container > * {
+  .container>* {
     padding-inline: calc(var(--space) * 1);
   }
 
-  .container > section,
-  .container > footer {
+  .container>section,
+  .container>footer {
     padding-top: calc(var(--space) * 12);
   }
 }
@@ -281,33 +281,58 @@ section > div:first-child {
   flex-direction: column;
 }
 
-main {
+.container > :nth-child(2) {
   width: 100%;
 }
+
 table {
   width: 100%;
 }
 
-aside{
+aside {
   position: sticky;
   top: 60px;
   height: max-content;
 }
+
 .pagination {
   padding: calc(var(--space) * 1);
   margin-top: calc(var(--space) * 2);
 }
+
 .pagination,
-.pagination > * {
+.pagination>* {
   display: flex;
   justify-content: space-between;
 }
-.pagination > * {
+
+.pagination>* {
   flex-grow: 1;
 }
-.pagination > *:last-child > * {
+
+.pagination>*:last-child>* {
   margin-left: auto;
 }
+
 .pagination .active {
   color: red;
-} 
+}
+
+
+/* Define a transition duration during page visits */
+// html.is-changing .transition-fade {
+//   transition: opacity 0.4s;
+//   opacity: 1;
+
+// }
+
+// /* Define the styles for the unloaded pages */
+// html.is-animating .transition-fade {
+//   opacity: 0;
+// }
+
+body {
+  --swup-slide-theme-translate: 60px;
+  --swup-slide-theme-duration-fade: .3s;
+  --swup-slide-theme-duration-slide: .4s;
+}

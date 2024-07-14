@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
@@ -58,9 +59,17 @@ class ProfileTest extends TestCase
         $user = User::first();
         Auth::login($user);
         $response = $this->put(route("profile.update", ['profile' => $user->id]), [
-            'username' => $user->username . ' (edited)'
+            'username' => $user->username . ' (edited)',
+            'profile' => UploadedFile::fake()->image("demo.png"),
+            'about_img' => UploadedFile::fake()->image("demo.png"),
         ]);
         $response->assertStatus(302);
+        $filename = storage_path("app/upload/{$user->id}/images/profile/demo.png");
+        $this->assertFileExists($filename);
+        // unlink($filename);
+        $filename = storage_path("app/upload/{$user->id}/images/about/demo.png");
+        $this->assertFileExists($filename);
+        // unlink($filename);
     }
 
     public function test_update_with_existing_username()

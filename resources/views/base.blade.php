@@ -20,7 +20,9 @@
             <div>{{ session('error') }}</div>
         @endif
 
-        @yield('content')
+        <div class="transition-fade" id="swup">
+            @yield('content')
+        </div>
     </div>
     @includeIf('components.partial.footer', ['user' => $user ?? null])
 </body>
