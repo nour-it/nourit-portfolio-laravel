@@ -55,7 +55,7 @@ chmod +x start.sh && \
 echo "yarn" >> start.sh && ./start.sh && \
 echo "/usr/local/bin/docker-entrypoint.sh &" >> start.sh && \
 echo "mysqld &" >> start.sh && \
-echo "php artisan serve --host=0.0.0.0 --port=80" >> start.sh
+echo "php-fpm" >> start.sh
 
 EXPOSE 3306
 EXPOSE 80

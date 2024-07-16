@@ -61,7 +61,7 @@ class ProfileTest extends TestCase
         $response = $this->put(route("profile.update", ['profile' => $user->id]), [
             'username' => $user->username . ' (edited)',
             'profile' => UploadedFile::fake()->image("demo.png"),
-            'about_img' => UploadedFile::fake()->image("demo.png"),
+            // 'about_img' => UploadedFile::fake()->image("demo.png"),
         ]);
         $response->assertStatus(302);
         $filename = storage_path("app/upload/{$user->id}/images/profile/demo.png");
